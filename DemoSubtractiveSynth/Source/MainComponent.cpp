@@ -33,6 +33,7 @@ public:
         playSound.addListener (this);
         
         addAndMakeVisible (frequencySlider);
+        frequencySlider.setSliderStyle (Slider::Rotary);
         frequencySlider.setRange (50, 1000.0);
         frequencySlider.setTextValueSuffix (" Hz");
         frequencySlider.addListener (this);
@@ -42,6 +43,7 @@ public:
         frequencyLabel.attachToComponent (&frequencySlider, true);
         
         addAndMakeVisible (volumeSlider);
+        volumeSlider.setSliderStyle (Slider::Rotary);
         volumeSlider.setRange (0, 1.0);
         volumeSlider.addListener (this);
         
@@ -49,10 +51,20 @@ public:
         volumeLabel.setText ("Volume", dontSendNotification);
         volumeLabel.attachToComponent (&volumeSlider, true);
         
+        addAndMakeVisible (cutoffSlider);
+        cutoffSlider.setSliderStyle (Slider::Rotary);
+        cutoffSlider.setRange (0, 5000);
+        cutoffSlider.addListener (this);
+        
+        addAndMakeVisible (cutoffLabel);
+        cutoffLabel.setText ("Filter Cutoff", dontSendNotification);
+        cutoffLabel.attachToComponent (&cutoffSlider, true);
+        
         frequencySlider.setValue (500.0);
         volumeSlider.setValue (0.0);
+        cutoffSlider.setValue (0.0);
         
-        setSize (600, 110);
+        setSize (250, 650);
         
         setAudioChannels (0, 2);
     }
@@ -88,7 +100,7 @@ public:
             osc1out = osc1.saw(freq);
             osc2out = osc2.square(freq*1.5);
             
-            VCFout = VCF.lores(osc1out + osc2out * 0.5, 200, 0);
+            VCFout = VCF.lores(osc1out + osc2out * 0.5, cutoff, 0);
             
             cSample = VCFout * gain;
             
@@ -114,9 +126,28 @@ public:
 
     void resized() override
     {
-        playSound.setBounds (10, 10, getWidth() - 20, 40);
-        frequencySlider.setBounds (10, 50, getWidth() - 20, 40);
-        volumeSlider.setBounds (10, 80, getWidth() - 20, 40);
+        const int border = 4;
+
+        Rectangle<int> area = getLocalBounds();
+//
+//        {
+//            Rectangle<int> dialArea = area.removeFromTop (area.getHeight() / 2);
+//            frequencySlider.setBounds (dialArea.removeFromLeft (dialArea.getWidth() / 2).reduced (border));
+//            volumeSlider.setBounds (dialArea.reduced (border));
+//            cutoffSlider.setBounds (dialArea.reduced (border));
+//        }
+        
+        frequencySlider.setBounds (10, 50, 200, 200);
+        volumeSlider.setBounds (10, 250, 200, 200);
+        cutoffSlider.setBounds (10, 450, 200, 200);
+        
+        const int buttonHeight = 30;
+        
+        playSound.setBounds (area.removeFromTop (buttonHeight).reduced (border));
+  
+//        playSound.setBounds (10, 10, getWidth() - 20, 40);
+//        frequencySlider.setBounds (10, 50, getWidth() - 20, 40);
+//        volumeSlider.setBounds (10, 80, getWidth() - 20, 40);
     }
     
     //==============================================================================
@@ -139,6 +170,10 @@ public:
         if (slider == &volumeSlider){
             gain = volumeSlider.getValue();
         }
+        
+        if (slider == &cutoffSlider){
+            cutoff = cutoffSlider.getValue();
+        }
     }
     
     
@@ -146,7 +181,7 @@ private:
     //==============================================================================
     /*** AUDIO ***/
     
-    double cSample, freq, ADSRout, osc1out, osc2out, VCFout, gain;
+    double cSample, freq, ADSRout, osc1out, osc2out, VCFout, gain, cutoff;
     double                       outputs[2];
     
     // Maximilian objects
@@ -161,6 +196,8 @@ private:
     Label frequencyLabel;
     Slider volumeSlider;
     Label volumeLabel;
+    Slider cutoffSlider;
+    Label cutoffLabel;
     
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (MainContentComponent)
 };
