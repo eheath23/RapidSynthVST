@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<JUCERPROJECT id="z136oR" name="SynthProject" projectType="guiapp" version="1.0.0"
+              bundleIdentifier="com.yourcompany.SynthProject" includeBinaryInAppConfig="1"
+              jucerVersion="4.3.1">
+  <MAINGROUP id="LFHOTs" name="SynthProject">
+    <GROUP id="{9708F191-E65E-EE65-CAAC-369D0A70DB85}" name="MaxiLib">
+      <FILE id="HcaxAS" name="fft.cpp" compile="1" resource="0" file="../../MaxiLib/fft.cpp"/>
+      <FILE id="swJ0C5" name="fft.h" compile="0" resource="0" file="../../MaxiLib/fft.h"/>
+      <FILE id="kGzbhk" name="maxiFFT.cpp" compile="1" resource="0" file="../../MaxiLib/maxiFFT.cpp"/>
+      <FILE id="gh1hOP" name="maxiFFT.h" compile="0" resource="0" file="../../MaxiLib/maxiFFT.h"/>
+      <FILE id="WSJhJc" name="maximilian.cpp" compile="1" resource="0" file="../../MaxiLib/maximilian.cpp"/>
+      <FILE id="UtJMvt" name="maximilian.h" compile="0" resource="0" file="../../MaxiLib/maximilian.h"/>
+    </GROUP>
+    <GROUP id="{82DCCC22-3EC8-58EA-E8B3-D7453621E013}" name="RapidLib">
+      <GROUP id="{DC74511B-5F0C-D4CB-0EB3-4628E351A85D}" name="json">
+        <FILE id="iRjKch" name="json-forwards.h" compile="0" resource="0" file="../../RapidLib/json/json-forwards.h"/>
+        <FILE id="UFra4n" name="json.h" compile="0" resource="0" file="../../RapidLib/json/json.h"/>
+      </GROUP>
+      <FILE id="nzbpyP" name="baseModel.h" compile="0" resource="0" file="../../RapidLib/baseModel.h"/>
+      <FILE id="qkVEdY" name="classification.cpp" compile="1" resource="0"
+            file="../../RapidLib/classification.cpp"/>
+      <FILE id="m5AiNw" name="classification.h" compile="0" resource="0"
+            file="../../RapidLib/classification.h"/>
+      <FILE id="x5RkP7" name="classificationEmbindings.h" compile="0" resource="0"
+            file="../../RapidLib/classificationEmbindings.h"/>
+      <FILE id="STRJb9" name="jsoncpp.cpp" compile="1" resource="0" file="../../RapidLib/jsoncpp.cpp"/>
+      <FILE id="ytiTPR" name="knnClassification.cpp" compile="1" resource="0"
+            file="../../RapidLib/knnClassification.cpp"/>
+      <FILE id="no91v8" name="knnClassification.h" compile="0" resource="0"
+            file="../../RapidLib/knnClassification.h"/>
+      <FILE id="eJl6OV" name="knnEmbindings.h" compile="0" resource="0" file="../../RapidLib/knnEmbindings.h"/>
+      <FILE id="K7W0Sn" name="modelSet.cpp" compile="1" resource="0" file="../../RapidLib/modelSet.cpp"/>
+      <FILE id="uiBO5r" name="modelSet.h" compile="0" resource="0" file="../../RapidLib/modelSet.h"/>
+      <FILE id="dodMzd" name="modelSetEmbindings.h" compile="0" resource="0"
+            file="../../RapidLib/modelSetEmbindings.h"/>
+      <FILE id="bmMrLv" name="neuralNetwork.cpp" compile="1" resource="0"
+            file="../../RapidLib/neuralNetwork.cpp"/>
+      <FILE id="G8U7Yy" name="neuralNetwork.h" compile="0" resource="0" file="../../RapidLib/neuralNetwork.h"/>
+      <FILE id="Jo7NaY" name="nnEmbindings.h" compile="0" resource="0" file="../../RapidLib/nnEmbindings.h"/>
+      <FILE id="UxKuOr" name="regression.cpp" compile="1" resource="0" file="../../RapidLib/regression.cpp"/>
+      <FILE id="yo5HIR" name="regression.h" compile="0" resource="0" file="../../RapidLib/regression.h"/>
+      <FILE id="G65KDv" name="regressionEmbindings.h" compile="0" resource="0"
+            file="../../RapidLib/regressionEmbindings.h"/>
+    </GROUP>
+    <GROUP id="{5DABE933-C9B4-2E46-D09B-69A89F708BF4}" name="Source">
+      <FILE id="Wk33fs" name="ADSRComponent.h" compile="0" resource="0" file="Source/ADSRComponent.h"/>
+      <FILE id="iLVOBq" name="EnvelopeComponent.h" compile="0" resource="0"
+            file="Source/EnvelopeComponent.h"/>
+      <FILE id="CeqtEM" name="FilterComponent.h" compile="0" resource="0"
+            file="Source/FilterComponent.h"/>
+      <FILE id="mgaxyM" name="ModulatorSceneComponent.h" compile="0" resource="0"
+            file="Source/ModulatorSceneComponent.h"/>
+      <FILE id="zLUfGS" name="OscillatorComponent.h" compile="0" resource="0"
+            file="Source/OscillatorComponent.h"/>
+      <FILE id="Sw1J8T" name="OscillatorSceneComponent.h" compile="0" resource="0"
+            file="Source/OscillatorSceneComponent.h"/>
+      <FILE id="nMnE1R" name="SceneComponent.h" compile="0" resource="0"
+            file="Source/SceneComponent.h"/>
+      <FILE id="MrzqhH" name="XYComponent.h" compile="0" resource="0" file="Source/XYComponent.h"/>
+      <FILE id="niyJWW" name="MainComponent.cpp" compile="1" resource="0"
+            file="Source/MainComponent.cpp"/>
+      <FILE id="vLf9sk" name="Main.cpp" compile="1" resource="0" file="Source/Main.cpp"/>
+    </GROUP>
+  </MAINGROUP>
+  <EXPORTFORMATS>
+    <XCODE_MAC targetFolder="Builds/MacOSX">
+      <CONFIGURATIONS>
+        <CONFIGURATION name="Debug" isDebug="1" optimisation="1" targetName="SynthProject"/>
+        <CONFIGURATION name="Release" isDebug="0" optimisation="3" targetName="SynthProject"/>
+      </CONFIGURATIONS>
+      <MODULEPATHS>
+        <MODULEPATH id="juce_core" path="../../../JUCE/modules"/>
+        <MODULEPATH id="juce_events" path="../../../JUCE/modules"/>
+        <MODULEPATH id="juce_graphics" path="../../../JUCE/modules"/>
+        <MODULEPATH id="juce_data_structures" path="../../../JUCE/modules"/>
+        <MODULEPATH id="juce_gui_basics" path="../../../JUCE/modules"/>
+        <MODULEPATH id="juce_gui_extra" path="../../../JUCE/modules"/>
+        <MODULEPATH id="juce_cryptography" path="../../../JUCE/modules"/>
+        <MODULEPATH id="juce_video" path="../../../JUCE/modules"/>
+        <MODULEPATH id="juce_opengl" path="../../../JUCE/modules"/>
+        <MODULEPATH id="juce_audio_basics" path="../../../JUCE/modules"/>
+        <MODULEPATH id="juce_audio_devices" path="../../../JUCE/modules"/>
+        <MODULEPATH id="juce_audio_formats" path="../../../JUCE/modules"/>
+        <MODULEPATH id="juce_audio_processors" path="../../../JUCE/modules"/>
+        <MODULEPATH id="juce_audio_utils" path="../../../JUCE/modules"/>
+      </MODULEPATHS>
+    </XCODE_MAC>
+  </EXPORTFORMATS>
+  <MODULES>
+    <MODULE id="juce_audio_basics" showAllCode="1" useLocalCopy="1"/>
+    <MODULE id="juce_audio_devices" showAllCode="1" useLocalCopy="1"/>
+    <MODULE id="juce_audio_formats" showAllCode="1" useLocalCopy="1"/>
+    <MODULE id="juce_audio_processors" showAllCode="1" useLocalCopy="1"/>
+    <MODULE id="juce_audio_utils" showAllCode="1" useLocalCopy="1"/>
+    <MODULE id="juce_core" showAllCode="1" useLocalCopy="1"/>
+    <MODULE id="juce_cryptography" showAllCode="1" useLocalCopy="1"/>
+    <MODULE id="juce_data_structures" showAllCode="1" useLocalCopy="1"/>
+    <MODULE id="juce_events" showAllCode="1" useLocalCopy="1"/>
+    <MODULE id="juce_graphics" showAllCode="1" useLocalCopy="1"/>
+    <MODULE id="juce_gui_basics" showAllCode="1" useLocalCopy="1"/>
+    <MODULE id="juce_gui_extra" showAllCode="1" useLocalCopy="1"/>
+    <MODULE id="juce_opengl" showAllCode="1" useLocalCopy="1"/>
+    <MODULE id="juce_video" showAllCode="1" useLocalCopy="1"/>
+  </MODULES>
+  <JUCEOPTIONS/>
+</JUCERPROJECT>

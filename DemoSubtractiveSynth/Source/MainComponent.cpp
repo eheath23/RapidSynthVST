@@ -161,20 +161,20 @@ public:
         }
     }
     
-    void sliderValueChanged (Slider* slider) override
-    {
-        if (slider == &frequencySlider){
-            freq = frequencySlider.getValue();
-        }
-        
-        if (slider == &volumeSlider){
-            gain = volumeSlider.getValue();
-        }
-        
-        if (slider == &cutoffSlider){
-            cutoff = cutoffSlider.getValue();
-        }
-    }
+//    void sliderValueChanged (Slider* slider) override
+//    {
+//        if (slider == &frequencySlider){
+//            freq = frequencySlider.getValue();
+//        }
+//        
+//        if (slider == &volumeSlider){
+//            gain = volumeSlider.getValue();
+//        }
+//        
+//        if (slider == &cutoffSlider){
+//            cutoff = cutoffSlider.getValue();
+//        }
+//    }
     
     
 private:

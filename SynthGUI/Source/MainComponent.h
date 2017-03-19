@@ -2,14 +2,10 @@
 #define MAINCOMPONENT_H_INCLUDED
 
 #include "../JuceLibraryCode/JuceHeader.h"
-#include "MaxiLib/maximilian.h"
-#include "RapidLib/regression.h"
-#include <random>
-#include <array>
 
 #include "SceneComponent.h"
 
-class MainContentComponent   : public Component
+class MainContentComponent : public Component
 
 {
 public:

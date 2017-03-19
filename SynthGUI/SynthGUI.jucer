@@ -4,45 +4,6 @@
               bundleIdentifier="com.yourcompany.SynthGUI" includeBinaryInAppConfig="1"
               jucerVersion="4.3.1">
   <MAINGROUP id="w312vK" name="SynthGUI">
-    <GROUP id="{AAB65F12-C246-2B4A-2150-EFF079285495}" name="MaxiLib">
-      <FILE id="b2ZNSc" name="fft.cpp" compile="1" resource="0" file="../../MaxiLib/fft.cpp"/>
-      <FILE id="NEgFJ5" name="fft.h" compile="0" resource="0" file="../../MaxiLib/fft.h"/>
-      <FILE id="hGBcHH" name="maxiFFT.cpp" compile="1" resource="0" file="../../MaxiLib/maxiFFT.cpp"/>
-      <FILE id="sp3lRi" name="maxiFFT.h" compile="0" resource="0" file="../../MaxiLib/maxiFFT.h"/>
-      <FILE id="HOvSah" name="maximilian.cpp" compile="1" resource="0" file="../../MaxiLib/maximilian.cpp"/>
-      <FILE id="QHQLTt" name="maximilian.h" compile="0" resource="0" file="../../MaxiLib/maximilian.h"/>
-    </GROUP>
-    <GROUP id="{85709E3A-CB69-5C06-E0F0-43DF9B3DF23D}" name="RapidLib">
-      <GROUP id="{5830DBF4-F4F9-7367-84F5-00831F8BD3C1}" name="json">
-        <FILE id="YM5JT9" name="json-forwards.h" compile="0" resource="0" file="../../RapidLib/json/json-forwards.h"/>
-        <FILE id="PX6H2B" name="json.h" compile="0" resource="0" file="../../RapidLib/json/json.h"/>
-      </GROUP>
-      <FILE id="MJfuzp" name="baseModel.h" compile="0" resource="0" file="../../RapidLib/baseModel.h"/>
-      <FILE id="q9pofV" name="classification.cpp" compile="1" resource="0"
-            file="../../RapidLib/classification.cpp"/>
-      <FILE id="Iiolre" name="classification.h" compile="0" resource="0"
-            file="../../RapidLib/classification.h"/>
-      <FILE id="SZoQ12" name="classificationEmbindings.h" compile="0" resource="0"
-            file="../../RapidLib/classificationEmbindings.h"/>
-      <FILE id="YNJT3r" name="jsoncpp.cpp" compile="1" resource="0" file="../../RapidLib/jsoncpp.cpp"/>
-      <FILE id="DvggkB" name="knnClassification.cpp" compile="1" resource="0"
-            file="../../RapidLib/knnClassification.cpp"/>
-      <FILE id="x033lv" name="knnClassification.h" compile="0" resource="0"
-            file="../../RapidLib/knnClassification.h"/>
-      <FILE id="JkLZn8" name="knnEmbindings.h" compile="0" resource="0" file="../../RapidLib/knnEmbindings.h"/>
-      <FILE id="sk873z" name="modelSet.cpp" compile="1" resource="0" file="../../RapidLib/modelSet.cpp"/>
-      <FILE id="kswzaZ" name="modelSet.h" compile="0" resource="0" file="../../RapidLib/modelSet.h"/>
-      <FILE id="Yb2KkS" name="modelSetEmbindings.h" compile="0" resource="0"
-            file="../../RapidLib/modelSetEmbindings.h"/>
-      <FILE id="NrilCY" name="neuralNetwork.cpp" compile="1" resource="0"
-            file="../../RapidLib/neuralNetwork.cpp"/>
-      <FILE id="N7MF78" name="neuralNetwork.h" compile="0" resource="0" file="../../RapidLib/neuralNetwork.h"/>
-      <FILE id="tC28l4" name="nnEmbindings.h" compile="0" resource="0" file="../../RapidLib/nnEmbindings.h"/>
-      <FILE id="Pcgkck" name="regression.cpp" compile="1" resource="0" file="../../RapidLib/regression.cpp"/>
-      <FILE id="po5EcN" name="regression.h" compile="0" resource="0" file="../../RapidLib/regression.h"/>
-      <FILE id="teF0ay" name="regressionEmbindings.h" compile="0" resource="0"
-            file="../../RapidLib/regressionEmbindings.h"/>
-    </GROUP>
     <GROUP id="{0CEE50D9-A70A-37C1-0338-82443A40B716}" name="Source">
       <FILE id="ml2Llj" name="ADSRComponent.h" compile="0" resource="0" file="Source/ADSRComponent.h"/>
       <FILE id="JwUT8H" name="ModulatorSceneComponent.h" compile="0" resource="0"

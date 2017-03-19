@@ -11,7 +11,6 @@
 #include "../JuceLibraryCode/JuceHeader.h"
 #include "MainComponent.h"
 
-
 //==============================================================================
 class SynthGUIApplication  : public JUCEApplication
 {
@@ -67,7 +66,7 @@ public:
         {
             setUsingNativeTitleBar (true);
             setContentOwned (new MainContentComponent(), true);
-
+            
             centreWithSize (getWidth(), getHeight());
             setVisible (true);
         }
