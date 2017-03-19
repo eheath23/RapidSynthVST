@@ -2,16 +2,22 @@
 #define MAINCOMPONENT_H_INCLUDED
 
 #include "../JuceLibraryCode/JuceHeader.h"
+#include "MaxiLib/maximilian.h"
+#include "RapidLib/regression.h"
+#include <random>
+#include <array>
 
 #include "SceneComponent.h"
 
 class MainContentComponent   : public Component
+
 {
 public:
     MainContentComponent()
     {
         addAndMakeVisible (scene);
         setSize (800, 600);
+//        setFramesPerSecond(20);
     }
     
     ~MainContentComponent()
@@ -21,6 +27,24 @@ public:
     void paint (Graphics&) override
     {
     }
+    
+//    void update()  {
+//        
+//        std::cout << "hey!!" << std::endl;
+//        if (scene.XY.button1.isDown()) {
+//            
+//            scene.XY.button1.setBounds(100, 100, 10, 20);
+//            
+//            std::cout << "BLEARG" << std::endl;
+//            
+//        } else {
+//            
+//            
+//            std::cout << "UNBLEARG" << std::endl;
+//  
+//        }
+//    
+//    }
     
     void resized() override
     {
