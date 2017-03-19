@@ -58,10 +58,11 @@ public:
     //==============================================================================
     void prepareToPlay (int samplesPerBlockExpected, double sampleRate) override
     {
+        
         maxiSettings::setup(std::round(sampleRate), 2, samplesPerBlockExpected);
         
     }
-
+    
     void getNextAudioBlock (const AudioSourceChannelInfo& bufferToFill) override
     {
         // Get the buffers for both output channels
@@ -89,16 +90,15 @@ public:
             bufferL[sample] = float(outputs[0]);
             bufferR[sample] = float(outputs[1]);
         }
+        
+        //        bufferToFill.clearActiveBufferRegion();
     }
     
     void releaseResources() override
     {
-        // This will be called when the audio device stops, or when it is being
-        // restarted due to a setting change.
-
-        // For more details, see the help for AudioProcessor::releaseResources()
+        
     }
-
+    
     //==============================================================================
     void paint (Graphics& g) override
     {
@@ -118,14 +118,17 @@ public:
     {
         if (slider == &scene.oscScene.osc1.dial1){
             freq = scene.oscScene.osc1.dial1.getValue();
+            std::cout << freq << std::endl;
         }
         
         if (slider == &scene.oscScene.osc1.dial2){
-            gain = scene.oscScene.osc2.dial2.getValue();
+            gain = scene.oscScene.osc1.dial2.getValue();
+            std::cout << gain << std::endl;
         }
         
         if (slider == &scene.modScene.filter.cutoffFrequencySlider){
             cutoff = scene.modScene.filter.cutoffFrequencySlider.getValue();
+            std::cout << cutoff << std::endl;
         }
     }
     
