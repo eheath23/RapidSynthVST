@@ -23,7 +23,8 @@
     your controls and content.
 */
 class MainContentComponent   : public AudioAppComponent,
-                               public Slider::Listener
+                               public Slider::Listener,
+                               public Button::Listener
 {
 public:
     //==============================================================================
@@ -43,6 +44,8 @@ public:
         scene.modScene.lfo.dial2.addListener (this);
         
         scene.modScene.filter.cutoffFrequencySlider.addListener(this);
+        
+        scene.XY.button1.addListener(this);
 
         setSize (800, 600);
 
@@ -79,11 +82,16 @@ public:
             ADSRout = ADSR.adsr(1.0, ADSR.trigger);
             
             osc1out = osc1.saw(freq);
-            osc2out = osc2.square(freq*1.5);
+            osc2out = osc2.saw(freq);
+            osc3out = osc3.saw(freq);
             
-            VCFout = VCF.lores(osc1out + osc2out * 0.5, cutoff, 0);
+            osc1FilterOut = osc1Filter.lores(osc1out, osc1FilterCutoff, 0);
+            osc2FilterOut = osc2Filter.lores(osc2out, osc2FilterCutoff, 0);
+            osc3FilterOut = osc3Filter.lores(osc3out, osc3FilterCutoff, 0);
             
-            cSample = VCFout * gain;
+            VCFout = VCF.lores(osc1FilterOut + osc2FilterOut + osc3FilterOut * 0.3, VCOcutoff, 0);
+            
+            cSample = VCFout * masterGain;
             
             mixer.stereo(cSample, outputs, 0.5);
             
@@ -91,7 +99,6 @@ public:
             bufferR[sample] = float(outputs[1]);
         }
         
-        //        bufferToFill.clearActiveBufferRegion();
     }
     
     void releaseResources() override
@@ -107,47 +114,88 @@ public:
 
     void resized() override
     {
-        // This is called when the MainContentComponent is resized.
-        // If you add any child components, this is where you should
-        // update their positions.
+        
         scene.setBounds (0, 0, getWidth(), getHeight());
         
     }
     
     void sliderValueChanged (Slider* slider) override
     {
+        //OSC 1 Dials
         if (slider == &scene.oscScene.osc1.dial1){
-            freq = scene.oscScene.osc1.dial1.getValue();
-            std::cout << freq << std::endl;
+            osc1FilterCutoff = scene.oscScene.osc1.dial1.getValue();
+            std::cout << osc1FilterCutoff << std::endl;
         }
         
         if (slider == &scene.oscScene.osc1.dial2){
-            gain = scene.oscScene.osc1.dial2.getValue();
-            std::cout << gain << std::endl;
+            osc1Gain = scene.oscScene.osc1.dial2.getValue();
+            std::cout << osc1Gain << std::endl;
         }
         
+        //OSC 2 Dials
+        if (slider == &scene.oscScene.osc2.dial1){
+            osc2FilterCutoff = scene.oscScene.osc2.dial1.getValue();
+            std::cout << osc2FilterCutoff << std::endl;
+        }
+        
+        if (slider == &scene.oscScene.osc2.dial2){
+            osc2Gain = scene.oscScene.osc2.dial2.getValue();
+            std::cout << osc2Gain << std::endl;
+        }
+        
+        //OSC 3 Dials
+        if (slider == &scene.oscScene.osc3.dial1){
+            osc3FilterCutoff = scene.oscScene.osc3.dial1.getValue();
+            std::cout << osc3FilterCutoff << std::endl;
+        }
+        
+        if (slider == &scene.oscScene.osc3.dial2){
+            osc3Gain = scene.oscScene.osc3.dial2.getValue();
+            std::cout << osc3Gain << std::endl;
+        }
+        
+        //VCO Slider
         if (slider == &scene.modScene.filter.cutoffFrequencySlider){
-            cutoff = scene.modScene.filter.cutoffFrequencySlider.getValue();
-            std::cout << cutoff << std::endl;
+            VCOcutoff = scene.modScene.filter.cutoffFrequencySlider.getValue();
+            std::cout << VCOcutoff << std::endl;
+        }
+    }
+    
+    void buttonClicked (Button* button) override
+    {
+        if(button == &scene.XY.button1){
+            ADSR.trigger;
         }
     }
     
     
-    //==============================================================================
-    //GUI
+//==============================================================================
+//GUI
     SceneComponent scene;
     
     //AUDIO
-    double cSample, freq, ADSRout, osc1out, osc2out, VCFout, gain, cutoff;
+    double                       cSample;
+    double                       freq = 440;
+    double                       masterGain = 0.7;
+    double                       osc1Gain, osc2Gain, osc3Gain;
+    double                       ADSRout;
+    double                       osc1out, osc2out, osc3out;
+    double                       osc1FilterOut, osc2FilterOut, osc3FilterOut, VCFout;
+    double                       osc1FilterCutoff, osc2FilterCutoff, osc3FilterCutoff, VCOcutoff;
     double                       outputs[2];
     
     // Maximilian objects
     maxiOsc                      osc1;
     maxiOsc                      osc2;
+    maxiOsc                      osc3;
+    maxiFilter                   osc1Filter;
+    maxiFilter                   osc2Filter;
+    maxiFilter                   osc3Filter;
     maxiFilter                   VCF;
     maxiMix                      mixer;
     maxiEnv                      ADSR;
     
+private:
     
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (MainContentComponent)
 };
