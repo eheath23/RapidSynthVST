@@ -41,6 +41,10 @@ public:
     
         scene.modScene.filter.cutoffFrequencySlider.addListener(this);
         
+        scene.modScene.envelope.MLSlider.addListener(this);
+        scene.modScene.envelope.trainButton.addListener(this);
+        scene.modScene.envelope.addButton.addListener(this);
+        
         scene.XY.button1.addListener(this);
 
         setSize (800, 600);
@@ -212,14 +216,33 @@ public:
             VCOcutoff = scene.modScene.filter.cutoffFrequencySlider.getValue();
             std::cout << VCOcutoff << std::endl;
         }
+        
+        //==============================================================================
+        //MACHINE LEARNING SLIDER
+        if(slider == &scene.modScene.envelope.MLSlider)
+        {
+            MLSliderVal = scene.modScene.envelope.MLSlider.getValue();
+        }
     }
     
     //==============================================================================
     void buttonClicked (Button* button) override
     {
-        if(button == &scene.XY.button1)
+        if(button == &scene.modScene.envelope.trainButton)
         {
-
+            if (trainingSet.size() > 2)
+            {
+                trained = rapidRegression.train(trainingSet);
+                std::cout << "trained" << std::endl;
+            }
+        }
+        
+        if(button == &scene.modScene.envelope.addButton)
+        {
+            trainingExample example;
+            example.input = {MLSliderVal};
+            example.output = { };
+            trainingSet.push_back(example);
         }
     }
     
@@ -293,7 +316,7 @@ public:
     //GUI
     SceneComponent scene;
     
-    //AUDIO
+    /** AUDIO **/
     double                       cSample;
     double                       freq, LFO1Freq;
     double                       masterGain;
@@ -305,7 +328,7 @@ public:
     double                       ADSRout;
     double                       outputs[2];
     
-    //Maximilian objects
+    /** MAXIMILIAN **/
     maxiOsc                      osc1;
     maxiOsc                      osc2;
     maxiOsc                      osc3;
@@ -316,6 +339,12 @@ public:
     maxiFilter                   VCF;
     maxiMix                      mixer;
     maxiEnv                      ADSR;
+    
+    /** RAPID **/
+    regression                   rapidRegression;
+    std::vector<trainingExample> trainingSet;
+    bool                         trained;
+    double                       MLSliderVal;
     
 //==============================================================================
 private:
