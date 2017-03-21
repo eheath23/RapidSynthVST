@@ -49,7 +49,14 @@ public:
 
         setSize (800, 600);
 
-        // specify the number of input and output channels that we want to open
+        for(int i = 0; i < 6; i++)
+        {
+            ADSR[i].setAttack(500);
+            ADSR[i].setDecay(3);
+            ADSR[i].setSustain(1);
+            ADSR[i].setRelease(200);
+        }
+        
         setAudioChannels (0, 2);
         
         setWantsKeyboardFocus(true);
@@ -61,6 +68,7 @@ public:
         shutdownAudio();
     }
     
+    //** AUDIO **//
     //==============================================================================
     void prepareToPlay (int samplesPerBlockExpected, double sampleRate) override
     {
@@ -76,33 +84,56 @@ public:
         float* const bufferL = bufferToFill.buffer->getWritePointer(0, bufferToFill.startSample);
         float* const bufferR = bufferToFill.buffer->getWritePointer(1, bufferToFill.startSample);
         
-        ADSR.setAttack(500);
-        ADSR.setDecay(3);
-        ADSR.setSustain(1);
-        ADSR.setRelease(200);
+        cSample = 0;
         
         for (int sample = 0; sample < bufferToFill.numSamples; ++sample)
         {
-            ADSRout = ADSR.adsr(1.0, ADSR.trigger);
             
-            osc1out = osc1.saw(freq) * osc1Gain;
-            osc2out = osc2.saw(freq * 2) * osc2Gain;
-            osc3out = osc3.saw(freq * 1.5) * osc3Gain;
+            currentCount = (int)timer.phasor(8);
             
-            LFO1Out = LFO1.sinebuf(LFO1Freq) * LFO1Gain;
+            if(lastCount!=currentCount)
+            {
+                if(voice == 6)
+                {
+                    voice = 0;
+                }
+                
+                ADSR[voice].trigger=1;//trigger the envelope from the start
+                pitch[voice]=voice+1;
+                
+                voice++;
+            }
             
-            osc1FilterOut = osc1Filter.lores(osc1out, osc1FilterCutoff, 0);
-            osc2FilterOut = osc2Filter.lores(osc2out, osc2FilterCutoff, 0);
-            osc3FilterOut = osc3Filter.lores(osc3out, osc3FilterCutoff, 0);
+            for (int i = 0; i < 6; i++)
+            {
+                cVoice = i;
+                
+                ADSRout[i] = ADSR[i].adsr(1.0, ADSR[i].trigger);
             
-            VCFout = VCF.lores(osc1FilterOut + osc2FilterOut + osc3FilterOut * 0.3, VCOcutoff * LFO1Out, 0);
+                osc1out[i] = osc1[i].saw(55*pitch[i]) * osc1Gain[i];
+                osc2out[i] = osc2[i].saw(110*pitch[i]) * osc2Gain[i];
+                osc3out[i] = osc3[i].saw(220*pitch[i]) * osc3Gain[i];
             
-            cSample = (VCFout * ADSRout) * masterGain;
+                LFO1Out[i] = LFO1[i].sinebuf(LFO1Freq[i]) * LFO1Gain[i];
             
-            mixer.stereo(cSample, outputs, 0.5);
+                osc1FilterOut[i] = osc1Filter[i].lores(osc1out[i], osc1FilterCutoff[i], 0);
+                osc2FilterOut[i] = osc2Filter[i].lores(osc2out[i], osc2FilterCutoff[i], 0);
+                osc3FilterOut[i] = osc3Filter[i].lores(osc3out[i], osc3FilterCutoff[i], 0);
+            
+                VCFout[i] = VCF[i].lores(osc1FilterOut[i] + osc2FilterOut[i] + osc3FilterOut[i] * 0.3, VCOcutoff[i], 0);
+            
+                cSample += ((VCFout[i] * ADSRout[i]) * masterGain)/6;
+                
+                mixer.stereo(cSample, outputs, 0.5);
+            }
+            
             
             bufferL[sample] = float(outputs[0]);
             bufferR[sample] = float(outputs[1]);
+            
+            for (int i = 0; i < 6; i++) {
+                ADSR[i].trigger = 0;
+            }
         }
     }
     
@@ -112,6 +143,7 @@ public:
         
     }
     
+    //** DRAWING **//
     //==============================================================================
     void paint (Graphics& g) override
     {
@@ -126,95 +158,87 @@ public:
         
     }
     
+    //** INPUT CONTROL **//
     //==============================================================================
+    
+    //** SLIDERS AND DIALS **//
     void sliderValueChanged (Slider* slider) override
     {
+//        for(int i = 0; i < 6; i++)
+
         //==============================================================================
         //OSC 1 Dials
         if (slider == &scene.oscScene.osc1.dial1)
         {
-            osc1FilterCutoff = scene.oscScene.osc1.dial1.getValue();
-            std::cout << "osc1FilterCutoff = " << osc1FilterCutoff << std::endl;
+            osc1FilterCutoff[voice] = scene.oscScene.osc1.dial1.getValue();
         }
         
         if (slider == &scene.oscScene.osc1.dial2)
         {
-            osc1Detune = scene.oscScene.osc1.dial2.getValue();
-            std::cout << "osc1Detune = " << osc1Detune << std::endl;
+            osc1Detune[voice] = scene.oscScene.osc1.dial2.getValue();
         }
         
         if (slider == &scene.oscScene.osc1.dial3)
         {
-            osc1Gain = scene.oscScene.osc1.dial3.getValue();
-            std::cout << "osc1Gain = " << osc1Gain << std::endl;
+            osc1Gain[voice] = scene.oscScene.osc1.dial3.getValue();
         }
         
         //==============================================================================
         //OSC 2 Dials
         if (slider == &scene.oscScene.osc2.dial1)
         {
-            osc2FilterCutoff = scene.oscScene.osc2.dial1.getValue();
-            std::cout << "osc2FilterCutoff = " << osc2FilterCutoff << std::endl;
+            osc2FilterCutoff[voice] = scene.oscScene.osc2.dial1.getValue();
         }
         
         if (slider == &scene.oscScene.osc2.dial2)
         {
-            osc2Detune = scene.oscScene.osc2.dial2.getValue();
-            std::cout << "osc2Detune = " << osc2Detune << std::endl;
+            osc2Detune[voice] = scene.oscScene.osc2.dial2.getValue();
         }
         
         if (slider == &scene.oscScene.osc2.dial3)
         {
-            osc2Gain = scene.oscScene.osc2.dial3.getValue();
-            std::cout << "osc2Gain = " << osc2Gain << std::endl;
+            osc2Gain[voice] = scene.oscScene.osc2.dial3.getValue();
         }
         
         //==============================================================================
         //OSC 3 Dials
         if (slider == &scene.oscScene.osc3.dial1)
         {
-            osc3FilterCutoff = scene.oscScene.osc3.dial1.getValue();
-            std::cout << "osc3FilterCutoff = " << osc3FilterCutoff << std::endl;
+            osc3FilterCutoff[voice] = scene.oscScene.osc3.dial1.getValue();
         }
         
         if (slider == &scene.oscScene.osc3.dial2)
         {
-            osc3Detune = scene.oscScene.osc3.dial2.getValue();
-            std::cout << "osc3Detune = " << osc3Detune << std::endl;
+            osc3Detune[voice] = scene.oscScene.osc3.dial2.getValue();
         }
         
         if (slider == &scene.oscScene.osc3.dial3)
         {
-            osc3Gain = scene.oscScene.osc3.dial3.getValue();
-            std::cout << "osc3Gain = " << osc3Gain << std::endl;
+            osc3Gain[voice] = scene.oscScene.osc3.dial3.getValue();
         }
         
         //==============================================================================
         //LFO 1 Dials
         if (slider == &scene.modScene.lfo.dial1)
         {
-            LFO1Freq = scene.modScene.lfo.dial1.getValue();
-            std::cout << "LFO Dial 1" << std::endl;
+            LFO1Freq[voice] = scene.modScene.lfo.dial1.getValue();
         }
         
         if (slider == &scene.modScene.lfo.dial2)
         {
-            LFO1Gain = scene.modScene.lfo.dial2.getValue();
-            std::cout << "LFO Dial 2" << std::endl;
+            LFO1Gain[voice] = scene.modScene.lfo.dial2.getValue();
         }
         
         if (slider == &scene.modScene.lfo.dial3)
         {
             masterGain = scene.modScene.lfo.dial3.getValue();
-            std::cout << "LFO Dial 3" << std::endl;
         }
         
         //==============================================================================
         //VCO Slider
         if (slider == &scene.modScene.filter.cutoffFrequencySlider)
         {
-            VCOcutoff = scene.modScene.filter.cutoffFrequencySlider.getValue();
-            std::cout << VCOcutoff << std::endl;
+            VCOcutoff[voice] = scene.modScene.filter.cutoffFrequencySlider.getValue();
         }
         
         //==============================================================================
@@ -225,6 +249,7 @@ public:
         }
     }
     
+    //** BUTTONS **//
     //==============================================================================
     void buttonClicked (Button* button) override
     {
@@ -247,98 +272,97 @@ public:
     }
     
 
+    /** KEYBOARD **/
     //==============================================================================
     bool keyPressed(const KeyPress& keyPress) override
     {
+        /*
         if(keyPress.getTextCharacter() == 'a')
         {
-            ADSR.trigger = 1;
-            freq = 130.81;
-            std::cout << "a key" << std::endl;
+            ADSR[cVoice].trigger = 1;
+            freq[cVoice] = 130.81;
         }
         
         
         if(keyPress.getTextCharacter() == 's')
         {
-            ADSR.trigger = 1;
-            freq = 146.83;
-            std::cout << "s key" << std::endl;
+            ADSR[cVoice].trigger = 1;
+            freq[cVoice] = 146.83;
         }
         
         
         if(keyPress.getTextCharacter() == 'd')
         {
-            ADSR.trigger = 1;
-            freq = 164.81;
-            std::cout << "d key" << std::endl;
+            ADSR[cVoice].trigger = 1;
+            freq[cVoice] = 164.81;
         }
         
         if(keyPress.getTextCharacter() == 'f')
         {
-            ADSR.trigger = 1;
-            freq = 174.61;
-            std::cout << "f key" << std::endl;
+            ADSR[cVoice].trigger = 1;
+            freq[cVoice] = 174.61;
         }
         
         if(keyPress.getTextCharacter() == 'g')
         {
-            ADSR.trigger = 1;
-            freq = 196.00;
-            std::cout << "g key" << std::endl;
+            ADSR[cVoice].trigger = 1;
+            freq[cVoice] = 196.00;
         }
         
         if(keyPress.getTextCharacter() == 'h')
         {
-            ADSR.trigger = 1;
-            freq = 220.00;
-            std::cout << "h key" << std::endl;
+            ADSR[cVoice].trigger = 1;
+            freq[cVoice] = 220.00;
         }
     
         if(keyPress.getTextCharacter() == 'j')
         {
-            ADSR.trigger = 1;
-            freq = 246.94;
-            std::cout << "j key" << std::endl;
+            ADSR[cVoice].trigger = 1;
+            freq[cVoice] = 246.94;
         }
         
         if(keyPress.getTextCharacter() == 'k')
         {
-            ADSR.trigger = 1;
-            freq = 261.63;
-            std::cout << "k key" << std::endl;
+            ADSR[cVoice].trigger = 1;
+            freq[cVoice] = 261.63;
         }
-        
+        */
         return "";
     }
     
-    
+//** VARIABLES **/
 //==============================================================================
     //GUI
     SceneComponent scene;
     
     /** AUDIO **/
+    int                          currentCount = 0;
+    int lastCount = 0;
+    int voice = 0;
+    int cVoice;
+    int pitch[6];
     double                       cSample;
-    double                       freq, LFO1Freq;
+    double                       freq[6], LFO1Freq[6];
     double                       masterGain;
-    double                       osc1Detune, osc2Detune, osc3Detune;
-    double                       osc1Gain, osc2Gain, osc3Gain, LFO1Gain;
-    double                       osc1out, osc2out, osc3out, LFO1Out;
-    double                       osc1FilterOut, osc2FilterOut, osc3FilterOut, VCFout;
-    double                       osc1FilterCutoff, osc2FilterCutoff, osc3FilterCutoff, VCOcutoff;
-    double                       ADSRout;
+    double                       osc1Detune[6], osc2Detune[6], osc3Detune[6];
+    double                       osc1Gain[6], osc2Gain[6], osc3Gain[6], LFO1Gain[6];
+    double                       osc1out[6], osc2out[6], osc3out[6], LFO1Out[6];
+    double                       osc1FilterOut[6], osc2FilterOut[6], osc3FilterOut[6], VCFout[6];
+    double                       osc1FilterCutoff[6], osc2FilterCutoff[6], osc3FilterCutoff[6], VCOcutoff[6];
+    double                       ADSRout[6];
     double                       outputs[2];
     
-    /** MAXIMILIAN **/
-    maxiOsc                      osc1;
-    maxiOsc                      osc2;
-    maxiOsc                      osc3;
-    maxiOsc                      LFO1;
-    maxiFilter                   osc1Filter;
-    maxiFilter                   osc2Filter;
-    maxiFilter                   osc3Filter;
-    maxiFilter                   VCF;
+    maxiOsc                      osc1[6];
+    maxiOsc                      osc2[6];
+    maxiOsc                      osc3[6];
+    maxiOsc                      LFO1[6];
+    maxiOsc                      timer;
+    maxiFilter                   osc1Filter[6];
+    maxiFilter                   osc2Filter[6];
+    maxiFilter                   osc3Filter[6];
+    maxiFilter                   VCF[6];
+    maxiEnv                      ADSR[6];
     maxiMix                      mixer;
-    maxiEnv                      ADSR;
     
     /** RAPID **/
     regression                   rapidRegression;
