@@ -88,7 +88,7 @@ public:
         
         for (int sample = 0; sample < bufferToFill.numSamples; ++sample)
         {
-            
+            /**
             currentCount = (int)timer.phasor(8);
             
             if(lastCount!=currentCount)
@@ -102,7 +102,7 @@ public:
                 pitch[voice]=voice+1;
                 
                 voice++;
-            }
+            }**/
             
             for (int i = 0; i < 6; i++)
             {
@@ -110,9 +110,9 @@ public:
                 
                 ADSRout[i] = ADSR[i].adsr(1.0, ADSR[i].trigger);
             
-                osc1out[i] = osc1[i].saw(55*pitch[i]) * osc1Gain[i];
-                osc2out[i] = osc2[i].saw(110*pitch[i]) * osc2Gain[i];
-                osc3out[i] = osc3[i].saw(220*pitch[i]) * osc3Gain[i];
+                osc1out[i] = osc1[i].saw(freq[i]) * osc1Gain[i];
+                osc2out[i] = osc2[i].saw(freq[i]) * osc2Gain[i];
+                osc3out[i] = osc3[i].saw(freq[i]) * osc3Gain[i];
             
                 LFO1Out[i] = LFO1[i].sinebuf(LFO1Freq[i]) * LFO1Gain[i];
             
@@ -153,9 +153,7 @@ public:
     //==============================================================================
     void resized() override
     {
-        
         scene.setBounds (0, 0, getWidth(), getHeight());
-        
     }
     
     //** INPUT CONTROL **//
@@ -170,63 +168,64 @@ public:
         //OSC 1 Dials
         if (slider == &scene.oscScene.osc1.dial1)
         {
-            osc1FilterCutoff[voice] = scene.oscScene.osc1.dial1.getValue();
+
+            osc1FilterCutoff[cVoice] = scene.oscScene.osc1.dial1.getValue();
         }
         
         if (slider == &scene.oscScene.osc1.dial2)
         {
-            osc1Detune[voice] = scene.oscScene.osc1.dial2.getValue();
+            osc1Detune[cVoice] = scene.oscScene.osc1.dial2.getValue();
         }
         
         if (slider == &scene.oscScene.osc1.dial3)
         {
-            osc1Gain[voice] = scene.oscScene.osc1.dial3.getValue();
+            osc1Gain[cVoice] = scene.oscScene.osc1.dial3.getValue();
         }
         
         //==============================================================================
         //OSC 2 Dials
         if (slider == &scene.oscScene.osc2.dial1)
         {
-            osc2FilterCutoff[voice] = scene.oscScene.osc2.dial1.getValue();
+            osc2FilterCutoff[cVoice] = scene.oscScene.osc2.dial1.getValue();
         }
         
         if (slider == &scene.oscScene.osc2.dial2)
         {
-            osc2Detune[voice] = scene.oscScene.osc2.dial2.getValue();
+            osc2Detune[cVoice] = scene.oscScene.osc2.dial2.getValue();
         }
         
         if (slider == &scene.oscScene.osc2.dial3)
         {
-            osc2Gain[voice] = scene.oscScene.osc2.dial3.getValue();
+            osc2Gain[cVoice] = scene.oscScene.osc2.dial3.getValue();
         }
         
         //==============================================================================
         //OSC 3 Dials
         if (slider == &scene.oscScene.osc3.dial1)
         {
-            osc3FilterCutoff[voice] = scene.oscScene.osc3.dial1.getValue();
+            osc3FilterCutoff[cVoice] = scene.oscScene.osc3.dial1.getValue();
         }
         
         if (slider == &scene.oscScene.osc3.dial2)
         {
-            osc3Detune[voice] = scene.oscScene.osc3.dial2.getValue();
+            osc3Detune[cVoice] = scene.oscScene.osc3.dial2.getValue();
         }
         
         if (slider == &scene.oscScene.osc3.dial3)
         {
-            osc3Gain[voice] = scene.oscScene.osc3.dial3.getValue();
+            osc3Gain[cVoice] = scene.oscScene.osc3.dial3.getValue();
         }
         
         //==============================================================================
         //LFO 1 Dials
         if (slider == &scene.modScene.lfo.dial1)
         {
-            LFO1Freq[voice] = scene.modScene.lfo.dial1.getValue();
+            LFO1Freq[cVoice] = scene.modScene.lfo.dial1.getValue();
         }
         
         if (slider == &scene.modScene.lfo.dial2)
         {
-            LFO1Gain[voice] = scene.modScene.lfo.dial2.getValue();
+            LFO1Gain[cVoice] = scene.modScene.lfo.dial2.getValue();
         }
         
         if (slider == &scene.modScene.lfo.dial3)
@@ -238,7 +237,7 @@ public:
         //VCO Slider
         if (slider == &scene.modScene.filter.cutoffFrequencySlider)
         {
-            VCOcutoff[voice] = scene.modScene.filter.cutoffFrequencySlider.getValue();
+            VCOcutoff[cVoice] = scene.modScene.filter.cutoffFrequencySlider.getValue();
         }
         
         //==============================================================================
@@ -276,7 +275,7 @@ public:
     //==============================================================================
     bool keyPressed(const KeyPress& keyPress) override
     {
-        /*
+        
         if(keyPress.getTextCharacter() == 'a')
         {
             ADSR[cVoice].trigger = 1;
@@ -326,21 +325,23 @@ public:
             ADSR[cVoice].trigger = 1;
             freq[cVoice] = 261.63;
         }
-        */
+        
         return "";
     }
     
 //** VARIABLES **/
 //==============================================================================
     //GUI
-    SceneComponent scene;
+    SceneComponent               scene;
     
     /** AUDIO **/
+    /**
     int                          currentCount = 0;
-    int lastCount = 0;
-    int voice = 0;
-    int cVoice;
-    int pitch[6];
+    int                          lastCount = 0;
+    int                          voice = 0;
+     **/
+    int                          cVoice;
+    int                          pitch[6];
     double                       cSample;
     double                       freq[6], LFO1Freq[6];
     double                       masterGain;

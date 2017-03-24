@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>SchemeUserState</key>
+	<dict>
+		<key>RapidSynthVST (AU).xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>3</integer>
+		</dict>
+		<key>RapidSynthVST (All).xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>0</integer>
+		</dict>
+		<key>RapidSynthVST (Shared Code).xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>4</integer>
+		</dict>
+		<key>RapidSynthVST (VST).xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>1</integer>
+		</dict>
+		<key>RapidSynthVST (VST3).xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>2</integer>
+		</dict>
+	</dict>
+	<key>SuppressBuildableAutocreation</key>
+	<dict>
+		<key>07335C79F7BC5815B2316ECA</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>17E9820135AB5F8BB4C47CCE</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>1E74E0E61A4AF04DF959AB6D</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>50F42EEB5FABF57F3AD19675</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>F1944A060C8ADEC0796AB9E2</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+	</dict>
+</dict>
+</plist>
