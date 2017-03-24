@@ -168,7 +168,7 @@ void RapidSynthVstAudioProcessor::processBlock (AudioSampleBuffer& buffer, MidiB
         SimpleVoice* derivedVoice = dynamic_cast<SimpleVoice*>(currentVoice);
         bool isLegit = derivedVoice != nullptr;
         if(isLegit){
-            derivedVoice->setParameters(osc1Detune->get(), osc2Detune->get(), osc3Detune->get(), osc1Gain->get(),osc2Gain->get(),  osc3Gain->get(), LFO1Gain->get(), osc1FilterCutoff->get(), osc2FilterCutoff->get(), osc3FilterCutoff->get(), VCOcutoff->get(), LFO1Freq->get());
+            derivedVoice->setParameters(osc1Detune->get(), osc2Detune->get(), osc3Detune->get(), osc1Gain->get(),osc2Gain->get(),  osc3Gain->get(), LFO1Gain->get(), osc1FilterCutoff->get(), osc2FilterCutoff->get(), osc3FilterCutoff->get(), VCOcutoff->get(), LFO1Freq->get(), masterGain->get());
         }
     }
     

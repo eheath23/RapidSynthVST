@@ -27,6 +27,7 @@ class SimpleVoice : public SynthesiserVoice
 {
 public:
     SimpleVoice() :
+    mMasterGain(1),
     mOsc1Detune(0),
     mOsc2Detune(0),
     mOsc3Detune(0),
@@ -44,7 +45,7 @@ public:
         std::cout << "Instanciated SimpleVoice" << std::endl;
     }
 
-    void setParameters (double osc1Detune, double osc2Detune, double osc3Detune, double osc1Gain, double osc2Gain, double osc3Gain, double LFO1Gain, double osc1FilterCutoff, double osc2FilterCutoff, double osc3FilterCutoff, double VCOcutoff, double LFO1Freq)
+    void setParameters (double osc1Detune, double osc2Detune, double osc3Detune, double osc1Gain, double osc2Gain, double osc3Gain, double LFO1Gain, double osc1FilterCutoff, double osc2FilterCutoff, double osc3FilterCutoff, double VCOcutoff, double LFO1Freq, double masterGain)
     {
         mOsc1Detune = osc1Detune;
         mOsc2Detune = osc2Detune;
@@ -58,6 +59,7 @@ public:
         mOsc3FilterCutoff = osc3FilterCutoff;
         mVCOcutoff = VCOcutoff;
         mLFO1Freq = LFO1Freq;
+        mMasterGain = masterGain;
     }
     
     bool canPlaySound (SynthesiserSound* sound) override
@@ -72,12 +74,12 @@ public:
     {
         mFreq = MidiMessage::getMidiNoteInHertz(midiNoteNumber);
         level = velocity;
-        ADSR.trigger = 1;
+//        ADSR.trigger = 1;
     }
     
     void stopNote (float, bool) override
     {
-        ADSR.trigger = 0;
+//        ADSR.trigger = 0;
         level = 0;
         clearCurrentNote();
     }
@@ -89,7 +91,7 @@ public:
         while (--numberSamples >= 0)
         {
             
-            mADSRout = ADSR.adsr(1.0, ADSR.trigger);
+//            mADSRout = ADSR.adsr(1.0, ADSR.trigger);
             
             mOsc1out = osc1.saw(mFreq) * mOsc1Gain;
             mOsc2out = osc2.saw(mFreq) * mOsc2Gain;
@@ -101,9 +103,9 @@ public:
             mOsc2FilterOut = osc2Filter.lores(mOsc2out, mOsc2FilterCutoff, 0);
             mOsc3FilterOut = osc3Filter.lores(mOsc3out, mOsc3FilterCutoff, 0);
             
-            mVCFout = VCF.lores(mOsc1FilterOut + mOsc2FilterOut + mOsc3FilterOut * 0.3, mVCOcutoff, 0);
+            mVCFout = VCF.lores((mOsc1FilterOut + mOsc2FilterOut + mOsc3FilterOut) * 0.3, mVCOcutoff, 0);
             
-            mCSample = (mVCFout * mADSRout) * mMasterGain;
+            mCSample = mVCFout * mMasterGain;
             
             double audioFrame = mCSample;
             
