@@ -22,10 +22,10 @@ public:
     FilterComponent()
     {
         addAndMakeVisible (cutoffFrequencySlider);
-        cutoffFrequencySlider.setSliderStyle(Slider::LinearVertical);
+        cutoffFrequencySlider.setSliderStyle(Slider::RotaryVerticalDrag);
         cutoffFrequencySlider.setTextBoxStyle(Slider::NoTextBox, false, 0, 0);
         cutoffFrequencySlider.setRange(0, 5000);
-        cutoffFrequencySlider.setValue(0);
+        cutoffFrequencySlider.setValue(5000);
     }
 
     ~FilterComponent()

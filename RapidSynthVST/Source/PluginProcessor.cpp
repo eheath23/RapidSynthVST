@@ -30,34 +30,32 @@ RapidSynthVstAudioProcessor::RapidSynthVstAudioProcessor()
     synth.addSound(new SimpleSound());
     
     for(int i = 0; i < 7; i++){
-        synth.addVoice(new SimpleVoice());
+        synth.addVoice(new SimpleVoice()); 
     }
     
-    addParameter(masterGain = new AudioParameterFloat("masterGain", "Master Gain", 0, 1, 1));
-    
+    addParameter(osc1FilterCutoff = new AudioParameterFloat("osc1FilterCutoff", "osc1 Filter Cutoff", 0, 5000, 5000));
     addParameter(osc1Detune = new AudioParameterFloat("osc1Detune", "Osc1 Detune", -12, 12, 0));
-    
-    addParameter(osc2Detune = new AudioParameterFloat("osc2Detune", "Osc2 Detune", -12, 12, 0));
-    
-    addParameter(osc3Detune = new AudioParameterFloat("osc3Detune", "Osc3 Detune", -12, 12, 0));
-    
     addParameter(osc1Gain = new AudioParameterFloat("osc1Gain", "Osc1 Gain", 0, 1, 1));
     
+    addParameter(osc2FilterCutoff = new AudioParameterFloat("osc2FilterCutoff", "osc2 Filter Cutoff", 0, 5000, 5000));
+    addParameter(osc2Detune = new AudioParameterFloat("osc2Detune", "Osc2 Detune", -12, 12, 0));
     addParameter(osc2Gain = new AudioParameterFloat("osc2Gain", "Osc2 Gain", 0, 1, 1));
     
+    addParameter(osc3FilterCutoff = new AudioParameterFloat("osc3FilterCutoff", "osc3 Filter Cutoff", 0, 5000, 5000));
+    addParameter(osc3Detune = new AudioParameterFloat("osc3Detune", "Osc3 Detune", -12, 12, 0));
     addParameter(osc3Gain = new AudioParameterFloat("osc3Gain", "Osc3 Gain", 0, 1, 1));
     
+    addParameter(LFO1Freq = new AudioParameterFloat("LFO1Freq", "LFO1 Freq", 0, 20, 0));
     addParameter(LFO1Gain = new AudioParameterFloat("LFO1Gain", "LFO1 Gain", 0, 1, 0));
     
-    addParameter(osc1FilterCutoff = new AudioParameterFloat("osc1FilterCutoff", "osc1 Filter Cutoff", 0, 5000, 5000));
-    
-    addParameter(osc2FilterCutoff = new AudioParameterFloat("osc2FilterCutoff", "osc2 Filter Cutoff", 0, 5000, 5000));
-    
-    addParameter(osc3FilterCutoff = new AudioParameterFloat("osc3FilterCutoff", "osc3 Filter Cutoff", 0, 5000, 5000));
-    
     addParameter(VCOcutoff = new AudioParameterFloat("VCOcutoff", "VCO Cutoff", 0, 5000, 5000));
+    addParameter(masterGain = new AudioParameterFloat("masterGain", "Master Gain", 0, 1, 1));
     
-    addParameter(LFO1Freq = new AudioParameterFloat("LFO1Freq", "LFO1 Freq", 0, 20, 0));
+    addParameter(ADSRAttack = new AudioParameterFloat("ADSRAttack", "ADSR Attack", 0, 10000, 1000));
+    addParameter(ADSRDecay = new AudioParameterFloat("ADSRDecay", "ADSR Decay", 1, 10000, 1));
+    addParameter(ADSRSustain = new AudioParameterFloat("ADSRSustain", "ADSR Sustain", 0, 1, 1));
+    addParameter(ADSRRelease = new AudioParameterFloat("ADSRRelease", "ADSR Release", 0, 10000, 1000));
+    
 }
 
 RapidSynthVstAudioProcessor::~RapidSynthVstAudioProcessor()
@@ -168,7 +166,23 @@ void RapidSynthVstAudioProcessor::processBlock (AudioSampleBuffer& buffer, MidiB
         SimpleVoice* derivedVoice = dynamic_cast<SimpleVoice*>(currentVoice);
         bool isLegit = derivedVoice != nullptr;
         if(isLegit){
-            derivedVoice->setParameters(osc1Detune->get(), osc2Detune->get(), osc3Detune->get(), osc1Gain->get(),osc2Gain->get(),  osc3Gain->get(), LFO1Gain->get(), osc1FilterCutoff->get(), osc2FilterCutoff->get(), osc3FilterCutoff->get(), VCOcutoff->get(), LFO1Freq->get(), masterGain->get());
+            derivedVoice->setParameters(osc1FilterCutoff->get(),
+                                        osc1Detune->get(),
+                                        osc1Gain->get(),
+                                        osc2FilterCutoff->get(),
+                                        osc2Detune->get(),
+                                        osc2Gain->get(),
+                                        osc3FilterCutoff->get(),
+                                        osc3Detune->get(),
+                                        osc3Gain->get(),
+                                        LFO1Freq->get(),
+                                        LFO1Gain->get(),
+                                        VCOcutoff->get(),
+                                        masterGain->get(),
+                                        ADSRAttack->get(),
+                                        ADSRDecay->get(),
+                                        ADSRSustain->get(),
+                                        ADSRRelease->get());
         }
     }
     

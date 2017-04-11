@@ -39,27 +39,61 @@ public:
     mOsc2FilterCutoff(5000),
     mOsc3FilterCutoff(5000),
     mVCOcutoff(5000),
+    mADSRAttack(0),
+    mADSRDecay(1),
+    mADSRSustain(0),
+    mADSRRelease(0),
     mLFO1Freq(0)
     
     {
         std::cout << "Instanciated SimpleVoice" << std::endl;
     }
 
-    void setParameters (double osc1Detune, double osc2Detune, double osc3Detune, double osc1Gain, double osc2Gain, double osc3Gain, double LFO1Gain, double osc1FilterCutoff, double osc2FilterCutoff, double osc3FilterCutoff, double VCOcutoff, double LFO1Freq, double masterGain)
+    void setParameters (double osc1FilterCutoff,
+                        double osc1Detune,
+                        double osc1Gain,
+                        double osc2FilterCutoff,
+                        double osc2Detune,
+                        double osc2Gain,
+                        double osc3FilterCutoff,
+                        double osc3Detune,
+                        double osc3Gain,
+                        double LFO1Freq,
+                        double LFO1Gain,
+                        double VCOcutoff,
+                        double masterGain,
+                        double ADSRAttack,
+                        double ADSRDecay,
+                        double ADSRSustain,
+                        double ADSRRelease)
     {
-        mOsc1Detune = osc1Detune;
-        mOsc2Detune = osc2Detune;
-        mOsc3Detune = osc3Detune;
-        mOsc1Gain = osc1Gain;
-        mOsc2Gain = osc2Gain;
-        mOsc3Gain = osc3Gain;
-        mLFO1Gain = LFO1Gain;
         mOsc1FilterCutoff = osc1FilterCutoff;
+        mOsc1Detune = osc1Detune;
+        mOsc1Gain = osc1Gain;
+        
         mOsc2FilterCutoff = osc2FilterCutoff;
+        mOsc2Detune = osc2Detune;
+        mOsc2Gain = osc2Gain;
+        
         mOsc3FilterCutoff = osc3FilterCutoff;
-        mVCOcutoff = VCOcutoff;
+        mOsc3Detune = osc3Detune;
+        mOsc3Gain = osc3Gain;
+        
         mLFO1Freq = LFO1Freq;
+        mLFO1Gain = LFO1Gain;
+        
+        mVCOcutoff = VCOcutoff;
         mMasterGain = masterGain;
+        
+        mADSRAttack = ADSRAttack;
+        mADSRDecay = ADSRDecay;
+        mADSRSustain = ADSRSustain;
+        mADSRRelease = ADSRRelease;
+        
+        ADSR.setAttack(mADSRAttack);
+        ADSR.setDecay(mADSRDecay);
+        ADSR.setSustain(mADSRSustain);
+        ADSR.setRelease(mADSRRelease);
     }
     
     bool canPlaySound (SynthesiserSound* sound) override
@@ -74,12 +108,12 @@ public:
     {
         mFreq = MidiMessage::getMidiNoteInHertz(midiNoteNumber);
         level = velocity;
-//        ADSR.trigger = 1;
+        ADSR.trigger = 1;
     }
     
     void stopNote (float, bool) override
     {
-//        ADSR.trigger = 0;
+        ADSR.trigger = 0;
         level = 0;
         clearCurrentNote();
     }
@@ -91,7 +125,7 @@ public:
         while (--numberSamples >= 0)
         {
             
-//            mADSRout = ADSR.adsr(1.0, ADSR.trigger);
+            mADSRout = ADSR.adsr(1.0, ADSR.trigger);
             
             mOsc1out = osc1.saw(mFreq) * mOsc1Gain;
             mOsc2out = osc2.saw(mFreq) * mOsc2Gain;
@@ -105,7 +139,7 @@ public:
             
             mVCFout = VCF.lores((mOsc1FilterOut + mOsc2FilterOut + mOsc3FilterOut) * 0.3, mVCOcutoff, 0);
             
-            mCSample = mVCFout * mMasterGain;
+            mCSample = mVCFout * mMasterGain * mADSRout;
             
             double audioFrame = mCSample;
             
@@ -132,7 +166,7 @@ public:
     double                       mOsc1out, mOsc2out, mOsc3out, mLFO1Out;
     double                       mOsc1FilterOut, mOsc2FilterOut, mOsc3FilterOut, mVCFout;
     double                       mOsc1FilterCutoff, mOsc2FilterCutoff, mOsc3FilterCutoff, mVCOcutoff;
-    double                       mADSRout;
+    double                       mADSRout, mADSRAttack, mADSRDecay, mADSRSustain, mADSRRelease;
     double mLFO1Freq;
     double                       mOutputs[2];
     
@@ -182,21 +216,32 @@ public:
     void getStateInformation (MemoryBlock& destData) override;
     void setStateInformation (const void* data, int sizeInBytes) override;
 
-private:
+
     double lastSampleRate;
-    AudioParameterFloat* masterGain;
-    AudioParameterFloat* osc1Detune;
-    AudioParameterFloat* osc2Detune;
-    AudioParameterFloat* osc3Detune;
-    AudioParameterFloat* osc1Gain;
-    AudioParameterFloat* osc2Gain;
-    AudioParameterFloat* osc3Gain;
-    AudioParameterFloat* LFO1Gain;
     AudioParameterFloat* osc1FilterCutoff;
+    AudioParameterFloat* osc1Detune;
+    AudioParameterFloat* osc1Gain;
+    
     AudioParameterFloat* osc2FilterCutoff;
+    AudioParameterFloat* osc2Detune;
+    AudioParameterFloat* osc2Gain;
+    
     AudioParameterFloat* osc3FilterCutoff;
-    AudioParameterFloat* VCOcutoff;
+    AudioParameterFloat* osc3Detune;
+    AudioParameterFloat* osc3Gain;
+    
     AudioParameterFloat* LFO1Freq;
+    AudioParameterFloat* LFO1Gain;
+    
+    AudioParameterFloat* VCOcutoff;
+    AudioParameterFloat* masterGain;
+    
+    AudioParameterFloat* ADSRAttack;
+    AudioParameterFloat* ADSRDecay;
+    AudioParameterFloat* ADSRSustain;
+    AudioParameterFloat* ADSRRelease;
+    
+    
     Synthesiser synth;
     
     //==============================================================================

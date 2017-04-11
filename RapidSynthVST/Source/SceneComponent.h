@@ -29,7 +29,7 @@ public:
         addAndMakeVisible(XY);
         addAndMakeVisible(oscScene);
         addAndMakeVisible(modScene);
-
+        
     }
 
     ~SceneComponent()
@@ -53,7 +53,7 @@ public:
         XY.setBounds(r.reduced(5));
         oscScene.setBounds(oscSection);
         modScene.setBounds(bottomSection);
-        
+                
     }
 
     OscillatorSceneComponent oscScene;

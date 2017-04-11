@@ -43,7 +43,7 @@ public:
         lfo.dial3.setSliderStyle (Slider::RotaryVerticalDrag);
         lfo.dial3.setTextBoxStyle (Slider::NoTextBox, false, 0, 0);
         lfo.dial3.setRange (0, 1.0);
-        lfo.dial3.setValue(0);
+        lfo.dial3.setValue(1.0);
     }
     
     ~ModulatorSceneComponent()

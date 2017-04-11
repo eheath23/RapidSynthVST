@@ -36,13 +36,12 @@ public:
     
     SceneComponent scene;
     
-private:
     // This reference is provided as a quick way for your editor to
     // access the processor object that created it.
     AudioProcessorParameter* getParameter (const String& paramId);
     float                    getParameterValue (const String& paramId);
     void                     setParameterValue (const String& paramId, float value);
-    
+        
     RapidSynthVstAudioProcessor& processor;
     
 

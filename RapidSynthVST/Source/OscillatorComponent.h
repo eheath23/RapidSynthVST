@@ -23,8 +23,8 @@ public:
     {
         dial1.setSliderStyle (Slider::RotaryVerticalDrag);
         dial1.setTextBoxStyle (Slider::NoTextBox, false, 0, 0);
-        dial1.setRange (50, 5000.0);
-        dial1.setValue(440);
+        dial1.setRange (0, 1);
+        dial1.setValue(1);
         addAndMakeVisible (dial1);
         
         dial2.setSliderStyle (Slider::RotaryVerticalDrag);
@@ -36,7 +36,7 @@ public:
         dial3.setSliderStyle (Slider::RotaryVerticalDrag);
         dial3.setTextBoxStyle (Slider::NoTextBox, false, 0, 0);
         dial3.setRange (0, 1.0);
-        dial3.setValue(0);
+        dial3.setValue(1);
         addAndMakeVisible (dial3);
     }
 
