@@ -48,13 +48,27 @@ RapidSynthVstAudioProcessor::RapidSynthVstAudioProcessor()
     addParameter(LFO1Freq = new AudioParameterFloat("LFO1Freq", "LFO1 Freq", 0, 20, 0));
     addParameter(LFO1Gain = new AudioParameterFloat("LFO1Gain", "LFO1 Gain", 0, 1, 0));
     
-    addParameter(VCOcutoff = new AudioParameterFloat("VCOcutoff", "VCO Cutoff", 0, 5000, 5000));
+    addParameter(VCOcutoff = new AudioParameterFloat("VCOcutoff", "VCO Cutoff", 1, 5000, 5000));
     addParameter(masterGain = new AudioParameterFloat("masterGain", "Master Gain", 0, 1, 1));
     
-    addParameter(ADSRAttack = new AudioParameterFloat("ADSRAttack", "ADSR Attack", 0, 10000, 1000));
-    addParameter(ADSRDecay = new AudioParameterFloat("ADSRDecay", "ADSR Decay", 1, 10000, 1));
-    addParameter(ADSRSustain = new AudioParameterFloat("ADSRSustain", "ADSR Sustain", 0, 1, 1));
-    addParameter(ADSRRelease = new AudioParameterFloat("ADSRRelease", "ADSR Release", 0, 10000, 1000));
+    addParameter(ADSR1Attack = new AudioParameterFloat("ADSR1Attack", "ADSR1 Attack", 0, 10000, 1000));
+    addParameter(ADSR1Decay = new AudioParameterFloat("ADSR1Decay", "ADSR1 Decay", 1, 10000, 1));
+    addParameter(ADSR1Sustain = new AudioParameterFloat("ADSR1Sustain", "ADSR1 Sustain", 0, 1, 1));
+    addParameter(ADSR1Release = new AudioParameterFloat("ADSR1Release", "ADSR1 Release", 0, 10000, 1000));
+    
+    addParameter(osc1Sine = new AudioParameterBool("osc1Sine", "osc1 Sine", true, "osc1 sine"));
+    addParameter(osc1Saw = new AudioParameterBool("osc1Saw", "osc1 Saw", false, "osc1 saw"));
+    addParameter(osc1Square = new AudioParameterBool("osc1Square", "osc1 Square", false, "osc1 square"));
+    
+    addParameter(osc2Sine = new AudioParameterBool("osc2Sine", "osc2 Sine", true, "osc2 sine"));
+    addParameter(osc2Saw = new AudioParameterBool("osc2Saw", "osc2 Saw", false, "osc2 saw"));
+    addParameter(osc2Square = new AudioParameterBool("osc2Square", "osc2 Square", false, "osc2 square"));
+    
+    addParameter(osc3Sine = new AudioParameterBool("osc3Sine", "osc3 Sine", true, "osc3 sine"));
+    addParameter(osc3Saw = new AudioParameterBool("osc3Saw", "osc3 Saw", false, "osc3 saw"));
+    addParameter(osc3Square = new AudioParameterBool("osc3Square", "osc3 Square", false, "osc3 square"));
+    
+    addParameter(VCORes = new AudioParameterFloat("VCORes", "VCO Res", 0, 1, 0));
     
 }
 
@@ -179,10 +193,20 @@ void RapidSynthVstAudioProcessor::processBlock (AudioSampleBuffer& buffer, MidiB
                                         LFO1Gain->get(),
                                         VCOcutoff->get(),
                                         masterGain->get(),
-                                        ADSRAttack->get(),
-                                        ADSRDecay->get(),
-                                        ADSRSustain->get(),
-                                        ADSRRelease->get());
+                                        ADSR1Attack->get(),
+                                        ADSR1Decay->get(),
+                                        ADSR1Sustain->get(),
+                                        ADSR1Release->get(),
+                                        osc1Sine->get(),
+                                        osc1Saw->get(),
+                                        osc1Square->get(),
+                                        osc2Sine->get(),
+                                        osc2Saw->get(),
+                                        osc2Square->get(),
+                                        osc3Sine->get(),
+                                        osc3Saw->get(),
+                                        osc3Square->get(),
+                                        VCORes->get());
         }
     }
     

@@ -23,19 +23,43 @@ class EnvelopeComponent    : public Component
 public:
     EnvelopeComponent()
     {
-//        addAndMakeVisible(ADSR);
+        
+        addAndMakeVisible(ADSR1Attack);
+        ADSR1Attack.setTextBoxStyle(Slider::NoTextBox, true, 0, 0);
+        ADSR1Attack.setSliderStyle(Slider::RotaryVerticalDrag);
+        ADSR1Attack.setRange(0.0, 10000.0);
+        
+        addAndMakeVisible (attackDial);
+        attackDial.setText ("Attack", dontSendNotification);
+        attackDial.attachToComponent (&ADSR1Attack, false);
+        attackDial.setJustificationType(Justification::centredBottom);
 
-        addAndMakeVisible (MLSlider);
-        MLSlider.setSliderStyle(Slider::LinearVertical);
-        MLSlider.setTextBoxStyle(Slider::NoTextBox, false, 0, 0);
-        MLSlider.setRange(0, 5000);
-        MLSlider.setValue(0);
+        addAndMakeVisible(ADSR1Decay);
+        ADSR1Decay.setTextBoxStyle(Slider::NoTextBox, true, 0, 0);
+        ADSR1Decay.setSliderStyle(Slider::RotaryVerticalDrag);
+        ADSR1Decay.setRange(0.0, 10000.0);
+
+        addAndMakeVisible (decayDial);
+        decayDial.setText ("Decay", dontSendNotification);
+        decayDial.attachToComponent (&ADSR1Decay, false);
         
-        addAndMakeVisible(trainButton);
-        trainButton.setButtonText ("Train");
+        addAndMakeVisible(ADSR1Sustain);
+        ADSR1Sustain.setTextBoxStyle(Slider::NoTextBox, true, 0, 0);
+        ADSR1Sustain.setSliderStyle(Slider::RotaryVerticalDrag);
+        ADSR1Sustain.setRange(0.0, 1.0);
         
-        addAndMakeVisible(addButton);
-        addButton.setButtonText("Add Data");
+        addAndMakeVisible (sustainDial);
+        sustainDial.setText ("Sustain", dontSendNotification);
+        sustainDial.attachToComponent (&ADSR1Sustain, false);
+        
+        addAndMakeVisible(ADSR1Release);
+        ADSR1Release.setTextBoxStyle(Slider::NoTextBox, true, 0, 0);
+        ADSR1Release.setSliderStyle(Slider::RotaryVerticalDrag);
+        ADSR1Release.setRange(0.0, 10000.0);
+        
+        addAndMakeVisible (releaseDial);
+        releaseDial.setText ("Release", dontSendNotification);
+        releaseDial.attachToComponent (&ADSR1Release, false);
         
     }
 
@@ -50,20 +74,20 @@ public:
 
     void resized() override
     {
-//        auto r = getLocalBounds();
-//        ADSR.setBounds(r.removeFromBottom(200));
-
         auto r = getLocalBounds();
-        auto sliderArea = r.removeFromBottom(200);
+        int divisor = (r.getHeight()/4);
         
-        MLSlider.setBounds(sliderArea.reduced(10));
-        trainButton.setBounds(r.removeFromTop(r.getHeight()/2).reduced(1));
-        addButton.setBounds(r.reduced(1));
-        
+        ADSR1Attack.setBounds(r.removeFromTop(divisor).reduced(10));
+        ADSR1Decay.setBounds(r.removeFromTop(divisor).reduced(10));
+        ADSR1Sustain.setBounds(r.removeFromTop(divisor).reduced(10));
+        ADSR1Release.setBounds(r.reduced(10));
     }
+    
+    Slider ADSR1Attack, ADSR1Decay, ADSR1Sustain, ADSR1Release;
+    Label attackDial, decayDial, sustainDial, releaseDial;
 
-    Slider MLSlider;
-    TextButton trainButton, addButton;
+//    TextButton trainButton, addButton;
+//    ADSRComponent ADSR;
 //    ADSRComponent ADSR;
     
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (EnvelopeComponent)

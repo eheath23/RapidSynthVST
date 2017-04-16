@@ -34,16 +34,27 @@ public:
         lfo.dial1.setTextBoxStyle (Slider::NoTextBox, false, 0, 0);
         lfo.dial1.setRange (0, 20.0);
         lfo.dial1.setValue(1);
+        lfo.dial1Label.setText ("LFO Rate", dontSendNotification);
         
         lfo.dial2.setSliderStyle (Slider::RotaryVerticalDrag);
         lfo.dial2.setTextBoxStyle (Slider::NoTextBox, false, 0, 0);
         lfo.dial2.setRange (0, 1.0);
         lfo.dial2.setValue(0);
+        lfo.dial2Label.setText ("LFO Amount", dontSendNotification);
         
         lfo.dial3.setSliderStyle (Slider::RotaryVerticalDrag);
         lfo.dial3.setTextBoxStyle (Slider::NoTextBox, false, 0, 0);
         lfo.dial3.setRange (0, 1.0);
         lfo.dial3.setValue(1.0);
+        lfo.dial3Label.setText ("Master Gain", dontSendNotification);
+        
+        filter.dial1Label.setText ("Filter Cutoff", dontSendNotification);
+        filter.dial2Label.setText ("Filter Resonance", dontSendNotification);
+        filter.dial3Label.setText ("", dontSendNotification);
+                
+        filter.removeChildComponent(&filter.sineButton);
+        filter.removeChildComponent(&filter.sawButton);
+        filter.removeChildComponent(&filter.squareButton);
     }
     
     ~ModulatorSceneComponent()
@@ -69,8 +80,8 @@ public:
         
     }
     
-        OscillatorComponent lfo;
-        FilterComponent filter;
+        OscillatorComponent lfo,filter;
+//        FilterComponent filter;
         EnvelopeComponent envelope;
     
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (ModulatorSceneComponent)

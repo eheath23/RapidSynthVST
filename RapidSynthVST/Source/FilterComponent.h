@@ -21,11 +21,12 @@ class FilterComponent    : public Component
 public:
     FilterComponent()
     {
-        addAndMakeVisible (cutoffFrequencySlider);
-        cutoffFrequencySlider.setSliderStyle(Slider::RotaryVerticalDrag);
-        cutoffFrequencySlider.setTextBoxStyle(Slider::NoTextBox, false, 0, 0);
-        cutoffFrequencySlider.setRange(0, 5000);
-        cutoffFrequencySlider.setValue(5000);
+//        cutoffFrequencySlider.setSliderStyle(Slider::RotaryVerticalDrag);
+//        cutoffFrequencySlider.setTextBoxStyle(Slider::NoTextBox, false, 0, 0);
+//        cutoffFrequencySlider.setRange(1, 500);
+//        cutoffFrequencySlider.setValue(500);
+//        addAndMakeVisible (cutoffFrequencySlider);
+        
     }
 
     ~FilterComponent()
@@ -44,11 +45,11 @@ public:
         auto r = getLocalBounds();
         auto sliderArea = r.removeFromBottom(200);
         
-        cutoffFrequencySlider.setBounds(sliderArea.reduced(10));
+//        cutoffFrequencySlider.setBounds(sliderArea.reduced(10));
 
     }
 
-    Slider cutoffFrequencySlider;
+//    Slider cutoffFrequencySlider;
     
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (FilterComponent)
 };

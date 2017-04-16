@@ -23,33 +23,21 @@ RapidSynthVstAudioProcessorEditor::RapidSynthVstAudioProcessorEditor (RapidSynth
     //OSC 1
     scene.oscScene.osc1.dial1.setName("osc1FilterCutoff");
     scene.oscScene.osc1.dial1.addListener (this);
-//    scene.oscScene.osc1.dial1.setSliderStyle (Slider::RotaryVerticalDrag);
-//    scene.oscScene.osc1.dial1.setRange(0.0, 1.0);
-//    scene.oscScene.osc1.dial1.setTextBoxStyle(Slider::NoTextBox, false, 90, 0);
-//    scene.oscScene.osc1.dial1.setPopupDisplayEnabled(true, this);
-//    scene.oscScene.osc1.dial1.setTextValueSuffix("Hz");
-//    scene.oscScene.osc1.dial1.setValue(1.0);
-//    
     
     scene.oscScene.osc1.dial2.setName("osc1Detune");
     scene.oscScene.osc1.dial2.addListener (this);
-//    scene.oscScene.osc1.dial2.setSliderStyle (Slider::RotaryVerticalDrag);
-//    scene.oscScene.osc1.dial2.setRange(-12, 12, 1);
-//    scene.oscScene.osc1.dial2.setTextBoxStyle(Slider::NoTextBox, false, 90, 0);
-//    scene.oscScene.osc1.dial2.setPopupDisplayEnabled(true, this);
-//    scene.oscScene.osc1.dial2.setTextValueSuffix("Semitones");
-//    scene.oscScene.osc1.dial2.setValue(0.0);
 
-    
     scene.oscScene.osc1.dial3.setName("osc1Gain");
     scene.oscScene.osc1.dial3.addListener (this);
-//    scene.oscScene.osc1.dial3.setSliderStyle (Slider::RotaryVerticalDrag);
-//    scene.oscScene.osc1.dial3.setRange(0.0, 1.0);
-//    scene.oscScene.osc1.dial3.setTextBoxStyle(Slider::NoTextBox, false, 90, 0);
-//    scene.oscScene.osc1.dial3.setPopupDisplayEnabled(true, this);
-//    scene.oscScene.osc1.dial3.setTextValueSuffix("Gain");
-//    scene.oscScene.osc1.dial3.setValue(1.0);
 
+    scene.oscScene.osc1.sineButton.setName("osc1Sine");
+    scene.oscScene.osc1.sineButton.addListener(this);
+    
+    scene.oscScene.osc1.sawButton.setName("osc1Saw");
+    scene.oscScene.osc1.sawButton.addListener(this);
+    
+    scene.oscScene.osc1.squareButton.setName("osc1Square");
+    scene.oscScene.osc1.squareButton.addListener(this);
     
     //OSC 2
     scene.oscScene.osc2.dial1.setName("osc2FilterCutoff");
@@ -61,6 +49,15 @@ RapidSynthVstAudioProcessorEditor::RapidSynthVstAudioProcessorEditor (RapidSynth
     scene.oscScene.osc2.dial3.setName("osc2Gain");
     scene.oscScene.osc2.dial3.addListener (this);
     
+    scene.oscScene.osc2.sineButton.setName("osc2Sine");
+    scene.oscScene.osc2.sineButton.addListener(this);
+    
+    scene.oscScene.osc2.sawButton.setName("osc2Saw");
+    scene.oscScene.osc2.sawButton.addListener(this);
+    
+    scene.oscScene.osc2.squareButton.setName("osc2Square");
+    scene.oscScene.osc2.squareButton.addListener(this);
+    
     //OSC 3
     scene.oscScene.osc3.dial1.setName("osc3FilterCutoff");
     scene.oscScene.osc3.dial1.addListener (this);
@@ -70,6 +67,15 @@ RapidSynthVstAudioProcessorEditor::RapidSynthVstAudioProcessorEditor (RapidSynth
     
     scene.oscScene.osc3.dial3.setName("osc3Gain");
     scene.oscScene.osc3.dial3.addListener (this);
+    
+    scene.oscScene.osc3.sineButton.setName("osc3Sine");
+    scene.oscScene.osc3.sineButton.addListener(this);
+    
+    scene.oscScene.osc3.sawButton.setName("osc3Saw");
+    scene.oscScene.osc3.sawButton.addListener(this);
+    
+    scene.oscScene.osc3.squareButton.setName("osc3Square");
+    scene.oscScene.osc3.squareButton.addListener(this);
 
     //LFO 1
     scene.modScene.lfo.dial1.setName("LFO1Freq");
@@ -82,13 +88,13 @@ RapidSynthVstAudioProcessorEditor::RapidSynthVstAudioProcessorEditor (RapidSynth
     scene.modScene.lfo.dial3.addListener (this);
 
     //FILTER
-    scene.modScene.filter.cutoffFrequencySlider.setName("VCOcutoff");
-    scene.modScene.filter.cutoffFrequencySlider.addListener(this);
+//    scene.modScene.filter.cutoffFrequencySlider.setName("VCOcutoff");
+//    scene.modScene.filter.cutoffFrequencySlider.addListener(this);
     
     //ENVELOPE
-    scene.modScene.envelope.MLSlider.addListener(this);
-    scene.modScene.envelope.trainButton.addListener(this);
-    scene.modScene.envelope.addButton.addListener(this);
+//    scene.modScene.envelope.MLSlider.addListener(this);
+//    scene.modScene.envelope.trainButton.addListener(this);
+//    scene.modScene.envelope.addButton.addListener(this);
     
     scene.XY.button1.addListener(this);
 }
@@ -203,13 +209,14 @@ void RapidSynthVstAudioProcessorEditor::sliderValueChanged(Slider* slider){
     }
     else if (slider->getName() == "LFO1Gain")
     {
-        setParameterValue("LFO1Gain", scene.modScene.lfo.dial2.getValue());
+        setParameterValue("VCOcutoff", scene.modScene.lfo.dial2.getValue());
     }
     
     //FILTER
 //    else if (slider->getName() == "VCOcutoff")
 //    {
 //        setParameterValue("VCOcutoff", scene.modScene.filter.cutoffFrequencySlider.getValue());
+//        std::cout<<scene.modScene.filter.cutoffFrequencySlider.getValue()<<std::endl;
 //    }
     
     //GAIN
@@ -223,6 +230,70 @@ void RapidSynthVstAudioProcessorEditor::sliderValueChanged(Slider* slider){
 //=============================================================================
 void RapidSynthVstAudioProcessorEditor:: buttonClicked (Button* button)
 {
+    //OSC 1
+    if (button->getName() == "osc1Sine")
+    {
+        setParameterValue("osc1Sine", true);
+        setParameterValue("osc1Saw", false);
+        setParameterValue("osc1Square", false);
+
+    } else if (button->getName() == "osc1Saw")
+    {
+        setParameterValue("osc1Saw", true);
+        setParameterValue("osc1Sine", false);
+        setParameterValue("osc1Square", false);
+        
+    } else if (button->getName() == "osc1Square")
+    {
+        setParameterValue("osc1Square", true);
+        setParameterValue("osc1Saw", false);
+        setParameterValue("osc1Sine", false);
+
+    }
+    
+    //OSC 2
+    if (button->getName() == "osc2Sine")
+    {
+        setParameterValue("osc2Sine", true);
+        setParameterValue("osc2Saw", false);
+        setParameterValue("osc2Square", false);
+
+
+    } else if (button->getName() == "osc2Saw")
+    {
+        setParameterValue("osc2Saw", true);
+        setParameterValue("osc2Sine", false);
+        setParameterValue("osc2Square", false);
+
+    } else if (button->getName() == "osc2Square")
+    {
+        setParameterValue("osc2Square", true);
+        setParameterValue("osc2Saw", false);
+        setParameterValue("osc2Sine", false);
+
+    }
+    
+    //OSC 3
+    if (button->getName() == "osc3Sine")
+    {
+        setParameterValue("osc3Sine", true);
+        setParameterValue("osc3Saw", false);
+        setParameterValue("osc3Square", false);
+        
+    } else if (button->getName() == "osc3Saw")
+    {
+        setParameterValue("osc3Saw", true);
+        setParameterValue("osc3Sine", false);
+        setParameterValue("osc3Square", false);
+
+    } else if (button->getName() == "osc3Square")
+    {
+        setParameterValue("osc3Square", true);
+        setParameterValue("osc3Saw", false);
+        setParameterValue("osc3Sine", false);
+
+    }
+    
     //    if(button == &scene.modScene.envelope.trainButton)
     //    {
     ////        if (trainingSet.size() > 2)
