@@ -86,15 +86,35 @@ RapidSynthVstAudioProcessorEditor::RapidSynthVstAudioProcessorEditor (RapidSynth
 
     scene.modScene.lfo.dial3.setName("masterGain");
     scene.modScene.lfo.dial3.addListener (this);
+    
+    scene.modScene.lfo.sineButton.setName("LFO1Sine");
+    scene.modScene.lfo.sineButton.addListener(this);
+    
+    scene.modScene.lfo.sawButton.setName("LFO1Saw");
+    scene.modScene.lfo.sawButton.addListener(this);
+    
+    scene.modScene.lfo.squareButton.setName("LFO1Square");
+    scene.modScene.lfo.squareButton.addListener(this);
 
     //FILTER
-//    scene.modScene.filter.cutoffFrequencySlider.setName("VCOcutoff");
-//    scene.modScene.filter.cutoffFrequencySlider.addListener(this);
+    scene.modScene.filter.dial1.setName("VCOCutoff");
+    scene.modScene.filter.dial1.addListener(this);
+    
+    scene.modScene.filter.dial2.setName("VCORes");
+    scene.modScene.filter.dial2.addListener(this);
     
     //ENVELOPE
-//    scene.modScene.envelope.MLSlider.addListener(this);
-//    scene.modScene.envelope.trainButton.addListener(this);
-//    scene.modScene.envelope.addButton.addListener(this);
+    scene.modScene.envelope.ADSR1Attack.setName("ADSR1Attack");
+    scene.modScene.envelope.ADSR1Attack.addListener(this);
+    
+    scene.modScene.envelope.ADSR1Decay.setName("ADSR1Decay");
+    scene.modScene.envelope.ADSR1Decay.addListener(this);
+    
+    scene.modScene.envelope.ADSR1Sustain.setName("ADSR1Sustain");
+    scene.modScene.envelope.ADSR1Sustain.addListener(this);
+    
+    scene.modScene.envelope.ADSR1Release.setName("ADSR1Release");
+    scene.modScene.envelope.ADSR1Release.addListener(this);
     
     scene.XY.button1.addListener(this);
 }
@@ -178,52 +198,79 @@ void RapidSynthVstAudioProcessorEditor::sliderValueChanged(Slider* slider){
     {
         setParameterValue("osc2FilterCutoff", scene.oscScene.osc2.dial1.getValue());
     }
-    else if (slider->getName() == "osc2Detune")
+    if (slider->getName() == "osc2Detune")
     {
         setParameterValue("osc2Detune", scene.oscScene.osc2.dial2.getValue());
     }
-    else if (slider->getName() == "osc2Gain")
+    if (slider->getName() == "osc2Gain")
     {
         setParameterValue("osc2Gain", scene.oscScene.osc2.dial3.getValue());
     }
 
     //OSC 3
-    else if (slider->getName() == "osc3FilterCutoff")
+    if (slider->getName() == "osc3FilterCutoff")
     {
         setParameterValue("osc3FilterCutoff", scene.oscScene.osc3.dial1.getValue());
     }
 
-    else if (slider->getName() == "osc3Detune")
+    if (slider->getName() == "osc3Detune")
     {
         setParameterValue("osc3Detune", scene.oscScene.osc3.dial2.getValue());
     }
-    else if (slider->getName() == "osc3Gain")
+    if (slider->getName() == "osc3Gain")
     {
         setParameterValue("osc3Gain", scene.oscScene.osc3.dial3.getValue());
     }
 
     //LFO
-    else if (slider->getName() == "LFO1Freq")
+    if (slider->getName() == "LFO1Freq")
     {
         setParameterValue("LFO1Freq", scene.modScene.lfo.dial1.getValue());
     }
-    else if (slider->getName() == "LFO1Gain")
+    if (slider->getName() == "LFO1Gain")
     {
-        setParameterValue("VCOcutoff", scene.modScene.lfo.dial2.getValue());
+        setParameterValue("LFO1Gain", scene.modScene.lfo.dial2.getValue());
+//        if(scene.modScene.lfo.dial2.getValue() > 0)
+//        {
+//            processor.LFO1ModVCOCutoff = true;
+//        }
     }
     
-    //FILTER
-//    else if (slider->getName() == "VCOcutoff")
-//    {
-//        setParameterValue("VCOcutoff", scene.modScene.filter.cutoffFrequencySlider.getValue());
-//        std::cout<<scene.modScene.filter.cutoffFrequencySlider.getValue()<<std::endl;
-//    }
-    
     //GAIN
-    else if (slider->getName() == "masterGain")
+    if (slider->getName() == "masterGain")
     {
         setParameterValue("masterGain", scene.modScene.lfo.dial3.getValue());
     }
+    
+    //FILTER
+    if (slider->getName() == "VCOCutoff")
+    {
+        setParameterValue("VCOCutoff", scene.modScene.filter.dial1.getValue());
+    }
+    if (slider->getName() == "VCORes")
+    {
+        setParameterValue("VCORes", scene.modScene.filter.dial2.getValue());
+    }
+    
+    //ENVELOPE
+    if (slider->getName() == "ADSR1Attack")
+    {
+        setParameterValue("ADSR1Attack", scene.modScene.envelope.ADSR1Attack.getValue());
+        std::cout << "attack" << std::endl; 
+    }
+    if (slider->getName() == "ADSR1Decay")
+    {
+        setParameterValue("ADSR1Decay", scene.modScene.envelope.ADSR1Decay.getValue());
+    }
+    if (slider->getName() == "ADSR1Sustain")
+    {
+        setParameterValue("ADSR1Sustain", scene.modScene.envelope.ADSR1Sustain.getValue());
+    }
+    if (slider->getName() == "ADSR1Release")
+    {
+        setParameterValue("ADSR1Release", scene.modScene.envelope.ADSR1Release.getValue());
+    }
+    
 }
 
 //** BUTTONS **//
@@ -294,20 +341,21 @@ void RapidSynthVstAudioProcessorEditor:: buttonClicked (Button* button)
 
     }
     
-    //    if(button == &scene.modScene.envelope.trainButton)
-    //    {
-    ////        if (trainingSet.size() > 2)
-    ////        {
-    ////            trained = rapidRegression.train(trainingSet);
-    ////            std::cout << "trained" << std::endl;
-    ////        }
-    //    }
-    //
-    //    if(button == &scene.modScene.envelope.addButton)
-    //    {
-    ////        trainingExample example;
-    ////        example.input = {MLSliderVal};
-    ////        example.output = { };
-    ////        trainingSet.push_back(example);
-    //    }
+    //LFO 1
+    if (button->getName() == "LFO1Sine")
+    {
+        setParameterValue("LFO1Sine", true);
+        setParameterValue("LFO1Saw", false);
+        setParameterValue("LFO1Square", false);
+    } else if (button->getName() == "LFO1Saw")
+    {
+        setParameterValue("LFO1Saw", true);
+        setParameterValue("LFO1Sine", false);
+        setParameterValue("LFO1Square", false);
+    } else if (button->getName() == "LFO1Square")
+    {
+        setParameterValue("LFO1Square", true);
+        setParameterValue("LFO1Sine", false);
+        setParameterValue("LFO1Saw", false);
+    }
 }

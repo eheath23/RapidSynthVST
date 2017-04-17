@@ -48,7 +48,7 @@ RapidSynthVstAudioProcessor::RapidSynthVstAudioProcessor()
     addParameter(LFO1Freq = new AudioParameterFloat("LFO1Freq", "LFO1 Freq", 0, 20, 0));
     addParameter(LFO1Gain = new AudioParameterFloat("LFO1Gain", "LFO1 Gain", 0, 1, 0));
     
-    addParameter(VCOcutoff = new AudioParameterFloat("VCOcutoff", "VCO Cutoff", 1, 5000, 5000));
+    addParameter(VCOCutoff = new AudioParameterFloat("VCOCutoff", "VCO Cutoff", 1, 5000, 5000));
     addParameter(masterGain = new AudioParameterFloat("masterGain", "Master Gain", 0, 1, 1));
     
     addParameter(ADSR1Attack = new AudioParameterFloat("ADSR1Attack", "ADSR1 Attack", 0, 10000, 1000));
@@ -67,6 +67,10 @@ RapidSynthVstAudioProcessor::RapidSynthVstAudioProcessor()
     addParameter(osc3Sine = new AudioParameterBool("osc3Sine", "osc3 Sine", true, "osc3 sine"));
     addParameter(osc3Saw = new AudioParameterBool("osc3Saw", "osc3 Saw", false, "osc3 saw"));
     addParameter(osc3Square = new AudioParameterBool("osc3Square", "osc3 Square", false, "osc3 square"));
+    
+    addParameter(LFO1Sine = new AudioParameterBool("LFO1Sine", "LFO1 Sine", true, "LFO1 sine"));
+    addParameter(LFO1Saw = new AudioParameterBool("LFO1Saw", "LFO1 Saw", false, "LFO1 saw"));
+    addParameter(LFO1Square = new AudioParameterBool("LFO1Square", "LFO1 Square", false, "LFO1 square"));
     
     addParameter(VCORes = new AudioParameterFloat("VCORes", "VCO Res", 0, 1, 0));
     
@@ -191,7 +195,7 @@ void RapidSynthVstAudioProcessor::processBlock (AudioSampleBuffer& buffer, MidiB
                                         osc3Gain->get(),
                                         LFO1Freq->get(),
                                         LFO1Gain->get(),
-                                        VCOcutoff->get(),
+                                        VCOCutoff->get(),
                                         masterGain->get(),
                                         ADSR1Attack->get(),
                                         ADSR1Decay->get(),
@@ -206,6 +210,9 @@ void RapidSynthVstAudioProcessor::processBlock (AudioSampleBuffer& buffer, MidiB
                                         osc3Sine->get(),
                                         osc3Saw->get(),
                                         osc3Square->get(),
+                                        LFO1Sine->get(),
+                                        LFO1Saw->get(),
+                                        LFO1Square->get(),
                                         VCORes->get());
         }
     }

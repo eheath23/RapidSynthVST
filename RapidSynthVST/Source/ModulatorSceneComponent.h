@@ -32,8 +32,8 @@ public:
         
         lfo.dial1.setSliderStyle (Slider::RotaryVerticalDrag);
         lfo.dial1.setTextBoxStyle (Slider::NoTextBox, false, 0, 0);
-        lfo.dial1.setRange (0, 20.0);
-        lfo.dial1.setValue(1);
+        lfo.dial1.setRange (0, 1);
+        lfo.dial1.setValue(0);
         lfo.dial1Label.setText ("LFO Rate", dontSendNotification);
         
         lfo.dial2.setSliderStyle (Slider::RotaryVerticalDrag);
@@ -48,10 +48,13 @@ public:
         lfo.dial3.setValue(1.0);
         lfo.dial3Label.setText ("Master Gain", dontSendNotification);
         
+        filter.dial2.setRange(0, 10);
         filter.dial1Label.setText ("Filter Cutoff", dontSendNotification);
         filter.dial2Label.setText ("Filter Resonance", dontSendNotification);
-        filter.dial3Label.setText ("", dontSendNotification);
-                
+        
+        //Remove Unused Dials 
+        filter.removeChildComponent(&filter.dial3);
+        filter.removeChildComponent(&filter.dial3Label);
         filter.removeChildComponent(&filter.sineButton);
         filter.removeChildComponent(&filter.sawButton);
         filter.removeChildComponent(&filter.squareButton);

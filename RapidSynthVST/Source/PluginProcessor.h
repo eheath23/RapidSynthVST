@@ -38,7 +38,7 @@ public:
     mOsc1FilterCutoff(5000),
     mOsc2FilterCutoff(5000),
     mOsc3FilterCutoff(5000),
-    mVCOcutoff(500),
+    mVCOCutoff(500),
     mVCORes(0),
     mADSR1Attack(0),
     mADSR1Decay(1),
@@ -53,7 +53,10 @@ public:
     mOsc2Square(false),
     mOsc3Sine(true),
     mOsc3Saw(false),
-    mOsc3Square(false)
+    mOsc3Square(false),
+    mLFO1Sine(true),
+    mLFO1Saw(false),
+    mLFO1Square(false)
     
     
     {
@@ -71,7 +74,7 @@ public:
                         double osc3Gain,
                         double LFO1Freq,
                         double LFO1Gain,
-                        double VCOcutoff,
+                        double VCOCutoff,
                         double masterGain,
                         double ADSR1Attack,
                         double ADSR1Decay,
@@ -86,6 +89,9 @@ public:
                         bool osc3Sine,
                         bool osc3Saw,
                         bool osc3Square,
+                        bool LFO1Sine,
+                        bool LFO1Saw,
+                        bool LFO1Square,
                         double VCORes)
     {
         mOsc1FilterCutoff = osc1FilterCutoff;
@@ -111,8 +117,11 @@ public:
         
         mLFO1Freq = LFO1Freq;
         mLFO1Gain = LFO1Gain;
+        mLFO1Sine = LFO1Sine;
+        mLFO1Saw = LFO1Saw;
+        mLFO1Square = LFO1Square;
         
-        mVCOcutoff = VCOcutoff;
+        mVCOCutoff = VCOCutoff;
         mMasterGain = masterGain;
         mVCORes = VCORes;
         
@@ -125,6 +134,7 @@ public:
         ADSR1.setDecay(mADSR1Decay);
         ADSR1.setSustain(mADSR1Sustain);
         ADSR1.setRelease(mADSR1Release);
+        
     }
     
     bool canPlaySound (SynthesiserSound* sound) override
@@ -222,7 +232,14 @@ public:
             mOsc2FilterOut = osc2Filter.lores(mOsc2Out, mOsc2FilterCutoff, 0);
             mOsc3FilterOut = osc3Filter.lores(mOsc3Out, mOsc3FilterCutoff, 0);
             
-            mVCFout = VCF.lores((mOsc1FilterOut + mOsc2FilterOut + mOsc3FilterOut) * 0.3, mVCOcutoff, mVCORes);
+            //LFO 1 MODULATING VCO CUTOFF
+            if (mLFO1Gain > 0)
+            {
+                mVCFout = VCF.lores((mOsc1FilterOut + mOsc2FilterOut + mOsc3FilterOut) * 0.3, mVCOCutoff * mLFO1Out, mVCORes);
+            } else if (mLFO1Gain == 0)
+            {
+            mVCFout = VCF.lores((mOsc1FilterOut + mOsc2FilterOut + mOsc3FilterOut) * 0.3, mVCOCutoff, mVCORes);
+            }
             
             mCSample = mVCFout * mMasterGain * mADSR1Out;
             
@@ -251,7 +268,7 @@ public:
     double                       mOsc1Gain, mOsc2Gain, mOsc3Gain, mLFO1Gain, mLFO2Gain;
     double                       mOsc1Out, mOsc2Out, mOsc3Out, mLFO1Out, mLFO2Out;
     double                       mOsc1FilterOut, mOsc2FilterOut, mOsc3FilterOut, mVCFout;
-    double                       mOsc1FilterCutoff, mOsc2FilterCutoff, mOsc3FilterCutoff, mVCOcutoff, mVCORes;
+    double                       mOsc1FilterCutoff, mOsc2FilterCutoff, mOsc3FilterCutoff, mVCOCutoff, mVCORes;
     double                       mADSR1Out, mADSR1Attack, mADSR1Decay, mADSR1Sustain, mADSR1Release;
     double                       mLFO1Freq, mLFO2Freq;
     double                       mOutputs[2];
@@ -261,6 +278,7 @@ public:
     bool mOsc3Sine, mOsc3Saw, mOsc3Square;
     bool mLFO1Sine, mLFO1Saw, mLFO1Square;
     bool mLFO2Sine, mLFO2Saw, mLFO2Square;
+    bool mLFO1ModVCOCutoff;
     
     maxiOsc                      osc1, osc2, osc3, LFO1, LFO2;
     maxiFilter                   osc1Filter, osc2Filter, osc3Filter, VCF;
@@ -325,7 +343,7 @@ public:
     AudioParameterFloat* LFO1Freq;
     AudioParameterFloat* LFO1Gain;
     
-    AudioParameterFloat* VCOcutoff;
+    AudioParameterFloat* VCOCutoff;
     AudioParameterFloat* masterGain;
     
     AudioParameterFloat* ADSR1Attack;
@@ -344,6 +362,10 @@ public:
     AudioParameterBool* osc3Sine;
     AudioParameterBool* osc3Saw;
     AudioParameterBool* osc3Square;
+    
+    AudioParameterBool* LFO1Sine;
+    AudioParameterBool* LFO1Saw;
+    AudioParameterBool* LFO1Square;
     
     AudioParameterFloat* VCORes;
     
