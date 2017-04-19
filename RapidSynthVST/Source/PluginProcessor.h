@@ -64,13 +64,13 @@ public:
     }
 
     void setParameters (double osc1FilterCutoff,
-                        double osc1Detune,
+                        int osc1Detune,
                         double osc1Gain,
                         double osc2FilterCutoff,
-                        double osc2Detune,
+                        int osc2Detune,
                         double osc2Gain,
                         double osc3FilterCutoff,
-                        double osc3Detune,
+                        int osc3Detune,
                         double osc3Gain,
                         double LFO1Freq,
                         double LFO1Gain,
@@ -147,7 +147,12 @@ public:
                     SynthesiserSound*,
                     int) override
     {
-        mFreq = MidiMessage::getMidiNoteInHertz(midiNoteNumber);
+        mFreq = midiNoteNumber;
+        
+//        mOsc1Freq = MidiMessage::getMidiNoteInHertz(midiNoteNumber + mOsc1Detune);
+//        mOsc2Freq = MidiMessage::getMidiNoteInHertz(midiNoteNumber + mOsc2Detune);
+//        mOsc3Freq = MidiMessage::getMidiNoteInHertz(midiNoteNumber + mOsc3Detune);
+        
         level = velocity;
         ADSR1.trigger = 1;
     }
@@ -157,6 +162,11 @@ public:
         ADSR1.trigger = 0;
         level = 0;
         clearCurrentNote();
+    }
+        
+    double midiToFreq (int detune)
+    {
+        return MidiMessage::getMidiNoteInHertz(mFreq + detune);
     }
     
     void renderNextBlock (AudioSampleBuffer& outputBuffer,
@@ -171,37 +181,37 @@ public:
             //OSC 1 Waveform
             if(mOsc1Sine && !mOsc1Saw && !mOsc1Square)
             {
-                mOsc1Out = osc1.sinebuf(mFreq) * mOsc1Gain;
+                mOsc1Out = osc1.sinewave(midiToFreq(mOsc1Detune)) * mOsc1Gain;
             } else if (mOsc1Saw && !mOsc1Sine && !mOsc1Square)
             {
-                mOsc1Out = osc1.saw(mFreq) * mOsc1Gain;
+                mOsc1Out = osc1.saw(midiToFreq(mOsc1Detune)) * mOsc1Gain;
             } else if (mOsc1Square && !mOsc1Sine && !mOsc1Saw)
             {
-                mOsc1Out = osc1.square(mFreq) * mOsc1Gain;
+                mOsc1Out = osc1.square(midiToFreq(mOsc1Detune)) * mOsc1Gain;
             }
             
             //OSC 2 WAVEFORM
             if(mOsc2Sine && !mOsc2Saw && !mOsc2Square)
             {
-                mOsc2Out = osc2.sinebuf(mFreq) * mOsc2Gain;
+                mOsc2Out = osc2.sinewave(midiToFreq(mOsc2Detune)) * mOsc2Gain;
             } else if (mOsc2Saw && !mOsc2Sine && !mOsc2Square)
             {
-                mOsc2Out = osc2.saw(mFreq) * mOsc2Gain;
+                mOsc2Out = osc2.saw(midiToFreq(mOsc2Detune)) * mOsc2Gain;
             } else if (mOsc2Square && !mOsc2Sine && !mOsc2Saw)
             {
-                mOsc2Out = osc2.square(mFreq) * mOsc2Gain;
+                mOsc2Out = osc2.square(midiToFreq(mOsc2Detune)) * mOsc2Gain;
             }
             
             //OSC 3 WAVEFORM
             if(mOsc3Sine && !mOsc3Saw && !mOsc3Square)
             {
-                mOsc3Out = osc3.sinebuf(mFreq) * mOsc3Gain;
+                mOsc3Out = osc3.sinewave(midiToFreq(mOsc3Detune)) * mOsc3Gain;
             } else if (mOsc3Saw && !mOsc3Sine && !mOsc3Square)
             {
-                mOsc3Out = osc3.saw(mFreq) * mOsc3Gain;
+                mOsc3Out = osc3.saw(midiToFreq(mOsc3Detune)) * mOsc3Gain;
             } else if (mOsc3Square && !mOsc3Sine && !mOsc3Saw)
             {
-                mOsc3Out = osc3.square(mFreq) * mOsc3Gain;
+                mOsc3Out = osc3.square(midiToFreq(mOsc3Detune)) * mOsc3Gain;
             }
             
             //LFO 1 WAVEFORM
@@ -262,9 +272,10 @@ public:
     private:
     double                       level;
     double                       mCSample;
-    double                       mFreq;
+    double                       mFreq, mOsc1Freq, mOsc2Freq, mOsc3Freq;
     double                       mMasterGain;
-    double                       mOsc1Detune, mOsc2Detune, mOsc3Detune;
+    int                          mOsc1Detune, mOsc2Detune, mOsc3Detune;
+        double                       mOsc1DetuneFreq, mOsc2DetuneFreq, mOsc3DetuneFreq;
     double                       mOsc1Gain, mOsc2Gain, mOsc3Gain, mLFO1Gain, mLFO2Gain;
     double                       mOsc1Out, mOsc2Out, mOsc3Out, mLFO1Out, mLFO2Out;
     double                       mOsc1FilterOut, mOsc2FilterOut, mOsc3FilterOut, mVCFout;
@@ -329,15 +340,15 @@ public:
 
     double lastSampleRate;
     AudioParameterFloat* osc1FilterCutoff;
-    AudioParameterFloat* osc1Detune;
+    AudioParameterInt* osc1Detune;
     AudioParameterFloat* osc1Gain;
     
     AudioParameterFloat* osc2FilterCutoff;
-    AudioParameterFloat* osc2Detune;
+    AudioParameterInt* osc2Detune;
     AudioParameterFloat* osc2Gain;
     
     AudioParameterFloat* osc3FilterCutoff;
-    AudioParameterFloat* osc3Detune;
+    AudioParameterInt* osc3Detune;
     AudioParameterFloat* osc3Gain;
     
     AudioParameterFloat* LFO1Freq;

@@ -48,7 +48,7 @@ public:
         lfo.dial3.setValue(1.0);
         lfo.dial3Label.setText ("Master Gain", dontSendNotification);
         
-        filter.dial2.setRange(0, 10);
+        filter.dial2.setRange(0, 1.0);
         filter.dial1Label.setText ("Filter Cutoff", dontSendNotification);
         filter.dial2Label.setText ("Filter Resonance", dontSendNotification);
         

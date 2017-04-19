@@ -33,8 +33,8 @@ public:
         
         dial2.setSliderStyle (Slider::RotaryVerticalDrag);
         dial2.setTextBoxStyle (Slider::TextBoxBelow, false, 0, 0);
-        dial2.setRange (-12.0, 12.0, 1);
-        dial2.setValue(0);
+        dial2.setRange (0, 1);
+        dial2.setValue(0.5);
         addAndMakeVisible(dial2);
         
         addAndMakeVisible (dial2Label);
