@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<JUCERPROJECT id="ENp4Pg" name="VSTExample" projectType="audioplug" version="1.0.0"
+              bundleIdentifier="com.yourcompany.VSTExample" includeBinaryInAppConfig="1"
+              buildVST="1" buildVST3="0" buildAU="1" buildAUv3="0" buildRTAS="0"
+              buildAAX="0" pluginName="VSTExample" pluginDesc="VSTExample"
+              pluginManufacturer="yourcompany" pluginManufacturerCode="Manu"
+              pluginCode="Enp4" pluginChannelConfigs="" pluginIsSynth="1" pluginWantsMidiIn="1"
+              pluginProducesMidiOut="0" pluginIsMidiEffectPlugin="0" pluginEditorRequiresKeys="0"
+              pluginAUExportPrefix="VSTExampleAU" pluginRTASCategory="" aaxIdentifier="com.yourcompany.VSTExample"
+              pluginAAXCategory="AAX_ePlugInCategory_Dynamics" jucerVersion="4.3.1">
+  <MAINGROUP id="hJ8f3D" name="VSTExample">
+    <GROUP id="{B0E4B29D-A47A-71AC-13DF-F301A06A59C3}" name="MaxiLib">
+      <FILE id="IdzTnS" name="fft.cpp" compile="1" resource="0" file="../MaxiLib/fft.cpp"/>
+      <FILE id="ILJst7" name="fft.h" compile="0" resource="0" file="../MaxiLib/fft.h"/>
+      <FILE id="tDJZB1" name="maxiFFT.cpp" compile="1" resource="0" file="../MaxiLib/maxiFFT.cpp"/>
+      <FILE id="saBQmK" name="maxiFFT.h" compile="0" resource="0" file="../MaxiLib/maxiFFT.h"/>
+      <FILE id="BcP4sZ" name="maximilian.cpp" compile="1" resource="0" file="../MaxiLib/maximilian.cpp"/>
+      <FILE id="nbT9Eb" name="maximilian.h" compile="0" resource="0" file="../MaxiLib/maximilian.h"/>
+    </GROUP>
+    <GROUP id="{38261B6F-CC2A-83B6-7313-213C5A4A293E}" name="Source">
+      <FILE id="MC9Lkz" name="PluginProcessor.cpp" compile="1" resource="0"
+            file="Source/PluginProcessor.cpp"/>
+      <FILE id="Qt9fuc" name="PluginProcessor.h" compile="0" resource="0"
+            file="Source/PluginProcessor.h"/>
+      <FILE id="NLNTVI" name="PluginEditor.cpp" compile="1" resource="0"
+            file="Source/PluginEditor.cpp"/>
+      <FILE id="XZvA3B" name="PluginEditor.h" compile="0" resource="0" file="Source/PluginEditor.h"/>
+    </GROUP>
+  </MAINGROUP>
+  <EXPORTFORMATS>
+    <XCODE_MAC targetFolder="Builds/MacOSX" vst3Folder="">
+      <CONFIGURATIONS>
+        <CONFIGURATION name="Debug" isDebug="1" optimisation="1" targetName="VSTExample"/>
+        <CONFIGURATION name="Release" isDebug="0" optimisation="3" targetName="VSTExample"/>
+      </CONFIGURATIONS>
+      <MODULEPATHS>
+        <MODULEPATH id="juce_core" path="../../JUCE/modules"/>
+        <MODULEPATH id="juce_events" path="../../JUCE/modules"/>
+        <MODULEPATH id="juce_graphics" path="../../JUCE/modules"/>
+        <MODULEPATH id="juce_data_structures" path="../../JUCE/modules"/>
+        <MODULEPATH id="juce_gui_basics" path="../../JUCE/modules"/>
+        <MODULEPATH id="juce_gui_extra" path="../../JUCE/modules"/>
+        <MODULEPATH id="juce_cryptography" path="../../JUCE/modules"/>
+        <MODULEPATH id="juce_video" path="../../JUCE/modules"/>
+        <MODULEPATH id="juce_opengl" path="../../JUCE/modules"/>
+        <MODULEPATH id="juce_audio_basics" path="../../JUCE/modules"/>
+        <MODULEPATH id="juce_audio_devices" path="../../JUCE/modules"/>
+        <MODULEPATH id="juce_audio_formats" path="../../JUCE/modules"/>
+        <MODULEPATH id="juce_audio_processors" path="../../JUCE/modules"/>
+        <MODULEPATH id="juce_audio_plugin_client" path="../../JUCE/modules"/>
+      </MODULEPATHS>
+    </XCODE_MAC>
+  </EXPORTFORMATS>
+  <MODULES>
+    <MODULE id="juce_audio_basics" showAllCode="1" useLocalCopy="0"/>
+    <MODULE id="juce_audio_devices" showAllCode="1" useLocalCopy="0"/>
+    <MODULE id="juce_audio_formats" showAllCode="1" useLocalCopy="0"/>
+    <MODULE id="juce_audio_plugin_client" showAllCode="1" useLocalCopy="1"/>
+    <MODULE id="juce_audio_processors" showAllCode="1" useLocalCopy="0"/>
+    <MODULE id="juce_core" showAllCode="1" useLocalCopy="0"/>
+    <MODULE id="juce_cryptography" showAllCode="1" useLocalCopy="0"/>
+    <MODULE id="juce_data_structures" showAllCode="1" useLocalCopy="0"/>
+    <MODULE id="juce_events" showAllCode="1" useLocalCopy="0"/>
+    <MODULE id="juce_graphics" showAllCode="1" useLocalCopy="0"/>
+    <MODULE id="juce_gui_basics" showAllCode="1" useLocalCopy="0"/>
+    <MODULE id="juce_gui_extra" showAllCode="1" useLocalCopy="0"/>
+    <MODULE id="juce_opengl" showAllCode="1" useLocalCopy="0"/>
+    <MODULE id="juce_video" showAllCode="1" useLocalCopy="0"/>
+  </MODULES>
+  <JUCEOPTIONS JUCE_QUICKTIME="disabled"/>
+</JUCERPROJECT>

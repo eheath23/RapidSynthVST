@@ -168,7 +168,6 @@ public:
         //OSC 1 Dials
         if (slider == &scene.oscScene.osc1.dial1)
         {
-
             osc1FilterCutoff[cVoice] = scene.oscScene.osc1.dial1.getValue();
         }
         
