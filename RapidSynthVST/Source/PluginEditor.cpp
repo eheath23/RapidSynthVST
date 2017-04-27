@@ -11,6 +11,7 @@
 #include "PluginProcessor.h"
 #include "PluginEditor.h"
 
+
 //==============================================================================
 RapidSynthVstAudioProcessorEditor::RapidSynthVstAudioProcessorEditor (RapidSynthVstAudioProcessor& p)
     : AudioProcessorEditor (&p), processor (p)
@@ -116,7 +117,113 @@ RapidSynthVstAudioProcessorEditor::RapidSynthVstAudioProcessorEditor (RapidSynth
     scene.modScene.envelope.ADSR1Release.setName("ADSR1Release");
     scene.modScene.envelope.ADSR1Release.addListener(this);
     
+    //MACHINE LEARNING
+    scene.XY.button1.setName("MLButton1");
     scene.XY.button1.addListener(this);
+    
+    scene.XY.button2.setName("MLButton2");
+    scene.XY.button2.addListener(this);
+    
+    scene.XY.button3.setName("MLButton3");
+    scene.XY.button3.addListener(this);
+    
+    scene.XY.button4.setName("MLButton4");
+    scene.XY.button4.addListener(this);
+    
+    scene.XY.button5.setName("MLButtonMix");
+    scene.XY.button5.addListener(this);
+    
+    addAndMakeVisible(targetShape);
+    
+    //MACHINE LEARNING SETUP
+    //BUTTON 1
+    trainingExample1.input = { (double)scene.XY.button1.getX(), (double)scene.XY.button1.getY() };
+    trainingExample1.output = { osc1FilterCutoff,
+         osc1Detune,
+         osc1Gain,
+         osc2FilterCutoff,
+         osc2Detune,
+         osc2Gain,
+         osc3FilterCutoff,
+         osc3Detune,
+         osc3Gain,
+         LFO1Freq,
+         LFO1Gain,
+         VCOCutoff,
+         masterGain,
+         ADSR1Attack,
+         ADSR1Decay,
+         ADSR1Sustain,
+         ADSR1Release,
+         VCORes };
+    
+    //BUTTON 2
+    trainingExample2.input = { (double)scene.XY.button2.getX(), (double)scene.XY.button2.getY() };
+    trainingExample2.output = { osc1FilterCutoff,
+        osc1Detune,
+        osc1Gain,
+        osc2FilterCutoff,
+        osc2Detune,
+        osc2Gain,
+        osc3FilterCutoff,
+        osc3Detune,
+        osc3Gain,
+        LFO1Freq,
+        LFO1Gain,
+        VCOCutoff,
+        masterGain,
+        ADSR1Attack,
+        ADSR1Decay,
+        ADSR1Sustain,
+        ADSR1Release,
+        VCORes };
+    
+    //BUTTON 3
+    trainingExample3.input = { (double)scene.XY.button3.getX(), (double)scene.XY.button3.getY() };
+    trainingExample3.output = { osc1FilterCutoff,
+        osc1Detune,
+        osc1Gain,
+        osc2FilterCutoff,
+        osc2Detune,
+        osc2Gain,
+        osc3FilterCutoff,
+        osc3Detune,
+        osc3Gain,
+        LFO1Freq,
+        LFO1Gain,
+        VCOCutoff,
+        masterGain,
+        ADSR1Attack,
+        ADSR1Decay,
+        ADSR1Sustain,
+        ADSR1Release,
+        VCORes };
+    
+    //BUTTON 4
+    trainingExample4.input = { (double)scene.XY.button4.getX(), (double)scene.XY.button4.getY() };
+    trainingExample4.output = { osc1FilterCutoff,
+        osc1Detune,
+        osc1Gain,
+        osc2FilterCutoff,
+        osc2Detune,
+        osc2Gain,
+        osc3FilterCutoff,
+        osc3Detune,
+        osc3Gain,
+        LFO1Freq,
+        LFO1Gain,
+        VCOCutoff,
+        masterGain,
+        ADSR1Attack,
+        ADSR1Decay,
+        ADSR1Sustain,
+        ADSR1Release,
+        VCORes };
+    
+    trainingSet.resize(4);
+    trainingSet = { trainingExample1, trainingExample2, trainingExample3, trainingExample4 };
+    
+    targetShape.setBounds(200, 200, 25, 25);
 }
 
 RapidSynthVstAudioProcessorEditor::~RapidSynthVstAudioProcessorEditor()
@@ -133,11 +240,14 @@ void RapidSynthVstAudioProcessorEditor::resized()
 {
     // This is generally where you'll want to lay out the positions of any
     // subcomponents in your editor..
+    if(targetShape.myDragger.isDragging)
+    {
+        process = true;
+        targetMoved();
+    }
     
     auto r = getLocalBounds();
-    
     scene.setBounds(r);
-    
 }
 
 //=======================================================================
@@ -230,10 +340,6 @@ void RapidSynthVstAudioProcessorEditor::sliderValueChanged(Slider* slider){
     if (slider->getName() == "LFO1Gain")
     {
         setParameterValue("LFO1Gain", scene.modScene.lfo.dial2.getValue());
-//        if(scene.modScene.lfo.dial2.getValue() > 0)
-//        {
-//            processor.LFO1ModVCOCutoff = true;
-//        }
     }
     
     //GAIN
@@ -357,5 +463,181 @@ void RapidSynthVstAudioProcessorEditor:: buttonClicked (Button* button)
         setParameterValue("LFO1Square", true);
         setParameterValue("LFO1Sine", false);
         setParameterValue("LFO1Saw", false);
+    }
+    
+    //MACHINE LEARNING
+    if (button->getName() == "MLButton1")
+    {
+        trained = true;
+//        trainingSet[0][1][] =
+        trainingExample1.output = { osc1FilterCutoff,
+            osc1Detune,
+            osc1Gain,
+            osc2FilterCutoff,
+            osc2Detune,
+            osc2Gain,
+            osc3FilterCutoff,
+            osc3Detune,
+            osc3Gain,
+            LFO1Freq,
+            LFO1Gain,
+            VCOCutoff,
+            masterGain,
+            ADSR1Attack,
+            ADSR1Decay,
+            ADSR1Sustain,
+            ADSR1Release,
+            VCORes };
+        
+        trainingSet[0] = trainingExample1;
+        
+    } else if (button->getName() == "MLButton2")
+    {
+        trained = true;
+        
+        trainingExample2.output = { osc1FilterCutoff,
+            osc1Detune,
+            osc1Gain,
+            osc2FilterCutoff,
+            osc2Detune,
+            osc2Gain,
+            osc3FilterCutoff,
+            osc3Detune,
+            osc3Gain,
+            LFO1Freq,
+            LFO1Gain,
+            VCOCutoff,
+            masterGain,
+            ADSR1Attack,
+            ADSR1Decay,
+            ADSR1Sustain,
+            ADSR1Release,
+            VCORes };
+        
+        trainingSet[1] = trainingExample2;
+   
+    } else if (button->getName() == "MLButton3")
+    {
+        trained = true;
+        
+        trainingExample3.output = { osc1FilterCutoff,
+            osc1Detune,
+            osc1Gain,
+            osc2FilterCutoff,
+            osc2Detune,
+            osc2Gain,
+            osc3FilterCutoff,
+            osc3Detune,
+            osc3Gain,
+            LFO1Freq,
+            LFO1Gain,
+            VCOCutoff,
+            masterGain,
+            ADSR1Attack,
+            ADSR1Decay,
+            ADSR1Sustain,
+            ADSR1Release,
+            VCORes };
+        
+        trainingSet[2] = trainingExample3;
+        
+    } else if (button->getName() == "MLButton4")
+    {
+        trained = true;
+
+        trainingExample4.output = { osc1FilterCutoff,
+            osc1Detune,
+            osc1Gain,
+            osc2FilterCutoff,
+            osc2Detune,
+            osc2Gain,
+            osc3FilterCutoff,
+            osc3Detune,
+            osc3Gain,
+            LFO1Freq,
+            LFO1Gain,
+            VCOCutoff,
+            masterGain,
+            ADSR1Attack,
+            ADSR1Decay,
+            ADSR1Sustain,
+            ADSR1Release,
+            VCORes };
+        
+        trainingSet[3] = trainingExample4;
+        
+    } else if (button->getName() == "MLButtonMix")
+    {
+        
+    }
+}
+
+void RapidSynthVstAudioProcessorEditor::targetMoved()
+{
+    if (process)
+    {
+        if (trained)
+        {
+            std::vector<double> input =  { (double)targetShape.getX(), (double)targetShape.getY() };
+            std::vector<double> output = rapidRegression.process(input);
+            
+            //        targetModulationFrequency = output[0];
+            //        targetModulationDepth     = output[1];
+            //        targetCentreFrequency     = output[2];
+            //        targetResonance           = output[3];
+            
+            osc1FilterCutoff = output[0];
+            osc1Detune = output[1];
+            osc1Gain = output[2];
+            osc2FilterCutoff = output[3];
+            osc2Detune = output[4];
+            osc2Gain = output[5];
+            osc3FilterCutoff = output[6];
+            osc3Detune = output[7];
+            osc3Gain = output[8];
+            LFO1Freq = output[9];
+            LFO1Gain = output[10];
+            VCOCutoff = output[11];
+            masterGain = output[12];
+            ADSR1Attack = output[13];
+            ADSR1Decay = output[14];
+            ADSR1Sustain = output[15];
+            ADSR1Release = output[16];
+            VCORes = output[17];
+            
+            //        modulationFrequencySlider.setValue(targetModulationFrequency, dontSendNotification);
+            //        modulationIndexSlider.setValue(targetModulationDepth, dontSendNotification);
+            //        filterFrequencySlider.setValue(targetCentreFrequency, dontSendNotification);
+            //        filterResonanceSlider.setValue(targetResonance, dontSendNotification);
+            
+            scene.oscScene.osc1.dial1.setValue(osc1FilterCutoff);
+            scene.oscScene.osc1.dial2.setValue(osc1Detune);
+            scene.oscScene.osc1.dial3.setValue(osc1Gain);
+            
+            //OSC 2
+            scene.oscScene.osc2.dial1.setValue(osc2FilterCutoff);
+            scene.oscScene.osc2.dial2.setValue(osc2Detune);
+            scene.oscScene.osc2.dial3.setValue(osc2Gain);
+            
+            //OSC 3
+            scene.oscScene.osc3.dial1.setValue(osc3FilterCutoff);
+            scene.oscScene.osc3.dial2.setValue(osc3Detune);
+            scene.oscScene.osc3.dial3.setValue(osc3Gain);
+            
+            //LFO 1
+            scene.modScene.lfo.dial1.setValue(LFO1Freq);
+            scene.modScene.lfo.dial2.setValue(LFO1Gain);
+            scene.modScene.lfo.dial3.setValue(masterGain);
+            
+            //FILTER
+            scene.modScene.filter.dial1.setValue(VCOCutoff);
+            scene.modScene.filter.dial2.setValue(VCORes);
+            
+            //ENVELOPE
+            scene.modScene.envelope.ADSR1Attack.setValue(ADSR1Attack);
+            scene.modScene.envelope.ADSR1Decay.setValue(ADSR1Decay);
+            scene.modScene.envelope.ADSR1Sustain.setValue(ADSR1Sustain);
+            scene.modScene.envelope.ADSR1Release.setValue(ADSR1Release);
+        }
     }
 }

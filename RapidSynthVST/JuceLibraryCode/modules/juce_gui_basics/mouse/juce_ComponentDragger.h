@@ -63,6 +63,7 @@ public:
     /** Destructor. */
     virtual ~ComponentDragger();
 
+    bool isDragging;
     //==============================================================================
     /** Call this from your component's mouseDown() method, to prepare for dragging.
 

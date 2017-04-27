@@ -148,11 +148,6 @@ public:
                     int) override
     {
         mFreq = midiNoteNumber;
-        
-//        mOsc1Freq = MidiMessage::getMidiNoteInHertz(midiNoteNumber + mOsc1Detune);
-//        mOsc2Freq = MidiMessage::getMidiNoteInHertz(midiNoteNumber + mOsc2Detune);
-//        mOsc3Freq = MidiMessage::getMidiNoteInHertz(midiNoteNumber + mOsc3Detune);
-        
         level = velocity;
         ADSR1.trigger = 1;
     }
@@ -237,6 +232,8 @@ public:
             {
                 mLFO2Out = LFO2.square(mLFO2Freq) * mLFO2Gain;
             }
+            
+            //OSCILLATOR FILTERS
             
             mOsc1FilterOut = osc1Filter.lores(mOsc1Out, mOsc1FilterCutoff, 0);
             mOsc2FilterOut = osc2Filter.lores(mOsc2Out, mOsc2FilterCutoff, 0);

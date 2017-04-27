@@ -13,6 +13,8 @@
 
 #include "../JuceLibraryCode/JuceHeader.h"
 #include "PluginProcessor.h"
+#include "RapidLib/regression.h"
+#include <array>
 
 #include "SceneComponent.h"
 
@@ -29,10 +31,12 @@ public:
     ~RapidSynthVstAudioProcessorEditor();
 
     //==============================================================================
+    
     void paint (Graphics&) override;
     void resized() override;
     void sliderValueChanged (Slider* slider) override;
     void buttonClicked (Button* button) override;
+    void targetMoved ();
     
     SceneComponent scene;
     
@@ -41,12 +45,85 @@ public:
     AudioProcessorParameter* getParameter (const String& paramId);
     float                    getParameterValue (const String& paramId);
     void                     setParameterValue (const String& paramId, float value);
+    
+    /*** MACHINE LEARNING ***/
+    // Rapid regression
+    regression                   rapidRegression;
+    std::vector<trainingExample> trainingSet;
+    trainingExample              trainingExample1, trainingExample2, trainingExample3, trainingExample4;
+    
+    // Output Params
+    double osc1FilterCutoff;
+    double osc1Detune;
+    double osc1Gain;
+    double osc2FilterCutoff;
+    double osc2Detune;
+    double osc2Gain;
+    double osc3FilterCutoff;
+    double osc3Detune;
+    double osc3Gain;
+    double LFO1Freq;
+    double LFO1Gain;
+    double VCOCutoff;
+    double masterGain;
+    double ADSR1Attack;
+    double ADSR1Decay;
+    double ADSR1Sustain;
+    double ADSR1Release;
+//    bool osc1Sine;
+//    bool osc1Saw;
+//    bool osc1Square;
+//    bool osc2Sine;
+//    bool osc2Saw;
+//    bool osc2Square;
+//    bool osc3Sine;
+//    bool osc3Saw;
+//    bool osc3Square;
+//    bool LFO1Sine;
+//    bool LFO1Saw;
+//    bool LFO1Square;
+    double VCORes;
+    
+    // Program state
+    bool                         trained;
+    bool                         process;
+
+    ComponentBoundsConstrainer componentBoundsConstrainer;
+    
+    struct TargetShape : public Component
+    {
+        ComponentDragger myDragger;
         
+        void paint(Graphics& g) override
+        {
+            g.fillAll(Colours::red);
+        }
+        
+        void mouseDown(const MouseEvent& _event) override
+        {
+            myDragger.startDraggingComponent (this, _event);
+        }
+        
+        void mouseDrag (const MouseEvent& _event) override
+        {
+            myDragger.dragComponent (this, _event, nullptr);
+//            if(myDragger.isDragging)
+//            {
+//                process = true;
+//            } else {
+//                process = false;
+//            }
+        }
+        
+    };
+
+    TargetShape targetShape;
     RapidSynthVstAudioProcessor& processor;
     
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (RapidSynthVstAudioProcessorEditor)
 };
+
 
 
 #endif  // PLUGINEDITOR_H_INCLUDED
