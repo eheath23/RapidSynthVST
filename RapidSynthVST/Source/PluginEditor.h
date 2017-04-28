@@ -13,7 +13,7 @@
 
 #include "../JuceLibraryCode/JuceHeader.h"
 #include "PluginProcessor.h"
-#include "RapidLib/regression.h"
+#include "RapidLib/src/regression.h"
 #include <array>
 #include <math.h>
 
@@ -35,37 +35,13 @@ public:
     ~RapidSynthVstAudioProcessorEditor();
 
     //==============================================================================
-    class TargetShape : public Component
-    {
-    public:
-        ComponentDragger myDragger;
-        
-        void paint(Graphics& g) override
-        {
-            g.fillAll(Colours::red);
-        }
-        
-        void mouseDown(const MouseEvent& _event) override
-        {
-            myDragger.startDraggingComponent (this, _event);
-        }
-        
-        void mouseDrag (const MouseEvent& _event) override
-        {
-            myDragger.dragComponent (this, _event, nullptr);
-        }
-    };
-    
-    TargetShape targetShape;
-    SceneComponent scene;
-    
     void paint (Graphics&) override;
     void resized() override;
     void sliderValueChanged (Slider* slider) override;
     void buttonClicked (Button* button) override;
     void timerCallback() override;
     void targetMoved ();
-    
+    std::vector<double> normaliseMouseSpace(const juce::Point<int>& _position, const juce::Rectangle<int>& _area);
     
     // This reference is provided as a quick way for your editor to
     // access the processor object that created it.
@@ -77,7 +53,10 @@ public:
     // Rapid regression
     regression                   rapidRegression;
     std::vector<trainingExample> trainingSet;
-    trainingExample              trainingExample1, trainingExample2, trainingExample3, trainingExample4;
+    trainingExample              trainingExample1;
+    trainingExample              trainingExample2;
+    trainingExample              trainingExample3;
+    trainingExample              trainingExample4;
     
     // Output Params
     double osc1FilterCutoff;
@@ -116,6 +95,9 @@ public:
     bool                         process;
     bool run = false; 
 
+    juce::Rectangle<int>         drawingArea;
+    SceneComponent scene;
+    
     RapidSynthVstAudioProcessor& processor;
     
 

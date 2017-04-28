@@ -15,8 +15,28 @@
 //==============================================================================
 RapidSynthVstAudioProcessorEditor::RapidSynthVstAudioProcessorEditor (RapidSynthVstAudioProcessor& p)
     : AudioProcessorEditor (&p), processor (p)
+
+//masterGain(1),
+//osc1Detune(0),
+//osc2Detune(0),
+//osc3Detune(0),
+//osc1Gain(1),
+//osc2Gain(1),
+//osc3Gain(1),
+//LFO1Gain(1),
+//osc1FilterCutoff(0)
+//osc2FilterCutoff(1),
+//osc3FilterCutoff(1),
+//VCOCutoff(1),
+//VCORes(0),
+//ADSR1Attack(0),
+//ADSR1Decay(1),
+//ADSR1Sustain(0),
+//ADSR1Release(0),
+//LFO1Freq(0)
+
 {
-   
+    
     setSize (800, 600);
     
     addAndMakeVisible(scene);
@@ -136,7 +156,7 @@ RapidSynthVstAudioProcessorEditor::RapidSynthVstAudioProcessorEditor (RapidSynth
     scene.XY.button6.setName("MLButtonRun");
     scene.XY.button6.addListener(this);
     
-    addAndMakeVisible(targetShape);
+//    addAndMakeVisible(targetShape);
     
     //MACHINE LEARNING SETUP
     //BUTTON 1
@@ -223,22 +243,24 @@ RapidSynthVstAudioProcessorEditor::RapidSynthVstAudioProcessorEditor (RapidSynth
 //        ADSR1Release,
 //        VCORes };
     
-    trainingSet.resize(4);
+//    trainingSet.resize(4);
+//
+//    trainingExample1.input.resize(2);
+//    trainingExample1.output.resize(1);
+//    trainingExample2.input.resize(2);
+//    trainingExample2.output.resize(1);
+//    trainingExample3.input.resize(2);
+//    trainingExample3.output.resize(1);
+//    trainingExample4.input.resize(2);
+//    trainingExample4.output.resize(1);
     
-    trainingExample1.input.resize(2);
-    trainingExample1.output.resize(18);
-    trainingExample2.input.resize(2);
-    trainingExample2.output.resize(18);
-    trainingExample3.input.resize(2);
-    trainingExample3.output.resize(18);
-    trainingExample4.input.resize(2);
-    trainingExample4.output.resize(18);
+//    trainingSet = { trainingExample1, trainingExample2, trainingExample3, trainingExample4 };
     
-    trainingSet = { trainingExample1, trainingExample2, trainingExample3, trainingExample4 };
-    
-    targetShape.setBounds(200, 200, 25, 25);
+//    targetShape.setBounds(200, 200, 25, 25);
     
     startTimerHz(60);
+    
+    drawingArea = scene.XY.getLocalBounds();
 }
 
 RapidSynthVstAudioProcessorEditor::~RapidSynthVstAudioProcessorEditor()
@@ -302,9 +324,11 @@ void RapidSynthVstAudioProcessorEditor::sliderValueChanged(Slider* slider){
     //OSC 1
     if (slider->getName() == "osc1FilterCutoff")
     {
-        osc1FilterCutoff = slider->getValue();
+//        double sliderVal = slider->getValue();
+//        std::cout << sliderVal << std::endl;
+        osc1FilterCutoff = (double)slider->getValue();
 //        setParameterValue("osc1FilterCutoff", scene.oscScene.osc1.dial1.getValue());
-        setParameterValue("osc1FilterCutoff", osc1FilterCutoff);
+//        setParameterValue("osc1FilterCutoff", osc1FilterCutoff);
     }
     if (slider->getName() == "osc1Detune")
     {
@@ -513,268 +537,254 @@ void RapidSynthVstAudioProcessorEditor:: buttonClicked (Button* button)
     //MACHINE LEARNING
     if (button->getName() == "MLButton1")
     {
-        trainingExample1.input = { (double)scene.XY.button1.getX(), (double)scene.XY.button1.getY() };
-        trainingExample1.output = { osc1FilterCutoff,
-            osc1Detune,
-            osc1Gain,
-            osc2FilterCutoff,
-            osc2Detune,
-            osc2Gain,
-            osc3FilterCutoff,
-            osc3Detune,
-            osc3Gain,
-            LFO1Freq,
-            LFO1Gain,
-            VCOCutoff,
-            masterGain,
-            ADSR1Attack,
-            ADSR1Decay,
-            ADSR1Sustain,
-            ADSR1Release,
-            VCORes };
+//        trainingExample1.input = { (double)scene.XY.button1.getX(), (double)scene.XY.button1.getY() };
+        std::vector<double> input =  normaliseMouseSpace(scene.XY.button1.getScreenPosition(), drawingArea);
         
-        trainingSet[0] = trainingExample1;
+        trainingExample1.input = {input[0], input[1]};
+        trainingExample1.output = { (double)osc1FilterCutoff
+//            osc1Detune,
+//            osc1Gain,
+//            osc2FilterCutoff,
+//            osc2Detune,
+//            osc2Gain,
+//            osc3FilterCutoff,
+//            osc3Detune,
+//            osc3Gain,
+//            LFO1Freq,
+//            LFO1Gain,
+//            VCOCutoff,
+//            masterGain,
+//            ADSR1Attack,
+//            ADSR1Decay,
+//            ADSR1Sustain,
+//            ADSR1Release,
+//            VCORes
+        };
+        
+//        trainingSet[0] = trainingExample1;
+        trainingSet.push_back(trainingExample1);
         button1Trained = true;
         
         std::cout << "Button 1 Stored" << std:: endl;
 
-    } else if (button->getName() == "MLButton2")
+    }
+    
+    else if (button->getName() == "MLButton2")
     {
-        trainingExample2.input = { (double)scene.XY.button2.getX(), (double)scene.XY.button2.getY() };
-        trainingExample2.output = { osc1FilterCutoff,
-            osc1Detune,
-            osc1Gain,
-            osc2FilterCutoff,
-            osc2Detune,
-            osc2Gain,
-            osc3FilterCutoff,
-            osc3Detune,
-            osc3Gain,
-            LFO1Freq,
-            LFO1Gain,
-            VCOCutoff,
-            masterGain,
-            ADSR1Attack,
-            ADSR1Decay,
-            ADSR1Sustain,
-            ADSR1Release,
-            VCORes };
+//        trainingExample2.input = { (double)scene.XY.button2.getX(), (double)scene.XY.button2.getY() };
         
-        trainingSet[1] = trainingExample2;
+        std::vector<double> input =  normaliseMouseSpace(scene.XY.button2.getScreenPosition(), drawingArea);
+        
+        trainingExample2.input = {input[0], input[1]};
+        
+        trainingExample2.output = { (double)osc1FilterCutoff
+//            osc1Detune,
+//            osc1Gain,
+//            osc2FilterCutoff,
+//            osc2Detune,
+//            osc2Gain,
+//            osc3FilterCutoff,
+//            osc3Detune,
+//            osc3Gain,
+//            LFO1Freq,
+//            LFO1Gain,
+//            VCOCutoff,
+//            masterGain,
+//            ADSR1Attack,
+//            ADSR1Decay,
+//            ADSR1Sustain,
+//            ADSR1Release,
+//            VCORes
+        };
+        
+//        trainingSet[1] = trainingExample2;
+        trainingSet.push_back(trainingExample2);
         button2Trained = true;
         
         std::cout << "Button 2 Stored" << std:: endl;
 
    
-    } else if (button->getName() == "MLButton3")
+    }
+    
+    else if (button->getName() == "MLButton3")
     {
-        trainingExample3.input = { (double)scene.XY.button3.getX(), (double)scene.XY.button3.getY() };
-        trainingExample3.output = { osc1FilterCutoff,
-            osc1Detune,
-            osc1Gain,
-            osc2FilterCutoff,
-            osc2Detune,
-            osc2Gain,
-            osc3FilterCutoff,
-            osc3Detune,
-            osc3Gain,
-            LFO1Freq,
-            LFO1Gain,
-            VCOCutoff,
-            masterGain,
-            ADSR1Attack,
-            ADSR1Decay,
-            ADSR1Sustain,
-            ADSR1Release,
-            VCORes };
+//        trainingExample3.input = { (double)scene.XY.button3.getX(), (double)scene.XY.button3.getY() };
         
-        trainingSet[2] = trainingExample3;
+        std::vector<double> input =  normaliseMouseSpace(scene.XY.button3.getScreenPosition(), drawingArea);
+        
+        trainingExample3.input = {input[0], input[1]};
+        
+        trainingExample3.output = { (double)osc1FilterCutoff
+//            osc1Detune,
+//            osc1Gain,
+//            osc2FilterCutoff,
+//            osc2Detune,
+//            osc2Gain,
+//            osc3FilterCutoff,
+//            osc3Detune,
+//            osc3Gain,
+//            LFO1Freq,
+//            LFO1Gain,
+//            VCOCutoff,
+//            masterGain,
+//            ADSR1Attack,
+//            ADSR1Decay,
+//            ADSR1Sustain,
+//            ADSR1Release,
+//            VCORes
+        };
+        
+//        trainingSet[2] = trainingExample3;
+        trainingSet.push_back(trainingExample3);
         button3Trained = true;
         
         std::cout << "Button 3 Stored" << std:: endl;
 
         
-    } else if (button->getName() == "MLButton4")
+    }
+    
+    else if (button->getName() == "MLButton4")
     {
-        trainingExample4.input = { (double)scene.XY.button4.getX(), (double)scene.XY.button4.getY() };
-        trainingExample4.output = { osc1FilterCutoff,
-            osc1Detune,
-            osc1Gain,
-            osc2FilterCutoff,
-            osc2Detune,
-            osc2Gain,
-            osc3FilterCutoff,
-            osc3Detune,
-            osc3Gain,
-            LFO1Freq,
-            LFO1Gain,
-            VCOCutoff,
-            masterGain,
-            ADSR1Attack,
-            ADSR1Decay,
-            ADSR1Sustain,
-            ADSR1Release,
-            VCORes };
+//        trainingExample4.input = { (double)scene.XY.button4.getX(), (double)scene.XY.button4.getY() };
         
-        trainingSet[3] = trainingExample4;
+        std::vector<double> input =  normaliseMouseSpace(scene.XY.button4.getScreenPosition(), drawingArea);
+        
+        trainingExample4.input = {input[0], input[1]};
+        
+        trainingExample4.output = { (double)osc1FilterCutoff
+//            osc1Detune,
+//            osc1Gain,
+//            osc2FilterCutoff,
+//            osc2Detune,
+//            osc2Gain,
+//            osc3FilterCutoff,
+//            osc3Detune,
+//            osc3Gain,
+//            LFO1Freq,
+//            LFO1Gain,
+//            VCOCutoff,
+//            masterGain,
+//            ADSR1Attack,
+//            ADSR1Decay,
+//            ADSR1Sustain,
+//            ADSR1Release,
+//            VCORes
+        };
+        
+//        trainingSet[3] = trainingExample4;
+        trainingSet.push_back(trainingExample4);
         button4Trained = true;
         
         std::cout << "Button 4 Stored" << std:: endl;
 
         
-    } else if (button->getName() == "MLButtonTrain")
+    }
+    
+    else if (button->getName() == "MLButtonTrain")
     {
         if(button1Trained && button2Trained && button3Trained && button4Trained)
         {
-            rapidRegression.train(trainingSet);
-            trained = true;
-            std::cout << "Trained" << std::endl;
+//            trainingSet = { trainingExample1, trainingExample2, trainingExample3, trainingExample4 };
+            trained = rapidRegression.train(trainingSet);
+//            trained = true;
+            std::cout << "Trained = " << trained << std::endl;
 
         }
-    } else if (button->getName() == "MLButtonRun")
+    }
+    
+    else if (button->getName() == "MLButtonRun")
     {
         run = !run;
-        
-        std::cout << run << std::endl;
-
-        if(run)
-        {
-            if(trained)
-            {
-//                std::vector<double> input =  { (double)targetShape.getX(), (double)targetShape.getY() };
-                std::vector<double> input =   { 100, 100} ;
-                std::vector<double> output = rapidRegression.process(input);
-                
-                double nosc1FilterCutoff = output[0];
-                double nosc1Detune = output[1];
-                double nosc1Gain = output[2];
-                double nosc2FilterCutoff = output[3];
-                double nosc2Detune = output[4];
-                double nosc2Gain = output[5];
-                double nosc3FilterCutoff = output[6];
-                double nosc3Detune = output[7];
-                double nosc3Gain = output[8];
-                double nLFO1Freq = output[9];
-                double nLFO1Gain = output[10];
-                double nVCOCutoff = output[11];
-                double nmasterGain = output[12];
-                double nADSR1Attack = output[13];
-                double nADSR1Decay = output[14];
-                double nADSR1Sustain = output[15];
-                double nADSR1Release = output[16];
-                double nVCORes = output[17];
-                
-                std::cout << nosc1FilterCutoff << std::endl;
-                
-                //OSC 1
-                if(!isnan(nosc1FilterCutoff))
-                {
-                    scene.oscScene.osc1.dial1.setValue(nosc1FilterCutoff);
-                }
-                scene.oscScene.osc1.dial2.setValue(nosc1Detune);
-                scene.oscScene.osc1.dial3.setValue(nosc1Gain);
-                
-                //OSC 2
-                scene.oscScene.osc2.dial1.setValue(nosc2FilterCutoff);
-                scene.oscScene.osc2.dial2.setValue(nosc2Detune);
-                scene.oscScene.osc2.dial3.setValue(nosc2Gain);
-                
-                //OSC 3
-                scene.oscScene.osc3.dial1.setValue(nosc3FilterCutoff);
-                scene.oscScene.osc3.dial2.setValue(nosc3Detune);
-                scene.oscScene.osc3.dial3.setValue(nosc3Gain);
-                
-                //LFO 1
-                scene.modScene.lfo.dial1.setValue(nLFO1Freq);
-                scene.modScene.lfo.dial2.setValue(nLFO1Gain);
-                scene.modScene.lfo.dial3.setValue(nmasterGain);
-                
-                //FILTER
-                scene.modScene.filter.dial1.setValue(nVCOCutoff);
-                scene.modScene.filter.dial2.setValue(nVCORes);
-                
-                //ENVELOPE
-                scene.modScene.envelope.ADSR1Attack.setValue(nADSR1Attack);
-                scene.modScene.envelope.ADSR1Decay.setValue(nADSR1Decay);
-                scene.modScene.envelope.ADSR1Sustain.setValue(nADSR1Sustain);
-                scene.modScene.envelope.ADSR1Release.setValue(nADSR1Release);
-            }
-        }
+        std::cout << "running = " << run << std::endl;
     }
 }
 
 void RapidSynthVstAudioProcessorEditor::targetMoved()
 {
-//    if(trained)
-//    {
-//        std::vector<double> input =  { (double)targetShape.getX(), (double)targetShape.getY() };
-//        std::vector<double> output = rapidRegression.process(input);
-//        
-//        double nosc1FilterCutoff = output[0];
-//        double nosc1Detune = output[1];
-//        double nosc1Gain = output[2];
-//        double nosc2FilterCutoff = output[3];
-//        double nosc2Detune = output[4];
-//        double nosc2Gain = output[5];
-//        double nosc3FilterCutoff = output[6];
-//        double nosc3Detune = output[7];
-//        double nosc3Gain = output[8];
-//        double nLFO1Freq = output[9];
-//        double nLFO1Gain = output[10];
-//        double nVCOCutoff = output[11];
-//        double nmasterGain = output[12];
-//        double nADSR1Attack = output[13];
-//        double nADSR1Decay = output[14];
-//        double nADSR1Sustain = output[15];
-//        double nADSR1Release = output[16];
-//        double nVCORes = output[17];
-//    
-//    std::cout << nosc1FilterCutoff << std::endl;
-//
-//        //OSC 1
-//        if(!isnan(nosc1FilterCutoff))
-//        {
-//        scene.oscScene.osc1.dial1.setValue(nosc1FilterCutoff);
-//        }
-//        scene.oscScene.osc1.dial2.setValue(nosc1Detune);
-//        scene.oscScene.osc1.dial3.setValue(nosc1Gain);
-//        
-//        //OSC 2
-//        scene.oscScene.osc2.dial1.setValue(nosc2FilterCutoff);
-//        scene.oscScene.osc2.dial2.setValue(nosc2Detune);
-//        scene.oscScene.osc2.dial3.setValue(nosc2Gain);
-//        
-//        //OSC 3
-//        scene.oscScene.osc3.dial1.setValue(nosc3FilterCutoff);
-//        scene.oscScene.osc3.dial2.setValue(nosc3Detune);
-//        scene.oscScene.osc3.dial3.setValue(nosc3Gain);
-//        
-//        //LFO 1
-//        scene.modScene.lfo.dial1.setValue(nLFO1Freq);
-//        scene.modScene.lfo.dial2.setValue(nLFO1Gain);
-//        scene.modScene.lfo.dial3.setValue(nmasterGain);
-//        
-//        //FILTER
-//        scene.modScene.filter.dial1.setValue(nVCOCutoff);
-//        scene.modScene.filter.dial2.setValue(nVCORes);
-//        
-//        //ENVELOPE
-//        scene.modScene.envelope.ADSR1Attack.setValue(nADSR1Attack);
-//        scene.modScene.envelope.ADSR1Decay.setValue(nADSR1Decay);
-//        scene.modScene.envelope.ADSR1Sustain.setValue(nADSR1Sustain);
-//        scene.modScene.envelope.ADSR1Release.setValue(nADSR1Release);
-//    }
+    std::vector<double> input =  normaliseMouseSpace(scene.XY.targetShape.getScreenPosition(), drawingArea);
+
+//    std::vector<double> input = { (double)scene.XY.targetShape.getX(), (double)scene.XY.targetShape.getY() };
+    
+    std::vector<double> output = rapidRegression.process(input);
+    
+    double nosc1FilterCutoff = output[0];
+    //                double nosc1Detune = output[1];
+    //                double nosc1Gain = output[2];
+    //                double nosc2FilterCutoff = output[3];
+    //                double nosc2Detune = output[4];
+    //                double nosc2Gain = output[5];
+    //                double nosc3FilterCutoff = output[6];
+    //                double nosc3Detune = output[7];
+    //                double nosc3Gain = output[8];
+    //                double nLFO1Freq = output[9];
+    //                double nLFO1Gain = output[10];
+    //                double nVCOCutoff = output[11];
+    //                double nmasterGain = output[12];
+    //                double nADSR1Attack = output[13];
+    //                double nADSR1Decay = output[14];
+    //                double nADSR1Sustain = output[15];
+    //                double nADSR1Release = output[16];
+    //                double nVCORes = output[17];
+    
+    std::cout << "nosc1FilterCutoff = " << nosc1FilterCutoff << std::endl;
+    
+    //OSC 1
+    if(!isnan(nosc1FilterCutoff))
+    {
+        scene.oscScene.osc1.dial1.setValue(nosc1FilterCutoff);
+    }
+    //                scene.oscScene.osc1.dial2.setValue(nosc1Detune, dontSendNotification);
+    //                scene.oscScene.osc1.dial3.setValue(nosc1Gain, dontSendNotification);
+    //
+    //                //OSC 2
+    //                scene.oscScene.osc2.dial1.setValue(nosc2FilterCutoff, dontSendNotification);
+    //                scene.oscScene.osc2.dial2.setValue(nosc2Detune, dontSendNotification);
+    //                scene.oscScene.osc2.dial3.setValue(nosc2Gain, dontSendNotification);
+    //
+    //                //OSC 3
+    //                scene.oscScene.osc3.dial1.setValue(nosc3FilterCutoff, dontSendNotification);
+    //                scene.oscScene.osc3.dial2.setValue(nosc3Detune, dontSendNotification);
+    //                scene.oscScene.osc3.dial3.setValue(nosc3Gain, dontSendNotification);
+    //
+    //                //LFO 1
+    //                scene.modScene.lfo.dial1.setValue(nLFO1Freq, dontSendNotification);
+    //                scene.modScene.lfo.dial2.setValue(nLFO1Gain, dontSendNotification);
+    //                scene.modScene.lfo.dial3.setValue(nmasterGain, dontSendNotification);
+    //
+    //                //FILTER
+    //                scene.modScene.filter.dial1.setValue(nVCOCutoff, dontSendNotification);
+    //                scene.modScene.filter.dial2.setValue(nVCORes, dontSendNotification);
+    //
+    //                //ENVELOPE
+    //                scene.modScene.envelope.ADSR1Attack.setValue(nADSR1Attack, dontSendNotification);
+    //                scene.modScene.envelope.ADSR1Decay.setValue(nADSR1Decay, dontSendNotification);
+    //                scene.modScene.envelope.ADSR1Sustain.setValue(nADSR1Sustain, dontSendNotification);
+    //                scene.modScene.envelope.ADSR1Release.setValue(nADSR1Release, dontSendNotification);
+    
 }
 
 void RapidSynthVstAudioProcessorEditor::timerCallback()
 {
-//    if(targetShape.myDragger.isDragging)
-//    {
-//        if(trained)
-//        {
-//            targetMoved();
-//        }
-//    }
+    if(scene.XY.targetShape.myDragger.isDragging)
+    {
+        if(trained)
+        {
+            if(run)
+            {
+                targetMoved();
+            }
+        }
+    }
+}
+
+std::vector<double> RapidSynthVstAudioProcessorEditor::normaliseMouseSpace(const juce::Point<int>& _position, const juce::Rectangle<int>& _area)
+{
+    juce::Point<int> pos = _area.getConstrainedPoint(_position);
+    std::vector<double> temp;
+    temp.resize(2);
+    temp[0] = double(double(pos.getX() - _area.getX()) / _area.getWidth());
+    temp[1] = double(double(pos.getY() - _area.getY()) / _area.getHeight());
+    return temp;
 }
 
 

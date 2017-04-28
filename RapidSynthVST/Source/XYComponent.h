@@ -39,6 +39,9 @@ public:
         button6.setButtonText ("Run");
         addAndMakeVisible (button6);
         
+        addAndMakeVisible(targetShape);
+        targetShape.setBounds(200, 200, 25, 25);
+        
     }
 
     ~XYComponent()
@@ -66,8 +69,30 @@ public:
         button5.setBounds(410, 10, 25, 25);
         button6.setBounds(510, 10, 25, 25);
         
-        
     }
+    
+    class TargetShape : public Component
+    {
+    public:
+        ComponentDragger myDragger;
+        
+        void paint(Graphics& g) override
+        {
+            g.fillAll(Colours::red);
+        }
+        
+        void mouseDown(const MouseEvent& _event) override
+        {
+            myDragger.startDraggingComponent (this, _event);
+        }
+        
+        void mouseDrag (const MouseEvent& _event) override
+        {
+            myDragger.dragComponent (this, _event, nullptr);
+        }
+    };
+    
+    TargetShape targetShape;
     
     TextButton button1, button2, button3, button4, button5, button6;
         

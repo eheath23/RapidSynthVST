@@ -9,7 +9,8 @@
               pluginProducesMidiOut="0" pluginIsMidiEffectPlugin="0" pluginEditorRequiresKeys="0"
               pluginAUExportPrefix="RapidSynthVSTAU" pluginRTASCategory=""
               aaxIdentifier="com.yourcompany.RapidSynthVST" pluginAAXCategory="AAX_ePlugInCategory_Dynamics"
-              jucerVersion="4.3.1">
+              jucerVersion="5.0.0" displaySplashScreen="0" reportAppUsage="0"
+              splashScreenColour="Dark" buildStandalone="0" enableIAA="0">
   <MAINGROUP id="C6uXX1" name="RapidSynthVST">
     <GROUP id="{30530076-26EB-3157-F3D9-8F6B7DA1C1A7}" name="MaxiLib">
       <FILE id="zJxbN8" name="fft.cpp" compile="1" resource="0" file="Source/MaxiLib/fft.cpp"/>
@@ -19,36 +20,42 @@
       <FILE id="pLgN2p" name="maximilian.cpp" compile="1" resource="0" file="Source/MaxiLib/maximilian.cpp"/>
       <FILE id="VnU66K" name="maximilian.h" compile="0" resource="0" file="Source/MaxiLib/maximilian.h"/>
     </GROUP>
-    <GROUP id="{828071FD-4C23-68DB-8940-334F111597E8}" name="RapidLib">
-      <GROUP id="{6033F79C-2704-9FA9-3721-B55B4C43D535}" name="json">
-        <FILE id="lXZOmP" name="json-forwards.h" compile="0" resource="0" file="Source/RapidLib/json/json-forwards.h"/>
-        <FILE id="zfhbF3" name="json.h" compile="0" resource="0" file="Source/RapidLib/json/json.h"/>
+    <GROUP id="{94F2B54B-A0FF-0C81-25C7-A3726893510B}" name="RapidLib">
+      <GROUP id="{F8DAC3A1-B053-5FC3-755C-43322AE148CE}" name="src">
+        <GROUP id="{2EB05241-BD52-93AA-97B9-AA2499188BEF}" name="dependancies">
+          <GROUP id="{2CEE9013-072E-0ED3-7A8E-05C39D62F67E}" name="json">
+            <FILE id="VqQUV5" name="json-forwards.h" compile="0" resource="0" file="Source/RapidLib/dependancies/json/json-forwards.h"/>
+            <FILE id="nn3Fdg" name="json.h" compile="0" resource="0" file="Source/RapidLib/dependancies/json/json.h"/>
+          </GROUP>
+          <FILE id="BSxUro" name="jsoncpp.cpp" compile="1" resource="0" file="Source/RapidLib/dependancies/jsoncpp.cpp"/>
+        </GROUP>
+        <FILE id="MWOiZH" name="classificationEmbindings.h" compile="0" resource="0"
+              file="Source/RapidLib/src/emscripten/classificationEmbindings.h"/>
+        <FILE id="OeVgE8" name="knnEmbindings.h" compile="0" resource="0" file="Source/RapidLib/src/emscripten/knnEmbindings.h"/>
+        <FILE id="YcMFa0" name="modelSetEmbindings.h" compile="0" resource="0"
+              file="Source/RapidLib/src/emscripten/modelSetEmbindings.h"/>
+        <FILE id="Sf4VGu" name="nnEmbindings.h" compile="0" resource="0" file="Source/RapidLib/src/emscripten/nnEmbindings.h"/>
+        <FILE id="pIljrH" name="regressionEmbindings.h" compile="0" resource="0"
+              file="Source/RapidLib/src/emscripten/regressionEmbindings.h"/>
+        <FILE id="DsKfeU" name="baseModel.h" compile="0" resource="0" file="Source/RapidLib/src/baseModel.h"/>
+        <FILE id="N6Q0bR" name="classification.cpp" compile="1" resource="0"
+              file="Source/RapidLib/src/classification.cpp"/>
+        <FILE id="nWTcol" name="classification.h" compile="0" resource="0"
+              file="Source/RapidLib/src/classification.h"/>
+        <FILE id="YFy7y8" name="knnClassification.cpp" compile="1" resource="0"
+              file="Source/RapidLib/src/knnClassification.cpp"/>
+        <FILE id="NAx7AM" name="knnClassification.h" compile="0" resource="0"
+              file="Source/RapidLib/src/knnClassification.h"/>
+        <FILE id="VwKZi4" name="modelSet.cpp" compile="1" resource="0" file="Source/RapidLib/src/modelSet.cpp"/>
+        <FILE id="Rp0Y0D" name="modelSet.h" compile="0" resource="0" file="Source/RapidLib/src/modelSet.h"/>
+        <FILE id="lAybvc" name="neuralNetwork.cpp" compile="1" resource="0"
+              file="Source/RapidLib/src/neuralNetwork.cpp"/>
+        <FILE id="QpGIPO" name="neuralNetwork.h" compile="0" resource="0" file="Source/RapidLib/src/neuralNetwork.h"/>
+        <FILE id="dQJFIX" name="regression.cpp" compile="1" resource="0" file="Source/RapidLib/src/regression.cpp"/>
+        <FILE id="z0PqAG" name="regression.h" compile="0" resource="0" file="Source/RapidLib/src/regression.h"/>
+        <FILE id="Wi5DuK" name="trainingExample.h" compile="0" resource="0"
+              file="Source/RapidLib/src/trainingExample.h"/>
       </GROUP>
-      <FILE id="NR4JOV" name="baseModel.h" compile="0" resource="0" file="Source/RapidLib/baseModel.h"/>
-      <FILE id="whkixP" name="classification.cpp" compile="1" resource="0"
-            file="Source/RapidLib/classification.cpp"/>
-      <FILE id="lS4eHQ" name="classification.h" compile="0" resource="0"
-            file="Source/RapidLib/classification.h"/>
-      <FILE id="s7dKVc" name="classificationEmbindings.h" compile="0" resource="0"
-            file="Source/RapidLib/classificationEmbindings.h"/>
-      <FILE id="USnv63" name="jsoncpp.cpp" compile="1" resource="0" file="Source/RapidLib/jsoncpp.cpp"/>
-      <FILE id="bOEeGV" name="knnClassification.cpp" compile="1" resource="0"
-            file="Source/RapidLib/knnClassification.cpp"/>
-      <FILE id="Z0eKgs" name="knnClassification.h" compile="0" resource="0"
-            file="Source/RapidLib/knnClassification.h"/>
-      <FILE id="KYNMwH" name="knnEmbindings.h" compile="0" resource="0" file="Source/RapidLib/knnEmbindings.h"/>
-      <FILE id="rlr8gL" name="modelSet.cpp" compile="1" resource="0" file="Source/RapidLib/modelSet.cpp"/>
-      <FILE id="STnmkz" name="modelSet.h" compile="0" resource="0" file="Source/RapidLib/modelSet.h"/>
-      <FILE id="KIhxlX" name="modelSetEmbindings.h" compile="0" resource="0"
-            file="Source/RapidLib/modelSetEmbindings.h"/>
-      <FILE id="nMB9nq" name="neuralNetwork.cpp" compile="1" resource="0"
-            file="Source/RapidLib/neuralNetwork.cpp"/>
-      <FILE id="ABHGm0" name="neuralNetwork.h" compile="0" resource="0" file="Source/RapidLib/neuralNetwork.h"/>
-      <FILE id="Y7gOCt" name="nnEmbindings.h" compile="0" resource="0" file="Source/RapidLib/nnEmbindings.h"/>
-      <FILE id="ZmfAXw" name="regression.cpp" compile="1" resource="0" file="Source/RapidLib/regression.cpp"/>
-      <FILE id="uH9HJ8" name="regression.h" compile="0" resource="0" file="Source/RapidLib/regression.h"/>
-      <FILE id="SMXWSp" name="regressionEmbindings.h" compile="0" resource="0"
-            file="Source/RapidLib/regressionEmbindings.h"/>
     </GROUP>
     <GROUP id="{DCC571F7-25FF-AFC7-D21E-6C0C8B560648}" name="Source">
       <FILE id="rBNmA2" name="ADSRComponent.h" compile="0" resource="0" file="Source/ADSRComponent.h"/>

@@ -1,0 +1,30 @@
+{
+  "DVTSourceControlWorkspaceBlueprintPrimaryRemoteRepositoryKey" : "A8EA929F05E24C05DD4E8307E61CE17DE41E253B",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyRepositoryLocationsKey" : {
+
+  },
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyStatesKey" : {
+    "798CEA5AA219F67C46A871530959E8F7771FF052" : 9223372036854775807,
+    "A8EA929F05E24C05DD4E8307E61CE17DE41E253B" : 9223372036854775807
+  },
+  "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "2161D793-8959-4E0F-97FB-7DF51303510F",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
+    "798CEA5AA219F67C46A871530959E8F7771FF052" : "MajorProject\/RapidSynthVST\/Source\/RapidLib\/",
+    "A8EA929F05E24C05DD4E8307E61CE17DE41E253B" : "MajorProject\/"
+  },
+  "DVTSourceControlWorkspaceBlueprintNameKey" : "RapidSynthVST",
+  "DVTSourceControlWorkspaceBlueprintVersion" : 204,
+  "DVTSourceControlWorkspaceBlueprintRelativePathToProjectKey" : "RapidSynthVST\/Builds\/MacOSX\/RapidSynthVST.xcodeproj",
+  "DVTSourceControlWorkspaceBlueprintRemoteRepositoriesKey" : [
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "http:\/\/gitlab.doc.gold.ac.uk\/rapid-mix\/RapidLib.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "798CEA5AA219F67C46A871530959E8F7771FF052"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "http:\/\/gitlab.doc.gold.ac.uk\/eheat001\/MajorProject.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "A8EA929F05E24C05DD4E8307E61CE17DE41E253B"
+    }
+  ]
+}
