@@ -33,13 +33,13 @@ public:
         lfo.dial1.setSliderStyle (Slider::RotaryVerticalDrag);
         lfo.dial1.setTextBoxStyle (Slider::NoTextBox, false, 0, 0);
         lfo.dial1.setRange (0, 1);
-        lfo.dial1.setValue(0);
+        lfo.dial1.setValue(0.1);
         lfo.dial1Label.setText ("LFO Rate", dontSendNotification);
         
         lfo.dial2.setSliderStyle (Slider::RotaryVerticalDrag);
         lfo.dial2.setTextBoxStyle (Slider::NoTextBox, false, 0, 0);
         lfo.dial2.setRange (0, 1.0);
-        lfo.dial2.setValue(0);
+        lfo.dial2.setValue(0.1);
         lfo.dial2Label.setText ("LFO Amount", dontSendNotification);
         
         lfo.dial3.setSliderStyle (Slider::RotaryVerticalDrag);
@@ -49,6 +49,7 @@ public:
         lfo.dial3Label.setText ("Master Gain", dontSendNotification);
         
         filter.dial2.setRange(0, 1.0);
+        filter.dial2.setValue(0.1);
         filter.dial1Label.setText ("Filter Cutoff", dontSendNotification);
         filter.dial2Label.setText ("Filter Resonance", dontSendNotification);
         

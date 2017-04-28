@@ -43,7 +43,6 @@ void ComponentDragger::dragComponent (Component* const componentToDrag, const Mo
 
     if (componentToDrag != nullptr)
     {
-        isDragging = true; 
         Rectangle<int> bounds (componentToDrag->getBounds());
 
         // If the component is a window, multiple mouse events can get queued while it's in the same position,
@@ -57,6 +56,10 @@ void ComponentDragger::dragComponent (Component* const componentToDrag, const Mo
         if (constrainer != nullptr)
             constrainer->setBoundsForComponent (componentToDrag, bounds, false, false, false, false);
         else
+        {
             componentToDrag->setBounds (bounds);
+            isDragging = true;
+        }
+        
     }
 }

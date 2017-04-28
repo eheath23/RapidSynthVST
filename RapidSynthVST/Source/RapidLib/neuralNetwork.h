@@ -3,6 +3,10 @@
 #include <vector>
 #include "baseModel.h"
 
+#ifndef EMSCRIPTEN
+#include "json.h"
+#endif
+
 #define LEARNING_RATE 0.3
 #define MOMENTUM 0.2
 #define NUM_EPOCHS 500
@@ -15,38 +19,57 @@ class neuralNetwork : public baseModel {
     
 public:
     /** This is the constructor for building a trained model from JSON. */
-    neuralNetwork(int num_inputs, std::vector<int> which_inputs, int num_hidden_layers, int num_hidden_nodes, std::vector<double>, std::vector<double>, std::vector<double>, std::vector<double>, double, double);
+    neuralNetwork(const int &num_inputs,
+                  const std::vector<int> &which_inputs,
+                  const int &num_hidden_layers,
+                  const int &num_hidden_nodes,
+                  const std::vector<double> &weights,
+                  const std::vector<double> &wHiddenOutput,
+                  const std::vector<double> &inRanges,
+                  const std::vector<double> &inBases,
+                  const double &outRange,
+                  const double &outBase);
     
     /** This constructor creates a neural network that needs to be trained.
      *
      * @param num_inputs is the number of inputs the network will process
-     * @param which_inputs is an vector of which values in the input vector are being fed to the network. ex: {0,2,4} 
+     * @param which_inputs is an vector of which values in the input vector are being fed to the network. ex: {0,2,4}
      * @param num_hidden_layer is the number of hidden layers in the network. Must be at least 1.
      * @param num_hidden_nodes is the number of hidden nodes in each hidden layer. Often, this is the same as num_inputs
      *
      * @return A neuralNetwork instance with randomized weights and no normalization values. These will be set or adjusted during training.
      */
-    neuralNetwork(int num_inputs, std::vector<int> which_inputs, int num_hidden_layer, int num_hidden_nodes);
+    neuralNetwork(const int &num_inputs,
+                  const std::vector<int> &which_inputs,
+                  const int &num_hidden_layer,
+                  const int &num_hidden_nodes);
+    
+    /** destructor */
     ~neuralNetwork();
     
-    /** Generate an output value from a single input vector. 
+    /** Generate an output value from a single input vector.
      * @param A standard vector of doubles that feed-forward regression will run on.
      * @return A single double, which is the result of the feed-forward operation
      */
-    double process(std::vector<double> inputVector);
+    double process(const std::vector<double> &inputVector);
     
-    int getNumInputs();
-    std::vector<int> getWhichInputs();
-    int getNumHiddenLayers();
-    int getNumHiddenNodes();
+    int getNumInputs() const;
+    std::vector<int> getWhichInputs() const;
+    int getNumHiddenLayers() const;
+    int getNumHiddenNodes() const;
     
-    std::vector<double> getWeights();
-    std::vector<double> getWHiddenOutput();
+    std::vector<double> getWeights() const;
+    std::vector<double> getWHiddenOutput() const;
     
-    std::vector<double> getInRanges();
-    std::vector<double> getInBases();
-    double getOutRange();
-    double getOutBase();
+    std::vector<double> getInRanges() const;
+    std::vector<double> getInBases() const;
+    double getOutRange() const;
+    double getOutBase() const;
+
+#ifndef EMSCRIPTEN
+    void getJSONDescription(Json::Value &currentModel);
+#endif
+
     
 private:
     /** Parameters that describe the topography of the model */
@@ -80,7 +103,7 @@ public:
      * @param The training set is a vector of training examples that contain both a vector of input values and a double specifying desired output.
      *
      */
-    void train(std::vector<trainingExample> trainingSet);
+    void train(const std::vector<trainingExample> &trainingSet);
     
 private:
     /** Parameters that influence learning */
@@ -95,12 +118,12 @@ private:
     /** Parameters and functions for calculating amount of change for each weight */
     std::vector<double> hiddenErrorGradients;
     double outputErrorGradient;
-    inline double getHiddenErrorGradient(int, int);
+    inline double getHiddenErrorGradient(int layer, int neuron);
     
-    /** Propagate output error back through the network. 
+    /** Propagate output error back through the network.
      * @param The desired output of the network is fed into the function, and compared with the actual output
      */
-    void backpropagate(double);
+    void backpropagate(const double &desiredOutput);
     
     /** Apply corrections to network weights, based on output error */
     void updateWeights();

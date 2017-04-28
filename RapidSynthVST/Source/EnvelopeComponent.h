@@ -28,6 +28,7 @@ public:
         ADSR1Attack.setTextBoxStyle(Slider::NoTextBox, true, 0, 0);
         ADSR1Attack.setSliderStyle(Slider::RotaryVerticalDrag);
         ADSR1Attack.setRange(0.0, 1);
+        ADSR1Attack.setValue(0.1);
         
         addAndMakeVisible (attackDial);
         attackDial.setText ("Attack", dontSendNotification);
@@ -38,7 +39,8 @@ public:
         ADSR1Decay.setTextBoxStyle(Slider::NoTextBox, true, 0, 0);
         ADSR1Decay.setSliderStyle(Slider::RotaryVerticalDrag);
         ADSR1Decay.setRange(0.0, 1);
-
+        ADSR1Decay.setValue(0.1);
+        
         addAndMakeVisible (decayDial);
         decayDial.setText ("Decay", dontSendNotification);
         decayDial.attachToComponent (&ADSR1Decay, false);
@@ -48,6 +50,7 @@ public:
         ADSR1Sustain.setTextBoxStyle(Slider::NoTextBox, true, 0, 0);
         ADSR1Sustain.setSliderStyle(Slider::RotaryVerticalDrag);
         ADSR1Sustain.setRange(0.0, 1.0);
+        ADSR1Sustain.setValue(0.1);
         
         addAndMakeVisible (sustainDial);
         sustainDial.setText ("Sustain", dontSendNotification);
@@ -58,6 +61,7 @@ public:
         ADSR1Release.setTextBoxStyle(Slider::NoTextBox, true, 0, 0);
         ADSR1Release.setSliderStyle(Slider::RotaryVerticalDrag);
         ADSR1Release.setRange(0.0, 1);
+        ADSR1Release.setValue(0.1);
         
         addAndMakeVisible (releaseDial);
         releaseDial.setText ("Release", dontSendNotification);

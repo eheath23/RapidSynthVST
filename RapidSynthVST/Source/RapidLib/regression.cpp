@@ -3,7 +3,7 @@
 
 
 #ifdef EMSCRIPTEN
-#include "regressionEmbindings.h"
+#include "emscripten/regressionEmbindings.h"
 #endif
 
 regression::regression() {
@@ -12,9 +12,9 @@ regression::regression() {
     created = false;
 };
 
-regression::regression(int num_inputs, int num_outputs) {
-    numInputs = 0;
-    numOutputs = 0;
+regression::regression(const int &num_inputs, const int &num_outputs) {
+    numInputs = num_inputs;
+    numOutputs = num_outputs;
     created = false;
     std::vector<int> whichInputs;
     for (int i = 0; i < numInputs; ++i) {
@@ -26,20 +26,23 @@ regression::regression(int num_inputs, int num_outputs) {
     created = true;
 };
 
-regression::regression(std::vector<trainingExample> training_set) {
+regression::regression(const std::vector<trainingExample> &training_set) {
     numInputs = 0;
     numOutputs = 0;
     created = false;
     train(training_set);
 };
 
-bool regression::train(std::vector<trainingExample> training_set) {
+bool regression::train(const std::vector<trainingExample> &training_set) {
     //TODO: time this process?
     if (created) {
         return modelSet::train(training_set);
     } else {
         //create model(s) here
         numInputs = int(training_set[0].input.size());
+        for (int i = 0; i < numInputs; ++i) {
+            inputNames.push_back("inputs-" + std::to_string(i + 1));
+        }
         numOutputs = int(training_set[0].output.size());
         for ( auto example : training_set) {
             if (example.input.size() != numInputs) {
@@ -60,23 +63,3 @@ bool regression::train(std::vector<trainingExample> training_set) {
         return modelSet::train(training_set);
     }
 }
-
-bool regression::initialize() {
-  //Emscripten made me do it. -mz
-  return modelSet::initialize();
-}
-std::vector<double> regression::process(std::vector<double> inputVector) {
-  //Emscripten made me do it. -mz
-  return modelSet::process(inputVector);
-}
-
-#ifdef EMSCRIPTEN
-bool regression::initialize() {
-  //Emscripten made me do it. -mz
-  return modelSet::initialize();
-}
-std::vector<double> regression::process(std::vector<double> inputVector) {
-  //Emscripten made me do it. -mz
-  return modelSet::process(inputVector);
-}
-#endif

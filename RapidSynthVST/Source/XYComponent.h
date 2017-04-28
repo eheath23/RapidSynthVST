@@ -16,15 +16,6 @@
 //==============================================================================
 /*
 */
-//struct TargetShape : public Component
-//{
-//    void paint(Graphics& g) override
-//    {
-//        g.fillAll(Colours::red);
-//    }
-//    
-//};
-
 class XYComponent    : public Component
 {
 public:
@@ -42,12 +33,11 @@ public:
         button4.setButtonText ("4");
         addAndMakeVisible (button4);
         
-        button5.setButtonText ("5");
+        button5.setButtonText ("Train");
         addAndMakeVisible (button5);
         
-//        addAndMakeVisible(targetShape);
-//        targetShape.setBounds(200, 200, 25, 25);
-        button1.setBounds(button1PosX, button1PosY, 25, 25);
+        button6.setButtonText ("Run");
+        addAndMakeVisible (button6);
         
     }
 
@@ -69,19 +59,18 @@ public:
     {
         auto r = getLocalBounds();
 
+        button1.setBounds(10, 10, 25, 25);
         button2.setBounds(110, 10, 25, 25);
         button3.setBounds(210, 10, 25, 25);
         button4.setBounds(310, 10, 25, 25);
         button5.setBounds(410, 10, 25, 25);
+        button6.setBounds(510, 10, 25, 25);
         
         
     }
     
-    TextButton button1, button2, button3, button4, button5;
-    int button1PosX = 10, button1PosY = 10;
-    
-//    TargetShape targetShape;
-    
+    TextButton button1, button2, button3, button4, button5, button6;
+        
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (XYComponent)
 };
 

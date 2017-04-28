@@ -15,6 +15,7 @@
 #include "PluginProcessor.h"
 #include "RapidLib/regression.h"
 #include <array>
+#include <math.h>
 
 #include "SceneComponent.h"
 
@@ -22,23 +23,49 @@
 //==============================================================================
 /**
 */
+
+////////////////////////////////////////
 class RapidSynthVstAudioProcessorEditor  : public AudioProcessorEditor,
                                            public Slider::Listener,
-                                           public Button::Listener
+                                           public Button::Listener,
+                                           private Timer
 {
 public:
     RapidSynthVstAudioProcessorEditor (RapidSynthVstAudioProcessor&);
     ~RapidSynthVstAudioProcessorEditor();
 
     //==============================================================================
+    class TargetShape : public Component
+    {
+    public:
+        ComponentDragger myDragger;
+        
+        void paint(Graphics& g) override
+        {
+            g.fillAll(Colours::red);
+        }
+        
+        void mouseDown(const MouseEvent& _event) override
+        {
+            myDragger.startDraggingComponent (this, _event);
+        }
+        
+        void mouseDrag (const MouseEvent& _event) override
+        {
+            myDragger.dragComponent (this, _event, nullptr);
+        }
+    };
+    
+    TargetShape targetShape;
+    SceneComponent scene;
     
     void paint (Graphics&) override;
     void resized() override;
     void sliderValueChanged (Slider* slider) override;
     void buttonClicked (Button* button) override;
+    void timerCallback() override;
     void targetMoved ();
     
-    SceneComponent scene;
     
     // This reference is provided as a quick way for your editor to
     // access the processor object that created it.
@@ -85,45 +112,15 @@ public:
     double VCORes;
     
     // Program state
-    bool                         trained;
+    bool                         button1Trained = false, button2Trained = false, button3Trained = false, button4Trained = false, trained = false;
     bool                         process;
+    bool run = false; 
 
-    ComponentBoundsConstrainer componentBoundsConstrainer;
-    
-    struct TargetShape : public Component
-    {
-        ComponentDragger myDragger;
-        
-        void paint(Graphics& g) override
-        {
-            g.fillAll(Colours::red);
-        }
-        
-        void mouseDown(const MouseEvent& _event) override
-        {
-            myDragger.startDraggingComponent (this, _event);
-        }
-        
-        void mouseDrag (const MouseEvent& _event) override
-        {
-            myDragger.dragComponent (this, _event, nullptr);
-//            if(myDragger.isDragging)
-//            {
-//                process = true;
-//            } else {
-//                process = false;
-//            }
-        }
-        
-    };
-
-    TargetShape targetShape;
     RapidSynthVstAudioProcessor& processor;
     
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (RapidSynthVstAudioProcessorEditor)
 };
-
 
 
 #endif  // PLUGINEDITOR_H_INCLUDED

@@ -24,7 +24,7 @@ public:
         dial1.setSliderStyle (Slider::RotaryVerticalDrag);
         dial1.setTextBoxStyle (Slider::TextBoxBelow, false, 0, 0);
         dial1.setRange (0, 1);
-        dial1.setValue(1);
+        dial1.setValue(0.5);
         addAndMakeVisible(dial1);
         
         addAndMakeVisible (dial1Label);

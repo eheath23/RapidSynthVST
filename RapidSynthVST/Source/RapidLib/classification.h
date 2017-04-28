@@ -14,18 +14,20 @@ public:
     /** with no arguments, just make an empty vector */
     classification();
     /** create based on training set inputs and outputs */
-    classification(std::vector<trainingExample> trainingSet);
+    classification(const std::vector<trainingExample> &trainingSet);
     /** create with proper models, but not trained */
-    classification(int numInputs, int numOutputs);
+    classification(const int &numInputs, const int &numOutputs);
+    
+    /** destructor */
+    ~classification() {}
     
     /** Train on a specified set, causes creation if not created */
-    bool train(std::vector<trainingExample> trainingSet);
-
-    /** Calls modelSet method */
-    bool initialize();
+    bool train(const std::vector<trainingExample> &trainingSet);
     
-    /** Calls modelSet method */
-    std::vector<double> process(std::vector<double> inputVector);
+    /** Check the K values for each model. This feature is temporary, and will be replaced by a different design. */
+    std::vector<int> getK();
+    /** Get the K values for each model. This feature is temporary, and will be replaced by a different design. */
+    void setK(const int whichModel, const int newK);
 };
 
 #endif

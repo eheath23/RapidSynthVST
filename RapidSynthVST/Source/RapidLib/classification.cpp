@@ -1,7 +1,7 @@
 #include <vector>
 #include "classification.h"
 #ifdef EMSCRIPTEN
-#include "classificationEmbindings.h"
+#include "emscripten/classificationEmbindings.h"
 #endif
 
 classification::classification() {
@@ -10,9 +10,9 @@ classification::classification() {
     created = false;
 };
 
-classification::classification(int num_inputs, int num_outputs) {
-    numInputs = 0;
-    numOutputs = 0;
+classification::classification(const int &num_inputs, const int &num_outputs) { //TODO: this feature isn't really useful
+    numInputs = num_inputs;
+    numOutputs = num_outputs;
     created = false;
     std::vector<int> whichInputs;
     for (int i = 0; i < numInputs; ++i) {
@@ -25,20 +25,23 @@ classification::classification(int num_inputs, int num_outputs) {
     created = true;
 };
 
-classification::classification(std::vector<trainingExample> training_set) {
+classification::classification(const std::vector<trainingExample> &training_set) {
     numInputs = 0;
     numOutputs = 0;
     created = false;
     train(training_set);
 };
 
-bool classification::train(std::vector<trainingExample> training_set) {
+bool classification::train(const std::vector<trainingExample> &training_set) {
     //TODO: time this process?
     if (created) {
       return modelSet::train(training_set);
     } else {
         //create model(s) here
         numInputs = int(training_set[0].input.size());
+        for (int i = 0; i < numInputs; ++i) {
+            inputNames.push_back("inputs-" + std::to_string(i + 1));
+        }
         numOutputs = int(training_set[0].output.size());
         for ( auto example : training_set) {
             if (example.input.size() != numInputs) {
@@ -60,14 +63,16 @@ bool classification::train(std::vector<trainingExample> training_set) {
     }
 }
 
-#ifdef EMSCRIPTEN
-bool classification::initialize() {
-  //Emscripten made me do it. -mz
-  return modelSet::initialize();
+std::vector<int> classification::getK() {
+    std::vector<int> kVector;
+    for (baseModel* model : myModelSet) {
+        knnClassification* kNNModel = dynamic_cast<knnClassification*>(model); //FIXME: I really dislike this design
+        kVector.push_back(kNNModel->getK());
+    }
+    return kVector;
 }
 
-std::vector<double> classification::process(std::vector<double> inputVector) {
-    //Emscripten made me do it. -mz
-    return modelSet::process(inputVector);
+void classification::setK(const int whichModel, const int newK) {
+        knnClassification* kNNModel = dynamic_cast<knnClassification*>(myModelSet[whichModel]); //FIXME: I really dislike this design
+        kNNModel->setK(newK);
 }
-#endif
