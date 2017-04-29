@@ -538,10 +538,20 @@ void RapidSynthVstAudioProcessorEditor:: buttonClicked (Button* button)
     if (button->getName() == "MLButton1")
     {
 //        trainingExample1.input = { (double)scene.XY.button1.getX(), (double)scene.XY.button1.getY() };
-        std::vector<double> input =  normaliseMouseSpace(scene.XY.button1.getScreenPosition(), drawingArea);
         
-        trainingExample1.input = {input[0], input[1]};
-        trainingExample1.output = { (double)osc1FilterCutoff
+        std::vector<double> tempPositions =  normaliseMouseSpace(scene.XY.button1.getScreenPosition(), drawingArea);
+        
+        double inputX = tempPositions[0];
+        double inputY = tempPositions[1];
+        
+        example1Input = { inputX , inputY };
+        
+        example1Output = { osc1FilterCutoff };
+        
+//        example1Output = 1;
+        
+//        trainingExample1.input = {input[0], input[1]};
+//        trainingExample1.output = { (double)osc1FilterCutoff
 //            osc1Detune,
 //            osc1Gain,
 //            osc2FilterCutoff,
@@ -559,10 +569,10 @@ void RapidSynthVstAudioProcessorEditor:: buttonClicked (Button* button)
 //            ADSR1Sustain,
 //            ADSR1Release,
 //            VCORes
-        };
+//        };
         
 //        trainingSet[0] = trainingExample1;
-        trainingSet.push_back(trainingExample1);
+//        trainingSet.push_back(trainingExample1);
         button1Trained = true;
         
         std::cout << "Button 1 Stored" << std:: endl;
@@ -573,11 +583,21 @@ void RapidSynthVstAudioProcessorEditor:: buttonClicked (Button* button)
     {
 //        trainingExample2.input = { (double)scene.XY.button2.getX(), (double)scene.XY.button2.getY() };
         
-        std::vector<double> input =  normaliseMouseSpace(scene.XY.button2.getScreenPosition(), drawingArea);
+//        example2Input =  normaliseMouseSpace(scene.XY.button2.getScreenPosition(), drawingArea);
         
-        trainingExample2.input = {input[0], input[1]};
+        std::vector<double> tempPositions =  normaliseMouseSpace(scene.XY.button2.getScreenPosition(), drawingArea);
         
-        trainingExample2.output = { (double)osc1FilterCutoff
+        double inputX = tempPositions[0];
+        double inputY = tempPositions[1];
+        
+        example2Input = { inputX , inputY };
+        
+        example2Output = { osc1FilterCutoff };
+
+        
+//        trainingExample2.input = {input[0], input[1]};
+        
+//        trainingExample2.output = { (double)osc1FilterCutoff
 //            osc1Detune,
 //            osc1Gain,
 //            osc2FilterCutoff,
@@ -595,10 +615,10 @@ void RapidSynthVstAudioProcessorEditor:: buttonClicked (Button* button)
 //            ADSR1Sustain,
 //            ADSR1Release,
 //            VCORes
-        };
+//        };
         
 //        trainingSet[1] = trainingExample2;
-        trainingSet.push_back(trainingExample2);
+//        trainingSet.push_back(trainingExample2);
         button2Trained = true;
         
         std::cout << "Button 2 Stored" << std:: endl;
@@ -610,11 +630,24 @@ void RapidSynthVstAudioProcessorEditor:: buttonClicked (Button* button)
     {
 //        trainingExample3.input = { (double)scene.XY.button3.getX(), (double)scene.XY.button3.getY() };
         
-        std::vector<double> input =  normaliseMouseSpace(scene.XY.button3.getScreenPosition(), drawingArea);
+//        example3Input =  normaliseMouseSpace(scene.XY.button3.getScreenPosition(), drawingArea);
         
-        trainingExample3.input = {input[0], input[1]};
+        std::vector<double> tempPositions =  normaliseMouseSpace(scene.XY.button3.getScreenPosition(), drawingArea);
         
-        trainingExample3.output = { (double)osc1FilterCutoff
+        double inputX = tempPositions[0];
+        double inputY = tempPositions[1];
+        
+        example3Input = { inputX , inputY };
+        
+        example3Output = { osc1FilterCutoff };
+
+        
+//        example3Output = 3;
+
+        
+//        trainingExample3.input = {input[0], input[1]};
+        
+//        trainingExample3.output = { (double)osc1FilterCutoff
 //            osc1Detune,
 //            osc1Gain,
 //            osc2FilterCutoff,
@@ -632,10 +665,10 @@ void RapidSynthVstAudioProcessorEditor:: buttonClicked (Button* button)
 //            ADSR1Sustain,
 //            ADSR1Release,
 //            VCORes
-        };
+//        };
         
 //        trainingSet[2] = trainingExample3;
-        trainingSet.push_back(trainingExample3);
+//        trainingSet.push_back(trainingExample3);
         button3Trained = true;
         
         std::cout << "Button 3 Stored" << std:: endl;
@@ -647,11 +680,25 @@ void RapidSynthVstAudioProcessorEditor:: buttonClicked (Button* button)
     {
 //        trainingExample4.input = { (double)scene.XY.button4.getX(), (double)scene.XY.button4.getY() };
         
-        std::vector<double> input =  normaliseMouseSpace(scene.XY.button4.getScreenPosition(), drawingArea);
+//        example4Input =  normaliseMouseSpace(scene.XY.button4.getScreenPosition(), drawingArea);
         
-        trainingExample4.input = {input[0], input[1]};
         
-        trainingExample4.output = { (double)osc1FilterCutoff
+        std::vector<double> tempPositions =  normaliseMouseSpace(scene.XY.button4.getScreenPosition(), drawingArea);
+        
+        double inputX = tempPositions[0];
+        double inputY = tempPositions[1];
+        
+        example4Input = { inputX , inputY };
+        
+        example4Output = { osc1FilterCutoff };
+
+        
+//        example4Output = 4;
+
+        
+//        trainingExample4.input = {input[0], input[1]};
+        
+//        trainingExample4.output = { (double)osc1FilterCutoff
 //            osc1Detune,
 //            osc1Gain,
 //            osc2FilterCutoff,
@@ -669,10 +716,10 @@ void RapidSynthVstAudioProcessorEditor:: buttonClicked (Button* button)
 //            ADSR1Sustain,
 //            ADSR1Release,
 //            VCORes
-        };
+//        };
         
 //        trainingSet[3] = trainingExample4;
-        trainingSet.push_back(trainingExample4);
+//        trainingSet.push_back(trainingExample4);
         button4Trained = true;
         
         std::cout << "Button 4 Stored" << std:: endl;
@@ -684,9 +731,22 @@ void RapidSynthVstAudioProcessorEditor:: buttonClicked (Button* button)
     {
         if(button1Trained && button2Trained && button3Trained && button4Trained)
         {
-//            trainingSet = { trainingExample1, trainingExample2, trainingExample3, trainingExample4 };
+            trainingExample1.input = example1Input;
+            trainingExample1.output = example1Output;
+            
+            trainingExample2.input = example2Input;
+            trainingExample2.output = example2Output;
+            
+            trainingExample3.input = example3Input;
+            trainingExample3.output = example3Output;
+            
+            trainingExample4.input = example4Input;
+            trainingExample4.output = example4Output;
+            
+            trainingSet = { trainingExample1, trainingExample2, trainingExample3, trainingExample4 };
+            
             trained = rapidRegression.train(trainingSet);
-//            trained = true;
+
             std::cout << "Trained = " << trained << std::endl;
 
         }
@@ -701,8 +761,15 @@ void RapidSynthVstAudioProcessorEditor:: buttonClicked (Button* button)
 
 void RapidSynthVstAudioProcessorEditor::targetMoved()
 {
-    std::vector<double> input =  normaliseMouseSpace(scene.XY.targetShape.getScreenPosition(), drawingArea);
+//    std::vector<double> input =  normaliseMouseSpace(scene.XY.targetShape.getScreenPosition(), drawingArea);
+    
+    std::vector<double> tempPositions =  normaliseMouseSpace(scene.XY.targetShape.getScreenPosition(), drawingArea);
+    
+    double inputX = tempPositions[0];
+    double inputY = tempPositions[1];
 
+    std::vector<double> input = { inputX , inputY };
+    
 //    std::vector<double> input = { (double)scene.XY.targetShape.getX(), (double)scene.XY.targetShape.getY() };
     
     std::vector<double> output = rapidRegression.process(input);

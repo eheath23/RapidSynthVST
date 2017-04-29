@@ -63,11 +63,11 @@ public:
         auto r = getLocalBounds();
 
         button1.setBounds(10, 10, 25, 25);
-        button2.setBounds(110, 10, 25, 25);
-        button3.setBounds(210, 10, 25, 25);
-        button4.setBounds(310, 10, 25, 25);
-        button5.setBounds(410, 10, 25, 25);
-        button6.setBounds(510, 10, 25, 25);
+        button2.setBounds(110, 60, 25, 25);
+        button3.setBounds(210, 110, 25, 25);
+        button4.setBounds(310, 160, 25, 25);
+        button5.setBounds(410, 210, 25, 25);
+        button6.setBounds(510, 260, 25, 25);
         
     }
     

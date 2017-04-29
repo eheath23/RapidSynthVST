@@ -58,6 +58,10 @@ public:
     trainingExample              trainingExample3;
     trainingExample              trainingExample4;
     
+    std::vector<double> example1Input, example2Input, example3Input, example4Input;
+    
+    std::vector<double> example1Output, example2Output, example3Output, example4Output;
+    
     // Output Params
     double osc1FilterCutoff;
     double osc1Detune;
