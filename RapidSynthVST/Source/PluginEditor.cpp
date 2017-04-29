@@ -546,30 +546,30 @@ void RapidSynthVstAudioProcessorEditor:: buttonClicked (Button* button)
         
         example1Input = { inputX , inputY };
         
-        example1Output = { osc1FilterCutoff };
+//        example1Output = { osc1FilterCutoff };
         
 //        example1Output = 1;
         
 //        trainingExample1.input = {input[0], input[1]};
-//        trainingExample1.output = { (double)osc1FilterCutoff
-//            osc1Detune,
-//            osc1Gain,
-//            osc2FilterCutoff,
-//            osc2Detune,
-//            osc2Gain,
-//            osc3FilterCutoff,
-//            osc3Detune,
-//            osc3Gain,
-//            LFO1Freq,
-//            LFO1Gain,
-//            VCOCutoff,
-//            masterGain,
-//            ADSR1Attack,
-//            ADSR1Decay,
-//            ADSR1Sustain,
-//            ADSR1Release,
-//            VCORes
-//        };
+        example1Output = { osc1FilterCutoff,
+            osc1Detune,
+            osc1Gain,
+            osc2FilterCutoff,
+            osc2Detune,
+            osc2Gain,
+            osc3FilterCutoff,
+            osc3Detune,
+            osc3Gain,
+            LFO1Freq,
+            LFO1Gain,
+            VCOCutoff,
+            masterGain,
+            ADSR1Attack,
+            ADSR1Decay,
+            ADSR1Sustain,
+            ADSR1Release,
+            VCORes
+        };
         
 //        trainingSet[0] = trainingExample1;
 //        trainingSet.push_back(trainingExample1);
@@ -592,30 +592,30 @@ void RapidSynthVstAudioProcessorEditor:: buttonClicked (Button* button)
         
         example2Input = { inputX , inputY };
         
-        example2Output = { osc1FilterCutoff };
+//        example2Output = { osc1FilterCutoff };
 
         
 //        trainingExample2.input = {input[0], input[1]};
         
-//        trainingExample2.output = { (double)osc1FilterCutoff
-//            osc1Detune,
-//            osc1Gain,
-//            osc2FilterCutoff,
-//            osc2Detune,
-//            osc2Gain,
-//            osc3FilterCutoff,
-//            osc3Detune,
-//            osc3Gain,
-//            LFO1Freq,
-//            LFO1Gain,
-//            VCOCutoff,
-//            masterGain,
-//            ADSR1Attack,
-//            ADSR1Decay,
-//            ADSR1Sustain,
-//            ADSR1Release,
-//            VCORes
-//        };
+        example2Output = { osc1FilterCutoff,
+            osc1Detune,
+            osc1Gain,
+            osc2FilterCutoff,
+            osc2Detune,
+            osc2Gain,
+            osc3FilterCutoff,
+            osc3Detune,
+            osc3Gain,
+            LFO1Freq,
+            LFO1Gain,
+            VCOCutoff,
+            masterGain,
+            ADSR1Attack,
+            ADSR1Decay,
+            ADSR1Sustain,
+            ADSR1Release,
+            VCORes
+        };
         
 //        trainingSet[1] = trainingExample2;
 //        trainingSet.push_back(trainingExample2);
@@ -639,7 +639,7 @@ void RapidSynthVstAudioProcessorEditor:: buttonClicked (Button* button)
         
         example3Input = { inputX , inputY };
         
-        example3Output = { osc1FilterCutoff };
+//        example3Output = { osc1FilterCutoff };
 
         
 //        example3Output = 3;
@@ -647,25 +647,25 @@ void RapidSynthVstAudioProcessorEditor:: buttonClicked (Button* button)
         
 //        trainingExample3.input = {input[0], input[1]};
         
-//        trainingExample3.output = { (double)osc1FilterCutoff
-//            osc1Detune,
-//            osc1Gain,
-//            osc2FilterCutoff,
-//            osc2Detune,
-//            osc2Gain,
-//            osc3FilterCutoff,
-//            osc3Detune,
-//            osc3Gain,
-//            LFO1Freq,
-//            LFO1Gain,
-//            VCOCutoff,
-//            masterGain,
-//            ADSR1Attack,
-//            ADSR1Decay,
-//            ADSR1Sustain,
-//            ADSR1Release,
-//            VCORes
-//        };
+        example3Output = { osc1FilterCutoff,
+            osc1Detune,
+            osc1Gain,
+            osc2FilterCutoff,
+            osc2Detune,
+            osc2Gain,
+            osc3FilterCutoff,
+            osc3Detune,
+            osc3Gain,
+            LFO1Freq,
+            LFO1Gain,
+            VCOCutoff,
+            masterGain,
+            ADSR1Attack,
+            ADSR1Decay,
+            ADSR1Sustain,
+            ADSR1Release,
+            VCORes
+        };
         
 //        trainingSet[2] = trainingExample3;
 //        trainingSet.push_back(trainingExample3);
@@ -690,7 +690,7 @@ void RapidSynthVstAudioProcessorEditor:: buttonClicked (Button* button)
         
         example4Input = { inputX , inputY };
         
-        example4Output = { osc1FilterCutoff };
+//        example4Output = { osc1FilterCutoff };
 
         
 //        example4Output = 4;
@@ -698,25 +698,25 @@ void RapidSynthVstAudioProcessorEditor:: buttonClicked (Button* button)
         
 //        trainingExample4.input = {input[0], input[1]};
         
-//        trainingExample4.output = { (double)osc1FilterCutoff
-//            osc1Detune,
-//            osc1Gain,
-//            osc2FilterCutoff,
-//            osc2Detune,
-//            osc2Gain,
-//            osc3FilterCutoff,
-//            osc3Detune,
-//            osc3Gain,
-//            LFO1Freq,
-//            LFO1Gain,
-//            VCOCutoff,
-//            masterGain,
-//            ADSR1Attack,
-//            ADSR1Decay,
-//            ADSR1Sustain,
-//            ADSR1Release,
-//            VCORes
-//        };
+        example4Output = { osc1FilterCutoff,
+            osc1Detune,
+            osc1Gain,
+            osc2FilterCutoff,
+            osc2Detune,
+            osc2Gain,
+            osc3FilterCutoff,
+            osc3Detune,
+            osc3Gain,
+            LFO1Freq,
+            LFO1Gain,
+            VCOCutoff,
+            masterGain,
+            ADSR1Attack,
+            ADSR1Decay,
+            ADSR1Sustain,
+            ADSR1Release,
+            VCORes
+        };
         
 //        trainingSet[3] = trainingExample4;
 //        trainingSet.push_back(trainingExample4);
@@ -775,23 +775,23 @@ void RapidSynthVstAudioProcessorEditor::targetMoved()
     std::vector<double> output = rapidRegression.process(input);
     
     double nosc1FilterCutoff = output[0];
-    //                double nosc1Detune = output[1];
-    //                double nosc1Gain = output[2];
-    //                double nosc2FilterCutoff = output[3];
-    //                double nosc2Detune = output[4];
-    //                double nosc2Gain = output[5];
-    //                double nosc3FilterCutoff = output[6];
-    //                double nosc3Detune = output[7];
-    //                double nosc3Gain = output[8];
-    //                double nLFO1Freq = output[9];
-    //                double nLFO1Gain = output[10];
-    //                double nVCOCutoff = output[11];
-    //                double nmasterGain = output[12];
-    //                double nADSR1Attack = output[13];
-    //                double nADSR1Decay = output[14];
-    //                double nADSR1Sustain = output[15];
-    //                double nADSR1Release = output[16];
-    //                double nVCORes = output[17];
+                    double nosc1Detune = output[1];
+                    double nosc1Gain = output[2];
+                    double nosc2FilterCutoff = output[3];
+                    double nosc2Detune = output[4];
+                    double nosc2Gain = output[5];
+                    double nosc3FilterCutoff = output[6];
+                    double nosc3Detune = output[7];
+                    double nosc3Gain = output[8];
+                    double nLFO1Freq = output[9];
+                    double nLFO1Gain = output[10];
+                    double nVCOCutoff = output[11];
+                    double nmasterGain = output[12];
+                    double nADSR1Attack = output[13];
+                    double nADSR1Decay = output[14];
+                    double nADSR1Sustain = output[15];
+                    double nADSR1Release = output[16];
+                    double nVCORes = output[17];
     
     std::cout << "nosc1FilterCutoff = " << nosc1FilterCutoff << std::endl;
     
@@ -800,33 +800,33 @@ void RapidSynthVstAudioProcessorEditor::targetMoved()
     {
         scene.oscScene.osc1.dial1.setValue(nosc1FilterCutoff);
     }
-    //                scene.oscScene.osc1.dial2.setValue(nosc1Detune, dontSendNotification);
-    //                scene.oscScene.osc1.dial3.setValue(nosc1Gain, dontSendNotification);
-    //
-    //                //OSC 2
-    //                scene.oscScene.osc2.dial1.setValue(nosc2FilterCutoff, dontSendNotification);
-    //                scene.oscScene.osc2.dial2.setValue(nosc2Detune, dontSendNotification);
-    //                scene.oscScene.osc2.dial3.setValue(nosc2Gain, dontSendNotification);
-    //
-    //                //OSC 3
-    //                scene.oscScene.osc3.dial1.setValue(nosc3FilterCutoff, dontSendNotification);
-    //                scene.oscScene.osc3.dial2.setValue(nosc3Detune, dontSendNotification);
-    //                scene.oscScene.osc3.dial3.setValue(nosc3Gain, dontSendNotification);
-    //
-    //                //LFO 1
-    //                scene.modScene.lfo.dial1.setValue(nLFO1Freq, dontSendNotification);
-    //                scene.modScene.lfo.dial2.setValue(nLFO1Gain, dontSendNotification);
-    //                scene.modScene.lfo.dial3.setValue(nmasterGain, dontSendNotification);
-    //
-    //                //FILTER
-    //                scene.modScene.filter.dial1.setValue(nVCOCutoff, dontSendNotification);
-    //                scene.modScene.filter.dial2.setValue(nVCORes, dontSendNotification);
-    //
-    //                //ENVELOPE
-    //                scene.modScene.envelope.ADSR1Attack.setValue(nADSR1Attack, dontSendNotification);
-    //                scene.modScene.envelope.ADSR1Decay.setValue(nADSR1Decay, dontSendNotification);
-    //                scene.modScene.envelope.ADSR1Sustain.setValue(nADSR1Sustain, dontSendNotification);
-    //                scene.modScene.envelope.ADSR1Release.setValue(nADSR1Release, dontSendNotification);
+                    scene.oscScene.osc1.dial2.setValue(nosc1Detune);
+                    scene.oscScene.osc1.dial3.setValue(nosc1Gain);
+    
+                    //OSC 2
+                    scene.oscScene.osc2.dial1.setValue(nosc2FilterCutoff);
+                    scene.oscScene.osc2.dial2.setValue(nosc2Detune);
+                    scene.oscScene.osc2.dial3.setValue(nosc2Gain);
+    
+                    //OSC 3
+                    scene.oscScene.osc3.dial1.setValue(nosc3FilterCutoff);
+                    scene.oscScene.osc3.dial2.setValue(nosc3Detune);
+                    scene.oscScene.osc3.dial3.setValue(nosc3Gain);
+    
+                    //LFO 1
+                    scene.modScene.lfo.dial1.setValue(nLFO1Freq);
+                    scene.modScene.lfo.dial2.setValue(nLFO1Gain);
+                    scene.modScene.lfo.dial3.setValue(nmasterGain);
+    
+                    //FILTER
+                    scene.modScene.filter.dial1.setValue(nVCOCutoff);
+                    scene.modScene.filter.dial2.setValue(nVCORes);
+    
+                    //ENVELOPE
+                    scene.modScene.envelope.ADSR1Attack.setValue(nADSR1Attack);
+                    scene.modScene.envelope.ADSR1Decay.setValue(nADSR1Decay);
+                    scene.modScene.envelope.ADSR1Sustain.setValue(nADSR1Sustain);
+                    scene.modScene.envelope.ADSR1Release.setValue(nADSR1Release);
     
 }
 
