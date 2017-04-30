@@ -16,25 +16,6 @@
 RapidSynthVstAudioProcessorEditor::RapidSynthVstAudioProcessorEditor (RapidSynthVstAudioProcessor& p)
     : AudioProcessorEditor (&p), processor (p)
 
-//masterGain(1),
-//osc1Detune(0),
-//osc2Detune(0),
-//osc3Detune(0),
-//osc1Gain(1),
-//osc2Gain(1),
-//osc3Gain(1),
-//LFO1Gain(1),
-//osc1FilterCutoff(0)
-//osc2FilterCutoff(1),
-//osc3FilterCutoff(1),
-//VCOCutoff(1),
-//VCORes(0),
-//ADSR1Attack(0),
-//ADSR1Decay(1),
-//ADSR1Sustain(0),
-//ADSR1Release(0),
-//LFO1Freq(0)
-
 {
     
     setSize (800, 600);
@@ -156,108 +137,6 @@ RapidSynthVstAudioProcessorEditor::RapidSynthVstAudioProcessorEditor (RapidSynth
     scene.XY.button6.setName("MLButtonRun");
     scene.XY.button6.addListener(this);
     
-//    addAndMakeVisible(targetShape);
-    
-    //MACHINE LEARNING SETUP
-    //BUTTON 1
-//    trainingExample1.input = { (double)scene.XY.button1.getX(), (double)scene.XY.button1.getY() };
-//    trainingExample1.output = { osc1FilterCutoff,
-//         osc1Detune,
-//         osc1Gain,
-//         osc2FilterCutoff,
-//         osc2Detune,
-//         osc2Gain,
-//         osc3FilterCutoff,
-//         osc3Detune,
-//         osc3Gain,
-//         LFO1Freq,
-//         LFO1Gain,
-//         VCOCutoff,
-//         masterGain,
-//         ADSR1Attack,
-//         ADSR1Decay,
-//         ADSR1Sustain,
-//         ADSR1Release,
-//         VCORes };
-//    
-//    //BUTTON 2
-//    trainingExample2.input = { (double)scene.XY.button2.getX(), (double)scene.XY.button2.getY() };
-//    trainingExample2.output = { osc1FilterCutoff,
-//        osc1Detune,
-//        osc1Gain,
-//        osc2FilterCutoff,
-//        osc2Detune,
-//        osc2Gain,
-//        osc3FilterCutoff,
-//        osc3Detune,
-//        osc3Gain,
-//        LFO1Freq,
-//        LFO1Gain,
-//        VCOCutoff,
-//        masterGain,
-//        ADSR1Attack,
-//        ADSR1Decay,
-//        ADSR1Sustain,
-//        ADSR1Release,
-//        VCORes };
-//    
-//    //BUTTON 3
-//    trainingExample3.input = { (double)scene.XY.button3.getX(), (double)scene.XY.button3.getY() };
-//    trainingExample3.output = { osc1FilterCutoff,
-//        osc1Detune,
-//        osc1Gain,
-//        osc2FilterCutoff,
-//        osc2Detune,
-//        osc2Gain,
-//        osc3FilterCutoff,
-//        osc3Detune,
-//        osc3Gain,
-//        LFO1Freq,
-//        LFO1Gain,
-//        VCOCutoff,
-//        masterGain,
-//        ADSR1Attack,
-//        ADSR1Decay,
-//        ADSR1Sustain,
-//        ADSR1Release,
-//        VCORes };
-//    
-//    //BUTTON 4
-//    trainingExample4.input = { (double)scene.XY.button4.getX(), (double)scene.XY.button4.getY() };
-//    trainingExample4.output = { osc1FilterCutoff,
-//        osc1Detune,
-//        osc1Gain,
-//        osc2FilterCutoff,
-//        osc2Detune,
-//        osc2Gain,
-//        osc3FilterCutoff,
-//        osc3Detune,
-//        osc3Gain,
-//        LFO1Freq,
-//        LFO1Gain,
-//        VCOCutoff,
-//        masterGain,
-//        ADSR1Attack,
-//        ADSR1Decay,
-//        ADSR1Sustain,
-//        ADSR1Release,
-//        VCORes };
-    
-//    trainingSet.resize(4);
-//
-//    trainingExample1.input.resize(2);
-//    trainingExample1.output.resize(1);
-//    trainingExample2.input.resize(2);
-//    trainingExample2.output.resize(1);
-//    trainingExample3.input.resize(2);
-//    trainingExample3.output.resize(1);
-//    trainingExample4.input.resize(2);
-//    trainingExample4.output.resize(1);
-    
-//    trainingSet = { trainingExample1, trainingExample2, trainingExample3, trainingExample4 };
-    
-//    targetShape.setBounds(200, 200, 25, 25);
-    
     startTimerHz(60);
     
     drawingArea = scene.XY.getLocalBounds();
@@ -324,22 +203,17 @@ void RapidSynthVstAudioProcessorEditor::sliderValueChanged(Slider* slider){
     //OSC 1
     if (slider->getName() == "osc1FilterCutoff")
     {
-//        double sliderVal = slider->getValue();
-//        std::cout << sliderVal << std::endl;
         osc1FilterCutoff = (double)slider->getValue();
-//        setParameterValue("osc1FilterCutoff", scene.oscScene.osc1.dial1.getValue());
-//        setParameterValue("osc1FilterCutoff", osc1FilterCutoff);
+        setParameterValue("osc1FilterCutoff", osc1FilterCutoff);
     }
     if (slider->getName() == "osc1Detune")
     {
         osc1Detune = slider->getValue();
-//        setParameterValue("osc1Detune", scene.oscScene.osc1.dial2.getValue());
         setParameterValue("osc1Detune", osc1Detune);
     }
     if (slider->getName() == "osc1Gain")
     {
         osc1Gain = slider->getValue();
-//        setParameterValue("osc1Gain", scene.oscScene.osc1.dial3.getValue());
         setParameterValue("osc1Gain", osc1Gain);
     }
     
@@ -347,19 +221,16 @@ void RapidSynthVstAudioProcessorEditor::sliderValueChanged(Slider* slider){
     if (slider->getName() == "osc2FilterCutoff")
     {
         osc2FilterCutoff = slider->getValue();
-//        setParameterValue("osc2FilterCutoff", scene.oscScene.osc2.dial1.getValue());
         setParameterValue("osc2FilterCutoff", osc2FilterCutoff);
     }
     if (slider->getName() == "osc2Detune")
     {
         osc2Detune = slider->getValue();
-//        setParameterValue("osc2Detune", scene.oscScene.osc2.dial2.getValue());
         setParameterValue("osc2Detune", osc2Detune);
     }
     if (slider->getName() == "osc2Gain")
     {
         osc2Gain = slider->getValue();
-//        setParameterValue("osc2Gain", scene.oscScene.osc2.dial3.getValue());
         setParameterValue("osc2Gain", osc2Gain);
     }
 
@@ -367,20 +238,17 @@ void RapidSynthVstAudioProcessorEditor::sliderValueChanged(Slider* slider){
     if (slider->getName() == "osc3FilterCutoff")
     {
         osc3FilterCutoff = slider->getValue();
-//        setParameterValue("osc3FilterCutoff", scene.oscScene.osc3.dial1.getValue());
         setParameterValue("osc3FilterCutoff", osc3FilterCutoff);
     }
 
     if (slider->getName() == "osc3Detune")
     {
         osc3Detune = slider->getValue();
-//        setParameterValue("osc3Detune", scene.oscScene.osc3.dial2.getValue());
         setParameterValue("osc3Detune", osc3Detune);
     }
     if (slider->getName() == "osc3Gain")
     {
         osc3Gain = slider->getValue();
-//        setParameterValue("osc3Gain", scene.oscScene.osc3.dial3.getValue());
         setParameterValue("osc3Gain", osc3Gain);
     }
 
@@ -388,13 +256,11 @@ void RapidSynthVstAudioProcessorEditor::sliderValueChanged(Slider* slider){
     if (slider->getName() == "LFO1Freq")
     {
         LFO1Freq = slider->getValue();
-//        setParameterValue("LFO1Freq", scene.modScene.lfo.dial1.getValue());
         setParameterValue("LFO1Freq", LFO1Freq);
     }
     if (slider->getName() == "LFO1Gain")
     {
         LFO1Gain = slider->getValue();
-//        setParameterValue("LFO1Gain", scene.modScene.lfo.dial2.getValue());
         setParameterValue("LFO1Gain", LFO1Gain);
     }
     
@@ -402,7 +268,6 @@ void RapidSynthVstAudioProcessorEditor::sliderValueChanged(Slider* slider){
     if (slider->getName() == "masterGain")
     {
         masterGain = slider->getValue();
-//        setParameterValue("masterGain", scene.modScene.lfo.dial3.getValue());
         setParameterValue("masterGain", masterGain);
     }
     
@@ -410,13 +275,11 @@ void RapidSynthVstAudioProcessorEditor::sliderValueChanged(Slider* slider){
     if (slider->getName() == "VCOCutoff")
     {
         VCOCutoff = slider->getValue();
-//        setParameterValue("VCOCutoff", scene.modScene.filter.dial1.getValue());
         setParameterValue("VCOCutoff", VCOCutoff);
     }
     if (slider->getName() == "VCORes")
     {
         VCORes = slider->getValue();
-//        setParameterValue("VCORes", scene.modScene.filter.dial2.getValue());
         setParameterValue("VCORes", VCORes);
     }
     
@@ -424,25 +287,21 @@ void RapidSynthVstAudioProcessorEditor::sliderValueChanged(Slider* slider){
     if (slider->getName() == "ADSR1Attack")
     {
         ADSR1Attack = slider->getValue();
-//        setParameterValue("ADSR1Attack", scene.modScene.envelope.ADSR1Attack.getValue());
         setParameterValue("ADSR1Attack", ADSR1Attack);
     }
     if (slider->getName() == "ADSR1Decay")
     {
         ADSR1Decay = slider->getValue();
-//        setParameterValue("ADSR1Decay", scene.modScene.envelope.ADSR1Decay.getValue());
         setParameterValue("ADSR1Decay", ADSR1Decay);
     }
     if (slider->getName() == "ADSR1Sustain")
     {
         ADSR1Sustain = slider->getValue();
-//        setParameterValue("ADSR1Sustain", scene.modScene.envelope.ADSR1Sustain.getValue());
         setParameterValue("ADSR1Sustain", ADSR1Sustain);
     }
     if (slider->getName() == "ADSR1Release")
     {
         ADSR1Release = slider->getValue();
-//        setParameterValue("ADSR1Release", scene.modScene.envelope.ADSR1Release.getValue());
         setParameterValue("ADSR1Release", ADSR1Release);
     }
     
@@ -537,7 +396,6 @@ void RapidSynthVstAudioProcessorEditor:: buttonClicked (Button* button)
     //MACHINE LEARNING
     if (button->getName() == "MLButton1")
     {
-//        trainingExample1.input = { (double)scene.XY.button1.getX(), (double)scene.XY.button1.getY() };
         
         std::vector<double> tempPositions =  normaliseMouseSpace(scene.XY.button1.getScreenPosition(), drawingArea);
         
@@ -546,11 +404,6 @@ void RapidSynthVstAudioProcessorEditor:: buttonClicked (Button* button)
         
         example1Input = { inputX , inputY };
         
-//        example1Output = { osc1FilterCutoff };
-        
-//        example1Output = 1;
-        
-//        trainingExample1.input = {input[0], input[1]};
         example1Output = { osc1FilterCutoff,
             osc1Detune,
             osc1Gain,
@@ -571,8 +424,6 @@ void RapidSynthVstAudioProcessorEditor:: buttonClicked (Button* button)
             VCORes
         };
         
-//        trainingSet[0] = trainingExample1;
-//        trainingSet.push_back(trainingExample1);
         button1Trained = true;
         
         std::cout << "Button 1 Stored" << std:: endl;
@@ -581,9 +432,6 @@ void RapidSynthVstAudioProcessorEditor:: buttonClicked (Button* button)
     
     else if (button->getName() == "MLButton2")
     {
-//        trainingExample2.input = { (double)scene.XY.button2.getX(), (double)scene.XY.button2.getY() };
-        
-//        example2Input =  normaliseMouseSpace(scene.XY.button2.getScreenPosition(), drawingArea);
         
         std::vector<double> tempPositions =  normaliseMouseSpace(scene.XY.button2.getScreenPosition(), drawingArea);
         
@@ -592,12 +440,9 @@ void RapidSynthVstAudioProcessorEditor:: buttonClicked (Button* button)
         
         example2Input = { inputX , inputY };
         
-//        example2Output = { osc1FilterCutoff };
-
-        
-//        trainingExample2.input = {input[0], input[1]};
-        
-        example2Output = { osc1FilterCutoff,
+        example2Output =
+        {
+            osc1FilterCutoff,
             osc1Detune,
             osc1Gain,
             osc2FilterCutoff,
@@ -617,8 +462,6 @@ void RapidSynthVstAudioProcessorEditor:: buttonClicked (Button* button)
             VCORes
         };
         
-//        trainingSet[1] = trainingExample2;
-//        trainingSet.push_back(trainingExample2);
         button2Trained = true;
         
         std::cout << "Button 2 Stored" << std:: endl;
@@ -628,9 +471,6 @@ void RapidSynthVstAudioProcessorEditor:: buttonClicked (Button* button)
     
     else if (button->getName() == "MLButton3")
     {
-//        trainingExample3.input = { (double)scene.XY.button3.getX(), (double)scene.XY.button3.getY() };
-        
-//        example3Input =  normaliseMouseSpace(scene.XY.button3.getScreenPosition(), drawingArea);
         
         std::vector<double> tempPositions =  normaliseMouseSpace(scene.XY.button3.getScreenPosition(), drawingArea);
         
@@ -639,15 +479,9 @@ void RapidSynthVstAudioProcessorEditor:: buttonClicked (Button* button)
         
         example3Input = { inputX , inputY };
         
-//        example3Output = { osc1FilterCutoff };
-
-        
-//        example3Output = 3;
-
-        
-//        trainingExample3.input = {input[0], input[1]};
-        
-        example3Output = { osc1FilterCutoff,
+        example3Output =
+        {
+            osc1FilterCutoff,
             osc1Detune,
             osc1Gain,
             osc2FilterCutoff,
@@ -667,8 +501,6 @@ void RapidSynthVstAudioProcessorEditor:: buttonClicked (Button* button)
             VCORes
         };
         
-//        trainingSet[2] = trainingExample3;
-//        trainingSet.push_back(trainingExample3);
         button3Trained = true;
         
         std::cout << "Button 3 Stored" << std:: endl;
@@ -678,11 +510,6 @@ void RapidSynthVstAudioProcessorEditor:: buttonClicked (Button* button)
     
     else if (button->getName() == "MLButton4")
     {
-//        trainingExample4.input = { (double)scene.XY.button4.getX(), (double)scene.XY.button4.getY() };
-        
-//        example4Input =  normaliseMouseSpace(scene.XY.button4.getScreenPosition(), drawingArea);
-        
-        
         std::vector<double> tempPositions =  normaliseMouseSpace(scene.XY.button4.getScreenPosition(), drawingArea);
         
         double inputX = tempPositions[0];
@@ -690,15 +517,9 @@ void RapidSynthVstAudioProcessorEditor:: buttonClicked (Button* button)
         
         example4Input = { inputX , inputY };
         
-//        example4Output = { osc1FilterCutoff };
-
-        
-//        example4Output = 4;
-
-        
-//        trainingExample4.input = {input[0], input[1]};
-        
-        example4Output = { osc1FilterCutoff,
+        example4Output =
+        {
+            osc1FilterCutoff,
             osc1Detune,
             osc1Gain,
             osc2FilterCutoff,
@@ -718,8 +539,6 @@ void RapidSynthVstAudioProcessorEditor:: buttonClicked (Button* button)
             VCORes
         };
         
-//        trainingSet[3] = trainingExample4;
-//        trainingSet.push_back(trainingExample4);
         button4Trained = true;
         
         std::cout << "Button 4 Stored" << std:: endl;
@@ -743,7 +562,13 @@ void RapidSynthVstAudioProcessorEditor:: buttonClicked (Button* button)
             trainingExample4.input = example4Input;
             trainingExample4.output = example4Output;
             
-            trainingSet = { trainingExample1, trainingExample2, trainingExample3, trainingExample4 };
+            trainingSet =
+            {
+                trainingExample1,
+                trainingExample2,
+                trainingExample3,
+                trainingExample4
+            };
             
             trained = rapidRegression.train(trainingSet);
 
@@ -755,14 +580,12 @@ void RapidSynthVstAudioProcessorEditor:: buttonClicked (Button* button)
     else if (button->getName() == "MLButtonRun")
     {
         run = !run;
-        std::cout << "running = " << run << std::endl;
+        std::cout << "Running = " << run << std::endl;
     }
 }
 
 void RapidSynthVstAudioProcessorEditor::targetMoved()
 {
-//    std::vector<double> input =  normaliseMouseSpace(scene.XY.targetShape.getScreenPosition(), drawingArea);
-    
     std::vector<double> tempPositions =  normaliseMouseSpace(scene.XY.targetShape.getScreenPosition(), drawingArea);
     
     double inputX = tempPositions[0];
@@ -770,63 +593,57 @@ void RapidSynthVstAudioProcessorEditor::targetMoved()
 
     std::vector<double> input = { inputX , inputY };
     
-//    std::vector<double> input = { (double)scene.XY.targetShape.getX(), (double)scene.XY.targetShape.getY() };
-    
     std::vector<double> output = rapidRegression.process(input);
     
     double nosc1FilterCutoff = output[0];
-                    double nosc1Detune = output[1];
-                    double nosc1Gain = output[2];
-                    double nosc2FilterCutoff = output[3];
-                    double nosc2Detune = output[4];
-                    double nosc2Gain = output[5];
-                    double nosc3FilterCutoff = output[6];
-                    double nosc3Detune = output[7];
-                    double nosc3Gain = output[8];
-                    double nLFO1Freq = output[9];
-                    double nLFO1Gain = output[10];
-                    double nVCOCutoff = output[11];
-                    double nmasterGain = output[12];
-                    double nADSR1Attack = output[13];
-                    double nADSR1Decay = output[14];
-                    double nADSR1Sustain = output[15];
-                    double nADSR1Release = output[16];
-                    double nVCORes = output[17];
+    double nosc1Detune = output[1];
+    double nosc1Gain = output[2];
+    double nosc2FilterCutoff = output[3];
+    double nosc2Detune = output[4];
+    double nosc2Gain = output[5];
+    double nosc3FilterCutoff = output[6];
+    double nosc3Detune = output[7];
+    double nosc3Gain = output[8];
+    double nLFO1Freq = output[9];
+    double nLFO1Gain = output[10];
+    double nVCOCutoff = output[11];
+    double nmasterGain = output[12];
+    double nADSR1Attack = output[13];
+    double nADSR1Decay = output[14];
+    double nADSR1Sustain = output[15];
+    double nADSR1Release = output[16];
+    double nVCORes = output[17];
     
-    std::cout << "nosc1FilterCutoff = " << nosc1FilterCutoff << std::endl;
     
     //OSC 1
-    if(!isnan(nosc1FilterCutoff))
-    {
-        scene.oscScene.osc1.dial1.setValue(nosc1FilterCutoff);
-    }
-                    scene.oscScene.osc1.dial2.setValue(nosc1Detune);
-                    scene.oscScene.osc1.dial3.setValue(nosc1Gain);
+    scene.oscScene.osc1.dial1.setValue(nosc1FilterCutoff);
+    scene.oscScene.osc1.dial2.setValue(nosc1Detune);
+    scene.oscScene.osc1.dial3.setValue(nosc1Gain);
     
-                    //OSC 2
-                    scene.oscScene.osc2.dial1.setValue(nosc2FilterCutoff);
-                    scene.oscScene.osc2.dial2.setValue(nosc2Detune);
-                    scene.oscScene.osc2.dial3.setValue(nosc2Gain);
+    //OSC 2
+    scene.oscScene.osc2.dial1.setValue(nosc2FilterCutoff);
+    scene.oscScene.osc2.dial2.setValue(nosc2Detune);
+    scene.oscScene.osc2.dial3.setValue(nosc2Gain);
     
-                    //OSC 3
-                    scene.oscScene.osc3.dial1.setValue(nosc3FilterCutoff);
-                    scene.oscScene.osc3.dial2.setValue(nosc3Detune);
-                    scene.oscScene.osc3.dial3.setValue(nosc3Gain);
+    //OSC 3
+    scene.oscScene.osc3.dial1.setValue(nosc3FilterCutoff);
+    scene.oscScene.osc3.dial2.setValue(nosc3Detune);
+    scene.oscScene.osc3.dial3.setValue(nosc3Gain);
     
-                    //LFO 1
-                    scene.modScene.lfo.dial1.setValue(nLFO1Freq);
-                    scene.modScene.lfo.dial2.setValue(nLFO1Gain);
-                    scene.modScene.lfo.dial3.setValue(nmasterGain);
+    //LFO 1
+    scene.modScene.lfo.dial1.setValue(nLFO1Freq);
+    scene.modScene.lfo.dial2.setValue(nLFO1Gain);
+    scene.modScene.lfo.dial3.setValue(nmasterGain);
     
-                    //FILTER
-                    scene.modScene.filter.dial1.setValue(nVCOCutoff);
-                    scene.modScene.filter.dial2.setValue(nVCORes);
+    //FILTER
+    scene.modScene.filter.dial1.setValue(nVCOCutoff);
+    scene.modScene.filter.dial2.setValue(nVCORes);
     
-                    //ENVELOPE
-                    scene.modScene.envelope.ADSR1Attack.setValue(nADSR1Attack);
-                    scene.modScene.envelope.ADSR1Decay.setValue(nADSR1Decay);
-                    scene.modScene.envelope.ADSR1Sustain.setValue(nADSR1Sustain);
-                    scene.modScene.envelope.ADSR1Release.setValue(nADSR1Release);
+    //ENVELOPE
+    scene.modScene.envelope.ADSR1Attack.setValue(nADSR1Attack);
+    scene.modScene.envelope.ADSR1Decay.setValue(nADSR1Decay);
+    scene.modScene.envelope.ADSR1Sustain.setValue(nADSR1Sustain);
+    scene.modScene.envelope.ADSR1Release.setValue(nADSR1Release);
     
 }
 

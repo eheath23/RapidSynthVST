@@ -95,9 +95,14 @@ public:
     double VCORes;
     
     // Program state
-    bool                         button1Trained = false, button2Trained = false, button3Trained = false, button4Trained = false, trained = false;
+    bool                         button1Trained = false,
+                                 button2Trained = false,
+                                 button3Trained = false,
+                                 button4Trained = false,
+                                 trained = false;
+    
     bool                         process;
-    bool run = false; 
+    bool                         run = false; 
 
     juce::Rectangle<int>         drawingArea;
     SceneComponent scene;
