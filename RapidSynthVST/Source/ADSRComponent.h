@@ -32,12 +32,12 @@ public:
     void paint (Graphics& g) override
     {
 
-        g.fillAll (Colours::white);   // clear the background
+        g.fillAll (Colours::black);   // clear the background
 
-        g.setColour (Colours::grey);
-        g.drawRect (getLocalBounds(), 1);   // draw an outline around the component
+//        g.setColour (Colours::black);
+//        g.drawRect (getLocalBounds(), 1);   // draw an outline around the component
 
-        g.setColour (Colours::lightblue);
+        g.setColour (Colours::black);
         g.setFont (14.0f);
         g.drawText ("ADSRComponent", getLocalBounds(),
                     Justification::centred, true);   // draw some placeholder text

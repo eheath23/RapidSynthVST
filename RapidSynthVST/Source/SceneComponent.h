@@ -39,10 +39,10 @@ public:
 
     void paint (Graphics& g) override
     {
-        g.fillAll (Colours::lightgrey);   // clear the background
+        g.fillAll (Colours::aliceblue);   // clear the background
         
-        g.setColour (Colours::white);
-        g.drawRect (getLocalBounds(), 1);   // draw an outline around the component
+//        g.setColour (Colours::black);
+//        g.drawRect (getLocalBounds(), 1);   // draw an outline around the component
     }
 
     void resized() override

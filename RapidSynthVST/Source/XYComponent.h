@@ -51,9 +51,9 @@ public:
     void paint (Graphics& g) override
     {
 
-        g.fillAll (Colours::slategrey);   // clear the background
+        g.fillAll (Colours::lightblue);   // clear the background
 
-        g.setColour (Colours::white);
+        g.setColour (Colours::darkblue);
         g.drawRect (getLocalBounds(), 2);
         
     }
@@ -63,11 +63,11 @@ public:
         auto r = getLocalBounds();
 
         button1.setBounds(10, 10, 25, 25);
-        button2.setBounds(110, 60, 25, 25);
-        button3.setBounds(210, 110, 25, 25);
-        button4.setBounds(310, 160, 25, 25);
-        button5.setBounds(410, 210, 25, 25);
-        button6.setBounds(510, 260, 25, 25);
+        button2.setBounds(750, 10, 25, 25);
+        button3.setBounds(10, 300, 25, 25);
+        button4.setBounds(750, 300, 25, 25);
+        button5.setBounds(300, 10, 40, 25);
+        button6.setBounds(300, 70, 40, 25);
         
     }
     
@@ -78,7 +78,8 @@ public:
         
         void paint(Graphics& g) override
         {
-            g.fillAll(Colours::red);
+            g.fillAll(Colours::darkslateblue);
+            g.drawEllipse(this->getX(), this->getY(), 25, 25, 1);
         }
         
         void mouseDown(const MouseEvent& _event) override

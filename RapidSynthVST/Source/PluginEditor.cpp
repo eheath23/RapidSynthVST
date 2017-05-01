@@ -20,6 +20,8 @@ RapidSynthVstAudioProcessorEditor::RapidSynthVstAudioProcessorEditor (RapidSynth
     
     setSize (800, 600);
     
+    setLookAndFeel(&customLookAndFeel);
+
     addAndMakeVisible(scene);
     
     //OSC 1
@@ -31,15 +33,24 @@ RapidSynthVstAudioProcessorEditor::RapidSynthVstAudioProcessorEditor (RapidSynth
 
     scene.oscScene.osc1.dial3.setName("osc1Gain");
     scene.oscScene.osc1.dial3.addListener (this);
-
-    scene.oscScene.osc1.sineButton.setName("osc1Sine");
-    scene.oscScene.osc1.sineButton.addListener(this);
     
-    scene.oscScene.osc1.sawButton.setName("osc1Saw");
-    scene.oscScene.osc1.sawButton.addListener(this);
+    scene.oscScene.osc1.radioButtons[0]->setName("osc1Sine");
+    scene.oscScene.osc1.radioButtons[0]->addListener(this);
     
-    scene.oscScene.osc1.squareButton.setName("osc1Square");
-    scene.oscScene.osc1.squareButton.addListener(this);
+    scene.oscScene.osc1.radioButtons[1]->setName("osc1Saw");
+    scene.oscScene.osc1.radioButtons[1]->addListener(this);
+    
+    scene.oscScene.osc1.radioButtons[2]->setName("osc1Square");
+    scene.oscScene.osc1.radioButtons[2]->addListener(this);
+    
+    //    scene.oscScene.osc1.sineButton.setName("osc1Sine");
+//    scene.oscScene.osc1.sineButton.addListener(this);
+//    
+//    scene.oscScene.osc1.sawButton.setName("osc1Saw");
+//    scene.oscScene.osc1.sawButton.addListener(this);
+//    
+//    scene.oscScene.osc1.squareButton.setName("osc1Square");
+//    scene.oscScene.osc1.squareButton.addListener(this);
     
     //OSC 2
     scene.oscScene.osc2.dial1.setName("osc2FilterCutoff");
@@ -51,14 +62,23 @@ RapidSynthVstAudioProcessorEditor::RapidSynthVstAudioProcessorEditor (RapidSynth
     scene.oscScene.osc2.dial3.setName("osc2Gain");
     scene.oscScene.osc2.dial3.addListener (this);
     
-    scene.oscScene.osc2.sineButton.setName("osc2Sine");
-    scene.oscScene.osc2.sineButton.addListener(this);
+    scene.oscScene.osc2.radioButtons[0]->setName("osc2Sine");
+    scene.oscScene.osc2.radioButtons[0]->addListener(this);
     
-    scene.oscScene.osc2.sawButton.setName("osc2Saw");
-    scene.oscScene.osc2.sawButton.addListener(this);
+    scene.oscScene.osc2.radioButtons[1]->setName("osc2Saw");
+    scene.oscScene.osc2.radioButtons[1]->addListener(this);
     
-    scene.oscScene.osc2.squareButton.setName("osc2Square");
-    scene.oscScene.osc2.squareButton.addListener(this);
+    scene.oscScene.osc2.radioButtons[2]->setName("osc2Square");
+    scene.oscScene.osc2.radioButtons[2]->addListener(this);
+    
+//    scene.oscScene.osc2.sineButton.setName("osc2Sine");
+//    scene.oscScene.osc2.sineButton.addListener(this);
+//    
+//    scene.oscScene.osc2.sawButton.setName("osc2Saw");
+//    scene.oscScene.osc2.sawButton.addListener(this);
+//    
+//    scene.oscScene.osc2.squareButton.setName("osc2Square");
+//    scene.oscScene.osc2.squareButton.addListener(this);
     
     //OSC 3
     scene.oscScene.osc3.dial1.setName("osc3FilterCutoff");
@@ -70,14 +90,23 @@ RapidSynthVstAudioProcessorEditor::RapidSynthVstAudioProcessorEditor (RapidSynth
     scene.oscScene.osc3.dial3.setName("osc3Gain");
     scene.oscScene.osc3.dial3.addListener (this);
     
-    scene.oscScene.osc3.sineButton.setName("osc3Sine");
-    scene.oscScene.osc3.sineButton.addListener(this);
+    scene.oscScene.osc3.radioButtons[0]->setName("osc3Sine");
+    scene.oscScene.osc3.radioButtons[0]->addListener(this);
     
-    scene.oscScene.osc3.sawButton.setName("osc3Saw");
-    scene.oscScene.osc3.sawButton.addListener(this);
+    scene.oscScene.osc3.radioButtons[1]->setName("osc3Saw");
+    scene.oscScene.osc3.radioButtons[1]->addListener(this);
     
-    scene.oscScene.osc3.squareButton.setName("osc3Square");
-    scene.oscScene.osc3.squareButton.addListener(this);
+    scene.oscScene.osc3.radioButtons[2]->setName("osc3Square");
+    scene.oscScene.osc3.radioButtons[2]->addListener(this);
+    
+//    scene.oscScene.osc3.sineButton.setName("osc3Sine");
+//    scene.oscScene.osc3.sineButton.addListener(this);
+//    
+//    scene.oscScene.osc3.sawButton.setName("osc3Saw");
+//    scene.oscScene.osc3.sawButton.addListener(this);
+//    
+//    scene.oscScene.osc3.squareButton.setName("osc3Square");
+//    scene.oscScene.osc3.squareButton.addListener(this);
 
     //LFO 1
     scene.modScene.lfo.dial1.setName("LFO1Freq");

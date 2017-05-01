@@ -116,21 +116,22 @@
 		A915A9F842D432D73BA17549 = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = JuceHeader.h; path = ../../JuceLibraryCode/JuceHeader.h; sourceTree = "SOURCE_ROOT"; };
 		AACFC77892332F9E73EDF771 = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = OscillatorSceneComponent.h; path = ../../Source/OscillatorSceneComponent.h; sourceTree = "SOURCE_ROOT"; };
 		AAE2C21E0E3B79B82B188707 = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; name = "include_juce_audio_formats.mm"; path = "../../JuceLibraryCode/include_juce_audio_formats.mm"; sourceTree = "SOURCE_ROOT"; };
-		B4BB31A97558889090D5BBF7 = {isa = PBXFileReference; lastKnownFileType = file; name = "juce_cryptography"; path = "../../JuceLibraryCode/modules/juce_cryptography"; sourceTree = "SOURCE_ROOT"; };
+		ADE18995463A14EF9D9DAECE = {isa = PBXFileReference; lastKnownFileType = file; name = "juce_core"; path = "../../JuceLibraryCode/modules/juce_core"; sourceTree = "SOURCE_ROOT"; };
 		C18F53BE581C3D13C4D073AB = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; name = "include_juce_audio_plugin_client_AU_1.mm"; path = "../../JuceLibraryCode/include_juce_audio_plugin_client_AU_1.mm"; sourceTree = "SOURCE_ROOT"; };
+		C6306125AA77C94A6C87698D = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; name = "include_juce_audio_basics.mm"; path = "../../JuceLibraryCode/include_juce_audio_basics.mm"; sourceTree = "SOURCE_ROOT"; };
 		DA2992C3E1698B1B193DE896 = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		F3F713A796BACC1AB438177F = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RapidSynthVST.vst3; sourceTree = "BUILT_PRODUCTS_DIR"; };
 		7F247FCB6726B997394CF118 = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RapidSynthVST.component; sourceTree = "BUILT_PRODUCTS_DIR"; };
 		870C7A485C20505E111B7D3A = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = json.h; path = ../../Source/RapidLib/dependancies/json/json.h; sourceTree = "SOURCE_ROOT"; };
 		8D641E9C6A49299FF145F0D2 = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = nnEmbindings.h; path = ../../Source/RapidLib/src/emscripten/nnEmbindings.h; sourceTree = "SOURCE_ROOT"; };
 		9A5BAFF94CD5B5368833B5F8 = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = modelSetEmbindings.h; path = ../../Source/RapidLib/src/emscripten/modelSetEmbindings.h; sourceTree = "SOURCE_ROOT"; };
-		ADE18995463A14EF9D9DAECE = {isa = PBXFileReference; lastKnownFileType = file; name = "juce_core"; path = "../../JuceLibraryCode/modules/juce_core"; sourceTree = "SOURCE_ROOT"; };
+		B4BB31A97558889090D5BBF7 = {isa = PBXFileReference; lastKnownFileType = file; name = "juce_cryptography"; path = "../../JuceLibraryCode/modules/juce_cryptography"; sourceTree = "SOURCE_ROOT"; };
 		B71687115B46909088369626 = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = maxiFFT.cpp; path = ../../Source/MaxiLib/maxiFFT.cpp; sourceTree = "SOURCE_ROOT"; };
 		B813055965FA0291AA4B3408 = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = neuralNetwork.cpp; path = ../../Source/RapidLib/src/neuralNetwork.cpp; sourceTree = "SOURCE_ROOT"; };
 		BF18D7B462AFF11D163A6031 = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ADSRComponent.h; path = ../../Source/ADSRComponent.h; sourceTree = "SOURCE_ROOT"; };
 		C56C2608017165AFD75629EC = {isa = PBXFileReference; lastKnownFileType = file; name = "juce_audio_formats"; path = "../../JuceLibraryCode/modules/juce_audio_formats"; sourceTree = "SOURCE_ROOT"; };
-		C6306125AA77C94A6C87698D = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; name = "include_juce_audio_basics.mm"; path = "../../JuceLibraryCode/include_juce_audio_basics.mm"; sourceTree = "SOURCE_ROOT"; };
 		C6B0C0CC53D600281B442CBC = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libRapidSynthVST.a; sourceTree = "BUILT_PRODUCTS_DIR"; };
+		CA9E1197058DD76306028609 = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = CustomLookAndFeel.h; path = ../../Source/CustomLookAndFeel.h; sourceTree = "SOURCE_ROOT"; };
 		CB2A40E8F79CE44669621447 = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGL.framework; path = System/Library/Frameworks/OpenGL.framework; sourceTree = SDKROOT; };
 		D38D1C334ACB97FD933BA658 = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = regression.h; path = ../../Source/RapidLib/src/regression.h; sourceTree = "SOURCE_ROOT"; };
 		D4BB609AE768E889A0AB0F95 = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = neuralNetwork.h; path = ../../Source/RapidLib/src/neuralNetwork.h; sourceTree = "SOURCE_ROOT"; };
@@ -186,6 +187,7 @@
 		0CB5B0C8CB3F7B212452B885 = {isa = PBXGroup; children = (
 					8F5759DBB5145258F472302D, ); name = RapidLib; sourceTree = "<group>"; };
 		EA8C7BABE565B44DC760B9A2 = {isa = PBXGroup; children = (
+					CA9E1197058DD76306028609,
 					BF18D7B462AFF11D163A6031,
 					27102818F783CA270F0B24C5,
 					F239C8EAA9328372EE12A900,

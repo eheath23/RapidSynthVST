@@ -36,10 +36,10 @@ public:
 
     void paint (Graphics& g) override
     {
-        g.setColour (Colours::white);
-        g.drawRect (getLocalBounds(), 2);
-        g.drawLine(osc1.getWidth(), osc1.getHeight(), osc1.getWidth(), 0, 2);
-        g.drawLine(osc2.getWidth()*2, osc2.getHeight(), osc2.getWidth()*2, 0, 2);
+//        g.setColour (Colours::black);
+//        g.drawRect (getLocalBounds(), 2);
+//        g.drawLine(osc1.getWidth(), osc1.getHeight(), osc1.getWidth(), 0, 2);
+//        g.drawLine(osc2.getWidth()*2, osc2.getHeight(), osc2.getWidth()*2, 0, 2);
     }
 
     void resized() override

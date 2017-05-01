@@ -30,10 +30,10 @@ public:
         ADSR1Attack.setRange(0.0, 1);
         ADSR1Attack.setValue(0.1);
         
-        addAndMakeVisible (attackDial);
-        attackDial.setText ("Attack", dontSendNotification);
-        attackDial.attachToComponent (&ADSR1Attack, false);
-        attackDial.setJustificationType(Justification::centredBottom);
+//        addAndMakeVisible (attackDial);
+//        attackDial.setText ("Attack", dontSendNotification);
+//        attackDial.attachToComponent (&ADSR1Attack, false);
+//        attackDial.setJustificationType(Justification::centredBottom);
 
         addAndMakeVisible(ADSR1Decay);
         ADSR1Decay.setTextBoxStyle(Slider::NoTextBox, true, 0, 0);
@@ -41,10 +41,10 @@ public:
         ADSR1Decay.setRange(0.0, 1);
         ADSR1Decay.setValue(0.1);
         
-        addAndMakeVisible (decayDial);
-        decayDial.setText ("Decay", dontSendNotification);
-        decayDial.attachToComponent (&ADSR1Decay, false);
-        decayDial.setJustificationType(Justification::centredBottom);
+//        addAndMakeVisible (decayDial);
+//        decayDial.setText ("Decay", dontSendNotification);
+//        decayDial.attachToComponent (&ADSR1Decay, false);
+//        decayDial.setJustificationType(Justification::centredBottom);
         
         addAndMakeVisible(ADSR1Sustain);
         ADSR1Sustain.setTextBoxStyle(Slider::NoTextBox, true, 0, 0);
@@ -52,10 +52,10 @@ public:
         ADSR1Sustain.setRange(0.0, 1.0);
         ADSR1Sustain.setValue(0.1);
         
-        addAndMakeVisible (sustainDial);
-        sustainDial.setText ("Sustain", dontSendNotification);
-        sustainDial.attachToComponent (&ADSR1Sustain, false);
-        sustainDial.setJustificationType(Justification::centredBottom);
+//        addAndMakeVisible (sustainDial);
+//        sustainDial.setText ("Sustain", dontSendNotification);
+//        sustainDial.attachToComponent (&ADSR1Sustain, false);
+//        sustainDial.setJustificationType(Justification::centredBottom);
         
         addAndMakeVisible(ADSR1Release);
         ADSR1Release.setTextBoxStyle(Slider::NoTextBox, true, 0, 0);
@@ -63,10 +63,10 @@ public:
         ADSR1Release.setRange(0.0, 1);
         ADSR1Release.setValue(0.1);
         
-        addAndMakeVisible (releaseDial);
-        releaseDial.setText ("Release", dontSendNotification);
-        releaseDial.attachToComponent (&ADSR1Release, false);
-        releaseDial.setJustificationType(Justification::centredBottom);
+//        addAndMakeVisible (releaseDial);
+//        releaseDial.setText ("Release", dontSendNotification);
+//        releaseDial.attachToComponent (&ADSR1Release, false);
+//        releaseDial.setJustificationType(Justification::centredBottom);
         
     }
 
@@ -84,10 +84,10 @@ public:
         auto r = getLocalBounds();
         int divisor = (r.getHeight()/4);
         
-        ADSR1Attack.setBounds(r.removeFromTop(divisor).reduced(10));
-        ADSR1Decay.setBounds(r.removeFromTop(divisor).reduced(10));
-        ADSR1Sustain.setBounds(r.removeFromTop(divisor).reduced(10));
-        ADSR1Release.setBounds(r.reduced(10));
+        ADSR1Attack.setBounds(r.removeFromTop(divisor).reduced(1));
+        ADSR1Decay.setBounds(r.removeFromTop(divisor).reduced(1));
+        ADSR1Sustain.setBounds(r.removeFromTop(divisor).reduced(1));
+        ADSR1Release.setBounds(r.reduced(1));
     }
     
     Slider ADSR1Attack, ADSR1Decay, ADSR1Sustain, ADSR1Release;
