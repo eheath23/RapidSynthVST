@@ -29,7 +29,7 @@ public:
         addAndMakeVisible(dial1);
         
         addAndMakeVisible (dial1Label);
-        dial1Label.setText ("Filter Cutoff", dontSendNotification);
+        dial1Label.setText ("Modulator Frequency", dontSendNotification);
         dial1Label.setInterceptsMouseClicks(false, false);
         dial1Label.setJustificationType(Justification::centredBottom);
         

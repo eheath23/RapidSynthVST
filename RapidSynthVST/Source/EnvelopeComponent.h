@@ -50,7 +50,7 @@ public:
         ADSR1Sustain.setTextBoxStyle(Slider::NoTextBox, true, 0, 0);
         ADSR1Sustain.setSliderStyle(Slider::RotaryVerticalDrag);
         ADSR1Sustain.setRange(0.0, 1.0);
-        ADSR1Sustain.setValue(0.1);
+        ADSR1Sustain.setValue(1);
         
         addAndMakeVisible (sustainDial);
         sustainDial.setText ("Sustain", dontSendNotification);

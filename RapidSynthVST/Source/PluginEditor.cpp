@@ -25,7 +25,7 @@ RapidSynthVstAudioProcessorEditor::RapidSynthVstAudioProcessorEditor (RapidSynth
     addAndMakeVisible(scene);
     
     //OSC 1
-    scene.oscScene.osc1.dial1.setName("osc1FilterCutoff");
+    scene.oscScene.osc1.dial1.setName("osc1ModFreq");
     scene.oscScene.osc1.dial1.addListener (this);
     
     scene.oscScene.osc1.dial2.setName("osc1Detune");
@@ -44,7 +44,7 @@ RapidSynthVstAudioProcessorEditor::RapidSynthVstAudioProcessorEditor (RapidSynth
     scene.oscScene.osc1.radioButtons[2]->addListener(this);
 
     //OSC 2
-    scene.oscScene.osc2.dial1.setName("osc2FilterCutoff");
+    scene.oscScene.osc2.dial1.setName("osc2ModFreq");
     scene.oscScene.osc2.dial1.addListener (this);
     
     scene.oscScene.osc2.dial2.setName("osc2Detune");
@@ -63,7 +63,7 @@ RapidSynthVstAudioProcessorEditor::RapidSynthVstAudioProcessorEditor (RapidSynth
     scene.oscScene.osc2.radioButtons[2]->addListener(this);
 
     //OSC 3
-    scene.oscScene.osc3.dial1.setName("osc3FilterCutoff");
+    scene.oscScene.osc3.dial1.setName("osc3ModFreq");
     scene.oscScene.osc3.dial1.addListener (this);
     
     scene.oscScene.osc3.dial2.setName("osc3Detune");
@@ -200,10 +200,10 @@ void RapidSynthVstAudioProcessorEditor::setParameterValue (const String& paramId
 void RapidSynthVstAudioProcessorEditor::sliderValueChanged(Slider* slider){
     
     //OSC 1
-    if (slider->getName() == "osc1FilterCutoff")
+    if (slider->getName() == "osc1ModFreq")
     {
-        osc1FilterCutoff = (double)slider->getValue();
-        setParameterValue("osc1FilterCutoff", osc1FilterCutoff);
+        osc1ModFreq = (double)slider->getValue();
+        setParameterValue("osc1ModFreq", osc1ModFreq);
     }
     if (slider->getName() == "osc1Detune")
     {
@@ -217,10 +217,10 @@ void RapidSynthVstAudioProcessorEditor::sliderValueChanged(Slider* slider){
     }
     
     //OSC 2
-    if (slider->getName() == "osc2FilterCutoff")
+    if (slider->getName() == "osc2ModFreq")
     {
-        osc2FilterCutoff = slider->getValue();
-        setParameterValue("osc2FilterCutoff", osc2FilterCutoff);
+        osc2ModFreq = slider->getValue();
+        setParameterValue("osc2ModFreq", osc2ModFreq);
     }
     if (slider->getName() == "osc2Detune")
     {
@@ -234,10 +234,10 @@ void RapidSynthVstAudioProcessorEditor::sliderValueChanged(Slider* slider){
     }
 
     //OSC 3
-    if (slider->getName() == "osc3FilterCutoff")
+    if (slider->getName() == "osc3ModFreq")
     {
-        osc3FilterCutoff = slider->getValue();
-        setParameterValue("osc3FilterCutoff", osc3FilterCutoff);
+        osc3ModFreq = slider->getValue();
+        setParameterValue("osc3ModFreq", osc3ModFreq);
     }
 
     if (slider->getName() == "osc3Detune")
@@ -403,13 +403,14 @@ void RapidSynthVstAudioProcessorEditor:: buttonClicked (Button* button)
         
         example1Input = { inputX , inputY };
         
-        example1Output = { osc1FilterCutoff,
+        example1Output = {
+            osc1ModFreq,
             osc1Detune,
             osc1Gain,
-            osc2FilterCutoff,
+            osc2ModFreq,
             osc2Detune,
             osc2Gain,
-            osc3FilterCutoff,
+            osc3ModFreq,
             osc3Detune,
             osc3Gain,
             LFO1Freq,
@@ -443,13 +444,13 @@ void RapidSynthVstAudioProcessorEditor:: buttonClicked (Button* button)
         
         example2Output =
         {
-            osc1FilterCutoff,
+            osc1ModFreq,
             osc1Detune,
             osc1Gain,
-            osc2FilterCutoff,
+            osc2ModFreq,
             osc2Detune,
             osc2Gain,
-            osc3FilterCutoff,
+            osc3ModFreq,
             osc3Detune,
             osc3Gain,
             LFO1Freq,
@@ -483,13 +484,13 @@ void RapidSynthVstAudioProcessorEditor:: buttonClicked (Button* button)
         
         example3Output =
         {
-            osc1FilterCutoff,
+            osc1ModFreq,
             osc1Detune,
             osc1Gain,
-            osc2FilterCutoff,
+            osc2ModFreq,
             osc2Detune,
             osc2Gain,
-            osc3FilterCutoff,
+            osc3ModFreq,
             osc3Detune,
             osc3Gain,
             LFO1Freq,
@@ -522,13 +523,13 @@ void RapidSynthVstAudioProcessorEditor:: buttonClicked (Button* button)
         
         example4Output =
         {
-            osc1FilterCutoff,
+            osc1ModFreq,
             osc1Detune,
             osc1Gain,
-            osc2FilterCutoff,
+            osc2ModFreq,
             osc2Detune,
             osc2Gain,
-            osc3FilterCutoff,
+            osc3ModFreq,
             osc3Detune,
             osc3Gain,
             LFO1Freq,
@@ -615,13 +616,13 @@ void RapidSynthVstAudioProcessorEditor::targetMoved()
     
     std::vector<double> output = rapidRegression.process(input);
     
-    double nosc1FilterCutoff = output[0];
+    double nosc1ModFreq = output[0];
     double nosc1Detune = output[1];
     double nosc1Gain = output[2];
-    double nosc2FilterCutoff = output[3];
+    double nosc2ModFreq = output[3];
     double nosc2Detune = output[4];
     double nosc2Gain = output[5];
-    double nosc3FilterCutoff = output[6];
+    double nosc3ModFreq = output[6];
     double nosc3Detune = output[7];
     double nosc3Gain = output[8];
     double nLFO1Freq = output[9];
@@ -636,17 +637,17 @@ void RapidSynthVstAudioProcessorEditor::targetMoved()
     
     
     //OSC 1
-    scene.oscScene.osc1.dial1.setValue(nosc1FilterCutoff);
+    scene.oscScene.osc1.dial1.setValue(nosc1ModFreq);
     scene.oscScene.osc1.dial2.setValue(nosc1Detune);
     scene.oscScene.osc1.dial3.setValue(nosc1Gain);
     
     //OSC 2
-    scene.oscScene.osc2.dial1.setValue(nosc2FilterCutoff);
+    scene.oscScene.osc2.dial1.setValue(nosc2ModFreq);
     scene.oscScene.osc2.dial2.setValue(nosc2Detune);
     scene.oscScene.osc2.dial3.setValue(nosc2Gain);
     
     //OSC 3
-    scene.oscScene.osc3.dial1.setValue(nosc3FilterCutoff);
+    scene.oscScene.osc3.dial1.setValue(nosc3ModFreq);
     scene.oscScene.osc3.dial2.setValue(nosc3Detune);
     scene.oscScene.osc3.dial3.setValue(nosc3Gain);
     

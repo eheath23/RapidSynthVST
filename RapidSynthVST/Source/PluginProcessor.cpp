@@ -33,19 +33,19 @@ RapidSynthVstAudioProcessor::RapidSynthVstAudioProcessor()
         synth.addVoice(new SimpleVoice()); 
     }
     
-    addParameter(osc1FilterCutoff = new AudioParameterFloat("osc1FilterCutoff", "osc1 Filter Cutoff", 0, 20000, 100));
+    addParameter(osc1ModFreq = new AudioParameterFloat("osc1ModFreq", "osc1 Mod Freq", 0, 40000, 100));
     addParameter(osc1Detune = new AudioParameterInt("osc1Detune", "Osc1 Detune", -12, 12, 0));
     addParameter(osc1Gain = new AudioParameterFloat("osc1Gain", "Osc1 Gain", 0, 1, 1));    
     
-    addParameter(osc2FilterCutoff = new AudioParameterFloat("osc2FilterCutoff", "osc2 Filter Cutoff", 0, 20000, 100));
+    addParameter(osc2ModFreq = new AudioParameterFloat("osc2ModFreq", "osc2 Mod Freq", 0, 40000, 100));
     addParameter(osc2Detune = new AudioParameterInt("osc2Detune", "Osc2 Detune", -12, 12, 0));
     addParameter(osc2Gain = new AudioParameterFloat("osc2Gain", "Osc2 Gain", 0, 1, 1));
     
-    addParameter(osc3FilterCutoff = new AudioParameterFloat("osc3FilterCutoff", "osc3 Filter Cutoff", 0, 20000, 100));
+    addParameter(osc3ModFreq = new AudioParameterFloat("osc3ModFreq", "osc3 Mod Freq", 0, 40000, 100));
     addParameter(osc3Detune = new AudioParameterInt("osc3Detune", "Osc3 Detune", -12, 12, 0));
     addParameter(osc3Gain = new AudioParameterFloat("osc3Gain", "Osc3 Gain", 0, 1, 1));
     
-    addParameter(LFO1Freq = new AudioParameterFloat("LFO1Freq", "LFO1 Freq", 0, 20, 0));
+    addParameter(LFO1Freq = new AudioParameterFloat("LFO1Freq", "LFO1 Freq", 1, 20, 1));
     addParameter(LFO1Gain = new AudioParameterFloat("LFO1Gain", "LFO1 Gain", 0, 1, 0));
     
     addParameter(VCOCutoff = new AudioParameterFloat("VCOCutoff", "VCO Cutoff", 1, 5000, 5000));
@@ -184,13 +184,13 @@ void RapidSynthVstAudioProcessor::processBlock (AudioSampleBuffer& buffer, MidiB
         SimpleVoice* derivedVoice = dynamic_cast<SimpleVoice*>(currentVoice);
         bool isLegit = derivedVoice != nullptr;
         if(isLegit){
-            derivedVoice->setParameters(osc1FilterCutoff->get(),
+            derivedVoice->setParameters(osc1ModFreq->get(),
                                         osc1Detune->get(),
                                         osc1Gain->get(),
-                                        osc2FilterCutoff->get(),
+                                        osc2ModFreq->get(),
                                         osc2Detune->get(),
                                         osc2Gain->get(),
-                                        osc3FilterCutoff->get(),
+                                        osc3ModFreq->get(),
                                         osc3Detune->get(),
                                         osc3Gain->get(),
                                         LFO1Freq->get(),
