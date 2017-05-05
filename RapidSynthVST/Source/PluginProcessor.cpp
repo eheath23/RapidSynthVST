@@ -33,15 +33,15 @@ RapidSynthVstAudioProcessor::RapidSynthVstAudioProcessor()
         synth.addVoice(new SimpleVoice()); 
     }
     
-    addParameter(osc1FilterCutoff = new AudioParameterFloat("osc1FilterCutoff", "osc1 Filter Cutoff", 0, 5000, 5000));
+    addParameter(osc1FilterCutoff = new AudioParameterFloat("osc1FilterCutoff", "osc1 Filter Cutoff", 0, 20000, 100));
     addParameter(osc1Detune = new AudioParameterInt("osc1Detune", "Osc1 Detune", -12, 12, 0));
     addParameter(osc1Gain = new AudioParameterFloat("osc1Gain", "Osc1 Gain", 0, 1, 1));    
     
-    addParameter(osc2FilterCutoff = new AudioParameterFloat("osc2FilterCutoff", "osc2 Filter Cutoff", 0, 5000, 5000));
+    addParameter(osc2FilterCutoff = new AudioParameterFloat("osc2FilterCutoff", "osc2 Filter Cutoff", 0, 20000, 100));
     addParameter(osc2Detune = new AudioParameterInt("osc2Detune", "Osc2 Detune", -12, 12, 0));
     addParameter(osc2Gain = new AudioParameterFloat("osc2Gain", "Osc2 Gain", 0, 1, 1));
     
-    addParameter(osc3FilterCutoff = new AudioParameterFloat("osc3FilterCutoff", "osc3 Filter Cutoff", 0, 5000, 5000));
+    addParameter(osc3FilterCutoff = new AudioParameterFloat("osc3FilterCutoff", "osc3 Filter Cutoff", 0, 20000, 100));
     addParameter(osc3Detune = new AudioParameterInt("osc3Detune", "Osc3 Detune", -12, 12, 0));
     addParameter(osc3Gain = new AudioParameterFloat("osc3Gain", "Osc3 Gain", 0, 1, 1));
     
