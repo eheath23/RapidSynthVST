@@ -35,13 +35,13 @@ public:
         lfo.dial1.setSliderStyle (Slider::RotaryVerticalDrag);
         lfo.dial1.setTextBoxStyle (Slider::NoTextBox, false, 0, 0);
         lfo.dial1.setRange (0, 1);
-        lfo.dial1.setValue(0.1);
+        lfo.dial1.setValue(0);
         lfo.dial1Label.setText ("LFO Rate", dontSendNotification);
         
         lfo.dial2.setSliderStyle (Slider::RotaryVerticalDrag);
         lfo.dial2.setTextBoxStyle (Slider::NoTextBox, false, 0, 0);
         lfo.dial2.setRange (0, 1.0);
-        lfo.dial2.setValue(0.1);
+        lfo.dial2.setValue(0);
         lfo.dial2Label.setText ("LFO Amount", dontSendNotification);
         
         lfo.dial3.setSliderStyle (Slider::RotaryVerticalDrag);

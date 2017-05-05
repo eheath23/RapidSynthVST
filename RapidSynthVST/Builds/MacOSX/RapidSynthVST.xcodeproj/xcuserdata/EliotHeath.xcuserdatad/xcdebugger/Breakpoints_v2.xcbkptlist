@@ -10,11 +10,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "../../Source/PluginEditor.cpp"
-            timestampString = "515366085.683806"
+            timestampString = "515607417.691729"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "602"
-            endingLineNumber = "602"
+            startingLineNumber = "577"
+            endingLineNumber = "577"
             landmarkName = "RapidSynthVstAudioProcessorEditor:: buttonClicked (Button* button)"
             landmarkType = "7">
          </BreakpointContent>
@@ -26,11 +26,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "../../Source/PluginEditor.cpp"
-            timestampString = "515366085.683806"
+            timestampString = "515607560.830112"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "625"
-            endingLineNumber = "625"
+            startingLineNumber = "616"
+            endingLineNumber = "616"
             landmarkName = "RapidSynthVstAudioProcessorEditor::targetMoved()"
             landmarkType = "7">
          </BreakpointContent>
@@ -42,11 +42,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "../../Source/PluginEditor.cpp"
-            timestampString = "515366085.683806"
+            timestampString = "515428435.644854"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "433"
-            endingLineNumber = "433"
+            startingLineNumber = "403"
+            endingLineNumber = "403"
             landmarkName = "RapidSynthVstAudioProcessorEditor:: buttonClicked (Button* button)"
             landmarkType = "7">
          </BreakpointContent>

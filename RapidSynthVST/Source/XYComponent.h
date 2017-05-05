@@ -40,7 +40,10 @@ public:
         addAndMakeVisible (button6);
         
         addAndMakeVisible(targetShape);
-        targetShape.setBounds(200, 200, 25, 25);
+        targetShape.setBounds(300, 200, 25, 25);
+        
+//        addAndMakeVisible(footer);
+//        footer.setText("Save four sounds then press Train", dontSendNotification);
         
     }
 
@@ -66,8 +69,10 @@ public:
         button2.setBounds(750, 10, 25, 25);
         button3.setBounds(10, 300, 25, 25);
         button4.setBounds(750, 300, 25, 25);
-        button5.setBounds(300, 10, 40, 25);
-        button6.setBounds(300, 70, 40, 25);
+        button5.setBounds(350, 10, 40, 25);
+        button6.setBounds(350, 70, 40, 25);
+        
+//        footer.setBounds(300, 300, 1000, 25);
         
     }
     
@@ -95,8 +100,11 @@ public:
     
     TargetShape targetShape;
     
-    TextButton button1, button2, button3, button4, button5, button6;
-        
+    TextButton button1, button2, button3, button5, button6;
+    TextButton button4;
+    
+//    Label footer;
+    
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (XYComponent)
 };
 

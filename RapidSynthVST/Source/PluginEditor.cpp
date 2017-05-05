@@ -42,16 +42,7 @@ RapidSynthVstAudioProcessorEditor::RapidSynthVstAudioProcessorEditor (RapidSynth
     
     scene.oscScene.osc1.radioButtons[2]->setName("osc1Square");
     scene.oscScene.osc1.radioButtons[2]->addListener(this);
-    
-    //    scene.oscScene.osc1.sineButton.setName("osc1Sine");
-//    scene.oscScene.osc1.sineButton.addListener(this);
-//    
-//    scene.oscScene.osc1.sawButton.setName("osc1Saw");
-//    scene.oscScene.osc1.sawButton.addListener(this);
-//    
-//    scene.oscScene.osc1.squareButton.setName("osc1Square");
-//    scene.oscScene.osc1.squareButton.addListener(this);
-    
+
     //OSC 2
     scene.oscScene.osc2.dial1.setName("osc2FilterCutoff");
     scene.oscScene.osc2.dial1.addListener (this);
@@ -70,16 +61,7 @@ RapidSynthVstAudioProcessorEditor::RapidSynthVstAudioProcessorEditor (RapidSynth
     
     scene.oscScene.osc2.radioButtons[2]->setName("osc2Square");
     scene.oscScene.osc2.radioButtons[2]->addListener(this);
-    
-//    scene.oscScene.osc2.sineButton.setName("osc2Sine");
-//    scene.oscScene.osc2.sineButton.addListener(this);
-//    
-//    scene.oscScene.osc2.sawButton.setName("osc2Saw");
-//    scene.oscScene.osc2.sawButton.addListener(this);
-//    
-//    scene.oscScene.osc2.squareButton.setName("osc2Square");
-//    scene.oscScene.osc2.squareButton.addListener(this);
-    
+
     //OSC 3
     scene.oscScene.osc3.dial1.setName("osc3FilterCutoff");
     scene.oscScene.osc3.dial1.addListener (this);
@@ -98,15 +80,6 @@ RapidSynthVstAudioProcessorEditor::RapidSynthVstAudioProcessorEditor (RapidSynth
     
     scene.oscScene.osc3.radioButtons[2]->setName("osc3Square");
     scene.oscScene.osc3.radioButtons[2]->addListener(this);
-    
-//    scene.oscScene.osc3.sineButton.setName("osc3Sine");
-//    scene.oscScene.osc3.sineButton.addListener(this);
-//    
-//    scene.oscScene.osc3.sawButton.setName("osc3Saw");
-//    scene.oscScene.osc3.sawButton.addListener(this);
-//    
-//    scene.oscScene.osc3.squareButton.setName("osc3Square");
-//    scene.oscScene.osc3.squareButton.addListener(this);
 
     //LFO 1
     scene.modScene.lfo.dial1.setName("LFO1Freq");
@@ -183,9 +156,6 @@ void RapidSynthVstAudioProcessorEditor::paint (Graphics& g)
 
 void RapidSynthVstAudioProcessorEditor::resized()
 {
-    // This is generally where you'll want to lay out the positions of any
-    // subcomponents in your editor..
-
     auto r = getLocalBounds();
     scene.setBounds(r);
 }
@@ -456,6 +426,8 @@ void RapidSynthVstAudioProcessorEditor:: buttonClicked (Button* button)
         button1Trained = true;
         
         std::cout << "Button 1 Stored" << std:: endl;
+        scene.footer.setText("Sound 1 saved, save all 4 before training", dontSendNotification);
+        scene.footer.setJustificationType(Justification::centredBottom);
 
     }
     
@@ -494,8 +466,9 @@ void RapidSynthVstAudioProcessorEditor:: buttonClicked (Button* button)
         button2Trained = true;
         
         std::cout << "Button 2 Stored" << std:: endl;
-
-   
+        scene.footer.setText("Sound 2 saved, save all 4 before training", dontSendNotification);
+        scene.footer.setJustificationType(Justification::centredBottom);
+        
     }
     
     else if (button->getName() == "MLButton3")
@@ -533,7 +506,8 @@ void RapidSynthVstAudioProcessorEditor:: buttonClicked (Button* button)
         button3Trained = true;
         
         std::cout << "Button 3 Stored" << std:: endl;
-
+        scene.footer.setText("Sound 3 saved, save all 4 before training", dontSendNotification);
+        scene.footer.setJustificationType(Justification::centredBottom);
         
     }
     
@@ -571,8 +545,9 @@ void RapidSynthVstAudioProcessorEditor:: buttonClicked (Button* button)
         button4Trained = true;
         
         std::cout << "Button 4 Stored" << std:: endl;
+        scene.footer.setText("Sound 4 saved, save all 4 before training", dontSendNotification);
+        scene.footer.setJustificationType(Justification::centredBottom);
 
-        
     }
     
     else if (button->getName() == "MLButtonTrain")
@@ -601,7 +576,12 @@ void RapidSynthVstAudioProcessorEditor:: buttonClicked (Button* button)
             
             trained = rapidRegression.train(trainingSet);
 
-            std::cout << "Trained = " << trained << std::endl;
+            scene.footer.setText("RPDSynth - Trained, now press Run", dontSendNotification);
+            scene.footer.setJustificationType(Justification::centredBottom);
+
+        } else {
+            scene.footer.setText("Save all 4 sounds before training", dontSendNotification);
+            scene.footer.setJustificationType(Justification::centredBottom);
 
         }
     }
@@ -609,7 +589,18 @@ void RapidSynthVstAudioProcessorEditor:: buttonClicked (Button* button)
     else if (button->getName() == "MLButtonRun")
     {
         run = !run;
-        std::cout << "Running = " << run << std::endl;
+        if(trained)
+        {
+            if(run){
+                scene.footer.setText("Running, turn off before saving and re-training", dontSendNotification);
+                scene.footer.setJustificationType(Justification::centredBottom);
+                
+            } else if(!run){
+                scene.footer.setText("Not running, save any changes and re-train before running", dontSendNotification);
+                scene.footer.setJustificationType(Justification::centredBottom);
+                
+            }
+        }
     }
 }
 

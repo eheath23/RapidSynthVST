@@ -58,7 +58,6 @@ public:
     mLFO1Saw(false),
     mLFO1Square(false)
     
-    
     {
         std::cout << "Instanciated SimpleVoice" << std::endl;
     }
@@ -176,37 +175,46 @@ public:
             //OSC 1 Waveform
             if(mOsc1Sine && !mOsc1Saw && !mOsc1Square)
             {
-                mOsc1Out = osc1.sinewave(midiToFreq(mOsc1Detune)) * mOsc1Gain;
+                mOsc1Out = osc1Carrier.sinewave(midiToFreq(mOsc1Detune)*(osc1Modulator.phasor(midiToFreq(mOsc1Detune)*mOsc1ModFreq))) * mOsc1Gain;
+                
             } else if (mOsc1Saw && !mOsc1Sine && !mOsc1Square)
             {
-                mOsc1Out = osc1.saw(midiToFreq(mOsc1Detune)) * mOsc1Gain;
+                mOsc1Out = osc1Carrier.saw(midiToFreq(mOsc1Detune)*(osc1Modulator.phasor(midiToFreq(mOsc1Detune)*mOsc1ModFreq))) * mOsc1Gain;
+
             } else if (mOsc1Square && !mOsc1Sine && !mOsc1Saw)
             {
-                mOsc1Out = osc1.square(midiToFreq(mOsc1Detune)) * mOsc1Gain;
+                mOsc1Out = osc1Carrier.square(midiToFreq(mOsc1Detune)*(osc1Modulator.phasor(midiToFreq(mOsc1Detune)*mOsc1ModFreq))) * mOsc1Gain;
+
             }
             
             //OSC 2 WAVEFORM
             if(mOsc2Sine && !mOsc2Saw && !mOsc2Square)
             {
                 mOsc2Out = osc2.sinewave(midiToFreq(mOsc2Detune)) * mOsc2Gain;
+                
             } else if (mOsc2Saw && !mOsc2Sine && !mOsc2Square)
             {
                 mOsc2Out = osc2.saw(midiToFreq(mOsc2Detune)) * mOsc2Gain;
+
             } else if (mOsc2Square && !mOsc2Sine && !mOsc2Saw)
             {
                 mOsc2Out = osc2.square(midiToFreq(mOsc2Detune)) * mOsc2Gain;
+
             }
             
             //OSC 3 WAVEFORM
             if(mOsc3Sine && !mOsc3Saw && !mOsc3Square)
             {
                 mOsc3Out = osc3.sinewave(midiToFreq(mOsc3Detune)) * mOsc3Gain;
+                
             } else if (mOsc3Saw && !mOsc3Sine && !mOsc3Square)
             {
                 mOsc3Out = osc3.saw(midiToFreq(mOsc3Detune)) * mOsc3Gain;
+
             } else if (mOsc3Square && !mOsc3Sine && !mOsc3Saw)
             {
                 mOsc3Out = osc3.square(midiToFreq(mOsc3Detune)) * mOsc3Gain;
+
             }
             
             //LFO 1 WAVEFORM
@@ -239,6 +247,7 @@ public:
             mOsc2FilterOut = osc2Filter.lores(mOsc2Out, mOsc2FilterCutoff, 0);
             mOsc3FilterOut = osc3Filter.lores(mOsc3Out, mOsc3FilterCutoff, 0);
             
+            
             //LFO 1 MODULATING VCO CUTOFF
             if (mLFO1Gain > 0)
             {
@@ -270,6 +279,7 @@ public:
     double                       level;
     double                       mCSample;
     double                       mFreq, mOsc1Freq, mOsc2Freq, mOsc3Freq;
+    double                       mOsc1ModFreq = 10;
     double                       mMasterGain;
     int                          mOsc1Detune, mOsc2Detune, mOsc3Detune;
         double                       mOsc1DetuneFreq, mOsc2DetuneFreq, mOsc3DetuneFreq;
@@ -288,7 +298,8 @@ public:
     bool mLFO2Sine, mLFO2Saw, mLFO2Square;
     bool mLFO1ModVCOCutoff;
     
-    maxiOsc                      osc1, osc2, osc3, LFO1, LFO2;
+    maxiOsc                      osc1Carrier, osc2, osc3, LFO1, LFO2;
+    maxiOsc                      osc1Modulator, osc2Modulator, osc3Modulator;
     maxiFilter                   osc1Filter, osc2Filter, osc3Filter, VCF;
     maxiEnv                      ADSR1, ADSR2;
     maxiMix                      mixer;
@@ -339,14 +350,17 @@ public:
     AudioParameterFloat* osc1FilterCutoff;
     AudioParameterInt* osc1Detune;
     AudioParameterFloat* osc1Gain;
+    AudioParameterFloat* osc1ModFreq;
     
     AudioParameterFloat* osc2FilterCutoff;
     AudioParameterInt* osc2Detune;
     AudioParameterFloat* osc2Gain;
+    AudioParameterFloat* osc2ModFreq;
     
     AudioParameterFloat* osc3FilterCutoff;
     AudioParameterInt* osc3Detune;
     AudioParameterFloat* osc3Gain;
+    AudioParameterFloat* osc3ModFreq;
     
     AudioParameterFloat* LFO1Freq;
     AudioParameterFloat* LFO1Gain;

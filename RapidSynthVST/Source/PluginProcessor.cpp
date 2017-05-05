@@ -35,7 +35,7 @@ RapidSynthVstAudioProcessor::RapidSynthVstAudioProcessor()
     
     addParameter(osc1FilterCutoff = new AudioParameterFloat("osc1FilterCutoff", "osc1 Filter Cutoff", 0, 5000, 5000));
     addParameter(osc1Detune = new AudioParameterInt("osc1Detune", "Osc1 Detune", -12, 12, 0));
-    addParameter(osc1Gain = new AudioParameterFloat("osc1Gain", "Osc1 Gain", 0, 1, 1));
+    addParameter(osc1Gain = new AudioParameterFloat("osc1Gain", "Osc1 Gain", 0, 1, 1));    
     
     addParameter(osc2FilterCutoff = new AudioParameterFloat("osc2FilterCutoff", "osc2 Filter Cutoff", 0, 5000, 5000));
     addParameter(osc2Detune = new AudioParameterInt("osc2Detune", "Osc2 Detune", -12, 12, 0));

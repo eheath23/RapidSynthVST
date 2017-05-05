@@ -28,9 +28,10 @@ public:
         dial1.setValue(0.5);
         addAndMakeVisible(dial1);
         
-//        addAndMakeVisible (dial1Label);
-//        dial1Label.setText ("Filter Cutoff", dontSendNotification);
-//        dial1Label.attachToComponent (&dial1, false);
+        addAndMakeVisible (dial1Label);
+        dial1Label.setText ("Filter Cutoff", dontSendNotification);
+        dial1Label.setInterceptsMouseClicks(false, false);
+        dial1Label.setJustificationType(Justification::centredBottom);
         
         dial2.setSliderStyle (Slider::RotaryVerticalDrag);
         dial2.setTextBoxStyle (Slider::TextBoxBelow, false, 0, 0);
@@ -38,9 +39,10 @@ public:
         dial2.setValue(0.5);
         addAndMakeVisible(dial2);
         
-//        addAndMakeVisible (dial2Label);
-//        dial2Label.setText ("Detune", dontSendNotification);
-//        dial2Label.attachToComponent (&dial2, false);
+        addAndMakeVisible (dial2Label);
+        dial2Label.setText ("Detune", dontSendNotification);
+        dial2Label.setInterceptsMouseClicks(false, false);
+        dial2Label.setJustificationType(Justification::centredBottom);
         
         dial3.setSliderStyle (Slider::RotaryVerticalDrag);
         dial3.setTextBoxStyle (Slider::TextBoxBelow, false, 0, 0);
@@ -48,10 +50,12 @@ public:
         dial3.setValue(1);
         addAndMakeVisible(dial3);
         
-//        addAndMakeVisible (dial3Label);
-//        dial3Label.setText ("Gain", dontSendNotification);
-//        dial3Label.attachToComponent (&dial3, false);
-//        
+        addAndMakeVisible (dial3Label);
+        dial3Label.setText ("Gain", dontSendNotification);
+        dial3Label.setInterceptsMouseClicks(false, false);
+        dial3Label.setJustificationType(Justification::centredBottom);
+        
+//
 //        addAndMakeVisible(sineButton);
 //        sineButton.setButtonText ("Si");
 //        
@@ -114,16 +118,24 @@ public:
     {
         
         int border1 = 1;
-        int buttonBorder = 7;
         auto r = getLocalBounds();
         auto titleArea = r.removeFromTop(50).reduced(10);
         int divisor = r.getHeight() / 3;
         int titleDivisor = titleArea.getWidth() / 3;
         auto dialArea = r;
         
-        dial1.setBounds(dialArea.removeFromTop(divisor).reduced(border1));
-        dial3.setBounds(dialArea.removeFromBottom(divisor).reduced(border1));
-        dial2.setBounds(dialArea.reduced(border1));
+        auto dial1Area = dialArea.removeFromTop(divisor).reduced(border1);
+        auto dial3Area = dialArea.removeFromBottom(divisor).reduced(border1);
+        auto dial2Area = dialArea.reduced(border1);
+        
+        
+        dial1.setBounds(dial1Area);
+        dial3.setBounds(dial3Area);
+        dial2.setBounds(dial2Area);
+        
+        dial1Label.setBounds(dial1Area);
+        dial3Label.setBounds(dial3Area);
+        dial2Label.setBounds(dial2Area);
         
 //        sineButton.setBounds(titleArea.removeFromLeft(titleDivisor).reduced(buttonBorder));
 //        squareButton.setBounds(titleArea.removeFromRight(titleDivisor).reduced(buttonBorder));

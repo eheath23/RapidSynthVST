@@ -191,12 +191,15 @@ public:
     double osc1FilterCutoff;
     double osc1Detune;
     double osc1Gain;
+    double osc1ModFreq;
     double osc2FilterCutoff;
     double osc2Detune;
     double osc2Gain;
+    double osc2ModFreq;
     double osc3FilterCutoff;
     double osc3Detune;
     double osc3Gain;
+    double osc3ModFreq;
     double LFO1Freq;
     double LFO1Gain;
     double VCOCutoff;

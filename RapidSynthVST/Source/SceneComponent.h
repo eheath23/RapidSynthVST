@@ -29,7 +29,11 @@ public:
         addAndMakeVisible(XY);
         addAndMakeVisible(oscScene);
         addAndMakeVisible(modScene);
+        addAndMakeVisible(footer);
         
+        footer.setText("Begin by saving 4 sounds, then pressing Train", dontSendNotification);
+        footer.setJustificationType(Justification::centredBottom);
+        footer.setInterceptsMouseClicks(false, false);
     }
 
     ~SceneComponent()
@@ -53,9 +57,11 @@ public:
         XY.setBounds(r.reduced(5));
         oscScene.setBounds(oscSection);
         modScene.setBounds(bottomSection);
+        footer.setBounds(r.reduced(10));
                 
     }
 
+    Label footer;
     OscillatorSceneComponent oscScene;
     ModulatorSceneComponent modScene;
     XYComponent XY;
