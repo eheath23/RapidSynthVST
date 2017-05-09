@@ -59,7 +59,7 @@ public:
     mLFO1Square(false)
     
     {
-        std::cout << "Instanciated SimpleVoice" << std::endl;
+
     }
 
     void setParameters (double osc1ModFreq,
@@ -154,7 +154,7 @@ public:
     void stopNote (float, bool) override
     {
         ADSR1.trigger = 0;
-        level = 0;
+//        level = 0;
         clearCurrentNote();
     }
         
@@ -255,7 +255,7 @@ public:
             //LFO 1 MODULATING VCO CUTOFF
             if (mLFO1Gain > 0)
             {
-                mVCFout = VCF.lores((mOsc1FilterOut + mOsc2FilterOut + mOsc3FilterOut) * 0.3, mVCOCutoff * mLFO1Out, mVCORes);
+                mVCFout = VCF.lores((mOsc1FilterOut + mOsc2FilterOut + mOsc3FilterOut) * 0.3, mVCOCutoff + mLFO1Out, mVCORes);
             } else if (mLFO1Gain == 0)
             {
             mVCFout = VCF.lores((mOsc1FilterOut + mOsc2FilterOut + mOsc3FilterOut) * 0.3, mVCOCutoff, mVCORes);

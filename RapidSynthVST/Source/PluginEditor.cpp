@@ -204,6 +204,7 @@ void RapidSynthVstAudioProcessorEditor::sliderValueChanged(Slider* slider){
     {
         osc1ModFreq = (double)slider->getValue();
         setParameterValue("osc1ModFreq", osc1ModFreq);
+        
     }
     if (slider->getName() == "osc1Detune")
     {
