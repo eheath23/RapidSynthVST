@@ -15,6 +15,7 @@
 //==============================================================================
 struct CustomLookAndFeel : public LookAndFeel_V3
 {
+    //==============================================================================
     static void drawButtonShape (Graphics& g, const Path& outline, Colour baseColour, float height)
     {
         const float mainBrightness = baseColour.getBrightness();
@@ -32,81 +33,7 @@ struct CustomLookAndFeel : public LookAndFeel_V3
         g.strokePath (outline, PathStrokeType (1.0f));
     }
     
-//    void drawButtonBackground (Graphics& g, Button& button, const Colour& backgroundColour,
-//                                               bool isMouseOverButton, bool isButtonDown) override
-//    {
-//        Colour baseColour (backgroundColour.withMultipliedSaturation (button.hasKeyboardFocus (true) ? 1.3f : 0.9f)
-//                           .withMultipliedAlpha (button.isEnabled() ? 0.9f : 0.5f));
-//        
-//        if (isButtonDown || isMouseOverButton)
-//            baseColour = baseColour.contrasting (isButtonDown ? 0.2f : 0.1f);
-//        
-//        const bool flatOnLeft   = button.isConnectedOnLeft();
-//        const bool flatOnRight  = button.isConnectedOnRight();
-//        const bool flatOnTop    = button.isConnectedOnTop();
-//        const bool flatOnBottom = button.isConnectedOnBottom();
-//        
-//        const float width  = button.getWidth() - 1.0f;
-//        const float height = button.getHeight() - 1.0f;
-//        
-//        if (width > 0 && height > 0)
-//        {
-//            const float cornerSize = 4.0f;
-//            
-//            Path outline;
-//            outline.addRoundedRectangle (0.5f, 0.5f, width, height, cornerSize, cornerSize,
-//                                         ! (flatOnLeft  || flatOnTop),
-//                                         ! (flatOnRight || flatOnTop),
-//                                         ! (flatOnLeft  || flatOnBottom),
-//                                         ! (flatOnRight || flatOnBottom));
-//            
-//            drawButtonShape (g, outline, baseColour, height);
-//        }
-//    }
-    
     //==============================================================================
-//    void drawButtonBackground (Graphics& g,
-//                               Button& button,
-//                               const Colour& backgroundColour,
-//                               bool isMouseOverButton,
-//                               bool isButtonDown) override
-//    {
-//        const auto cornerSize = 6.0f;
-//        const auto bounds = button.getLocalBounds().toFloat().reduced (0.5f, 0.5f);
-//        
-//        auto baseColour = backgroundColour.withMultipliedSaturation (button.hasKeyboardFocus (true) ? 1.3f : 0.9f)
-//        .withMultipliedAlpha (button.isEnabled() ? 1.0f : 0.5f);
-//        
-//        if (isButtonDown || isMouseOverButton)
-//            baseColour = baseColour.contrasting (isButtonDown ? 0.2f : 0.05f);
-//        
-//        g.setColour (baseColour);
-//        
-//        if (button.isConnectedOnLeft() || button.isConnectedOnRight())
-//        {
-//            Path path;
-//            path.addRoundedRectangle (bounds.getX(), bounds.getY(),
-//                                      bounds.getWidth(), bounds.getHeight(),
-//                                      cornerSize, cornerSize,
-//                                      ! button.isConnectedOnLeft(),
-//                                      ! button.isConnectedOnRight(),
-//                                      ! button.isConnectedOnLeft(),
-//                                      ! button.isConnectedOnRight());
-//            
-//            g.fillPath (path);
-//            
-////            g.setColour (button.findColour (ComboBox::outlineColourId));
-//            g.strokePath (path, PathStrokeType (1.0f));
-//        }
-//        else
-//        {
-//            g.fillRoundedRectangle (bounds, cornerSize);
-//            
-////            g.setColour (button.findColour (ComboBox::outlineColourId));
-//            g.drawRoundedRectangle (bounds, cornerSize, 1.0f);
-//        }
-//    }
-    
     void drawAlertBox (Graphics& g, AlertWindow& alert,
                        const Rectangle<int>& textArea, TextLayout& textLayout) override
     {
@@ -188,7 +115,7 @@ struct CustomLookAndFeel : public LookAndFeel_V3
     Font getAlertWindowFont() override       { return Font (14.0f); }
     
     
-    
+    //==============================================================================
     void drawRotarySlider (Graphics& g, int x, int y, int width, int height, float sliderPos,
                            const float rotaryStartAngle, const float rotaryEndAngle, Slider& slider) override
     {
@@ -245,6 +172,7 @@ struct CustomLookAndFeel : public LookAndFeel_V3
         return label.getFont();
     }
     
+    //==============================================================================
     void drawLabel (Graphics& g, Label& label) override
     {
         g.fillAll (label.findColour (Label::backgroundColourId));

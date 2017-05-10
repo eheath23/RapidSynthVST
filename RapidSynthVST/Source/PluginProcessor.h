@@ -154,7 +154,6 @@ public:
     void stopNote (float, bool) override
     {
         ADSR1.trigger = 0;
-//        level = 0;
         clearCurrentNote();
     }
         
@@ -241,24 +240,13 @@ public:
                 mLFO2Out = LFO2.square(mLFO2Freq) * mLFO2Gain;
             }
             
-            //OSCILLATOR FILTERS
-            
-//            mOsc1FilterOut = osc1Filter.lores(mOsc1Out, mOsc1FilterCutoff, 0);
-//            mOsc2FilterOut = osc2Filter.lores(mOsc2Out, mOsc2FilterCutoff, 0);
-//            mOsc3FilterOut = osc3Filter.lores(mOsc3Out, mOsc3FilterCutoff, 0);
-            
-            mOsc1FilterOut = mOsc1Out;
-            mOsc2FilterOut = mOsc2Out;
-            mOsc3FilterOut = mOsc3Out;
-            
-            
             //LFO 1 MODULATING VCO CUTOFF
             if (mLFO1Gain > 0)
             {
-                mVCFout = VCF.lores((mOsc1FilterOut + mOsc2FilterOut + mOsc3FilterOut) * 0.3, mVCOCutoff + mLFO1Out, mVCORes);
+                mVCFout = VCF.lores((mOsc1Out + mOsc2Out + mOsc3Out) * 0.3, mVCOCutoff + mLFO1Out, mVCORes);
             } else if (mLFO1Gain == 0)
             {
-            mVCFout = VCF.lores((mOsc1FilterOut + mOsc2FilterOut + mOsc3FilterOut) * 0.3, mVCOCutoff, mVCORes);
+            mVCFout = VCF.lores((mOsc1Out + mOsc2Out + mOsc3Out) * 0.3, mVCOCutoff, mVCORes);
             }
             
             mCSample = mVCFout * mMasterGain * mADSR1Out;
@@ -289,7 +277,7 @@ public:
     double                       mOsc1DetuneFreq, mOsc2DetuneFreq, mOsc3DetuneFreq;
     double                       mOsc1Gain, mOsc2Gain, mOsc3Gain, mLFO1Gain, mLFO2Gain;
     double                       mOsc1Out, mOsc2Out, mOsc3Out, mLFO1Out, mLFO2Out;
-    double                       mOsc1FilterOut, mOsc2FilterOut, mOsc3FilterOut, mVCFout;
+    double                       mVCFout;
     double                       mVCOCutoff, mVCORes;
     double                       mADSR1Out, mADSR1Attack, mADSR1Decay, mADSR1Sustain, mADSR1Release;
     double                       mLFO1Freq, mLFO2Freq;
@@ -351,17 +339,14 @@ public:
 
 
     double lastSampleRate;
-//    AudioParameterFloat* osc1FilterCutoff;
     AudioParameterInt* osc1Detune;
     AudioParameterFloat* osc1Gain;
     AudioParameterFloat* osc1ModFreq;
     
-//    AudioParameterFloat* osc2FilterCutoff;
     AudioParameterInt* osc2Detune;
     AudioParameterFloat* osc2Gain;
     AudioParameterFloat* osc2ModFreq;
     
-//    AudioParameterFloat* osc3FilterCutoff;
     AudioParameterInt* osc3Detune;
     AudioParameterFloat* osc3Gain;
     AudioParameterFloat* osc3ModFreq;

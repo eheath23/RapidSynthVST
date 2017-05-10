@@ -58,9 +58,6 @@ public:
         //Remove Unused Dials 
         filter.removeChildComponent(&filter.dial3);
         filter.removeChildComponent(&filter.dial3Label);
-//        filter.removeChildComponent(&filter.sineButton);
-//        filter.removeChildComponent(&filter.sawButton);
-//        filter.removeChildComponent(&filter.squareButton);
         filter.removeChildComponent(filter.radioButtons[0]);
         filter.removeChildComponent(filter.radioButtons[1]);
         filter.removeChildComponent(filter.radioButtons[2]);
@@ -73,10 +70,7 @@ public:
 
     void paint (Graphics& g) override
     {
-//        g.setColour (Colours::black);
-//        g.drawRect (getLocalBounds(), 2);
-//        g.drawLine(lfo.getWidth(), lfo.getHeight(), lfo.getWidth(), 0, 2);
-//        g.drawLine(envelope.getWidth()*2, envelope.getHeight(), envelope.getWidth()*2, 0, 2);
+
     }
 
     void resized() override
@@ -91,7 +85,6 @@ public:
     }
     
         OscillatorComponent lfo,filter;
-//        FilterComponent filter;
         EnvelopeComponent envelope;
     
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (ModulatorSceneComponent)

@@ -55,20 +55,10 @@ public:
         dial3Label.setInterceptsMouseClicks(false, false);
         dial3Label.setJustificationType(Justification::centredBottom);
         
-//
-//        addAndMakeVisible(sineButton);
-//        sineButton.setButtonText ("Si");
-//        
-//        addAndMakeVisible(sawButton);
-//        sawButton.setButtonText ("Sa");
-//        
-//        addAndMakeVisible(squareButton);
-//        squareButton.setButtonText ("Sq");
         
         for (int i = 0; i < 3; ++i)
         {
             TextButton* b = radioButtons.add (new TextButton());
-//            DrawableButton* b = radioButtons.add(DrawableButton());
             addAndMakeVisible (b);
             b->setRadioGroupId (42);
             b->setClickingTogglesState (true);
@@ -91,9 +81,6 @@ public:
                 default:    break;
             }
             
-//            DrawableImage down;
-//            down.setImage (ImageCache::getFromMemory (Sine_png, Sine_pngSize));
-//            down.setOverlayColour (Colours::black.withAlpha (0.3f));
         }
         
         radioButtons.getUnchecked (2)->setToggleState (true, dontSendNotification);
@@ -106,11 +93,6 @@ public:
 
     void paint (Graphics& g) override
     {
-
-//        g.fillAll (Colours::darkred);   // clear the background
-
-//        g.setColour (Colours::white);
-//        g.drawRect (getLocalBounds(), 1);   // draw an outline around the component
 
     }
 
@@ -137,9 +119,6 @@ public:
         dial3Label.setBounds(dial3Area);
         dial2Label.setBounds(dial2Area);
         
-//        sineButton.setBounds(titleArea.removeFromLeft(titleDivisor).reduced(buttonBorder));
-//        squareButton.setBounds(titleArea.removeFromRight(titleDivisor).reduced(buttonBorder));
-//        sawButton.setBounds(titleArea.reduced(buttonBorder));
         
         for (int i = 0; i < radioButtons.size(); ++i)
         {
@@ -160,7 +139,6 @@ public:
     TextButton sawButton;
     TextButton squareButton;
     
-//    TextButton button1, button2, button3;
     OwnedArray<TextButton> radioButtons;
     
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (OscillatorComponent)

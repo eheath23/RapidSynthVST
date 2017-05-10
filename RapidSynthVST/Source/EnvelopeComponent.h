@@ -13,8 +13,6 @@
 
 #include "../JuceLibraryCode/JuceHeader.h"
 
-#include "ADSRComponent.h"
-
 //==============================================================================
 /*
 */
@@ -99,18 +97,10 @@ public:
         sustainDial.setBounds(sustain);
         releaseDial.setBounds(release);
         
-//        ADSR1Attack.setBounds(r.removeFromTop(divisor).reduced(1));
-//        ADSR1Decay.setBounds(r.removeFromTop(divisor).reduced(1));
-//        ADSR1Sustain.setBounds(r.removeFromTop(divisor).reduced(1));
-//        ADSR1Release.setBounds(r.reduced(1));
     }
     
     Slider ADSR1Attack, ADSR1Decay, ADSR1Sustain, ADSR1Release;
     Label attackDial, decayDial, sustainDial, releaseDial;
-
-//    TextButton trainButton, addButton;
-//    ADSRComponent ADSR;
-//    ADSRComponent ADSR;
     
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (EnvelopeComponent)
 };

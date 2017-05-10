@@ -42,9 +42,6 @@ public:
         addAndMakeVisible(targetShape);
         targetShape.setBounds(300, 200, 25, 25);
         
-//        addAndMakeVisible(footer);
-//        footer.setText("Save four sounds then press Train", dontSendNotification);
-        
     }
 
     ~XYComponent()
@@ -54,7 +51,7 @@ public:
     void paint (Graphics& g) override
     {
 
-        g.fillAll (Colours::lightblue);   // clear the background
+        g.fillAll (Colours::lightblue);
 
         g.setColour (Colours::darkblue);
         g.drawRect (getLocalBounds(), 2);
@@ -71,9 +68,7 @@ public:
         button4.setBounds(750, 300, 25, 25);
         button5.setBounds(350, 10, 40, 25);
         button6.setBounds(350, 70, 40, 25);
-        
-//        footer.setBounds(300, 300, 1000, 25);
-        
+    
     }
     
     class TargetShape : public Component
@@ -100,10 +95,7 @@ public:
     
     TargetShape targetShape;
     
-    TextButton button1, button2, button3, button5, button6;
-    TextButton button4;
-    
-//    Label footer;
+    TextButton button1, button2, button3, button4, button5, button6;    
     
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (XYComponent)
 };
