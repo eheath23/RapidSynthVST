@@ -41,7 +41,7 @@ public:
     void buttonClicked (Button* button) override;
     void timerCallback() override;
     void targetMoved ();
-    std::vector<double> normaliseMouseSpace(const juce::Point<int>& _position, const juce::Rectangle<int>& _area);
+    std::vector<double> normalisePosition(const juce::Point<int>& _position, const juce::Rectangle<int>& _area);
     
     // This reference is provided as a quick way for your editor to
     // access the processor object that created it.

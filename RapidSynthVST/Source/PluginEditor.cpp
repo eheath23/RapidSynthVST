@@ -397,7 +397,7 @@ void RapidSynthVstAudioProcessorEditor:: buttonClicked (Button* button)
     if (button->getName() == "MLButton1")
     {
         
-        std::vector<double> tempPositions =  normaliseMouseSpace(scene.XY.button1.getScreenPosition(), drawingArea);
+        std::vector<double> tempPositions =  normalisePosition(scene.XY.button1.getScreenPosition(), drawingArea);
         
         double inputX = tempPositions[0];
         double inputY = tempPositions[1];
@@ -436,7 +436,7 @@ void RapidSynthVstAudioProcessorEditor:: buttonClicked (Button* button)
     else if (button->getName() == "MLButton2")
     {
         
-        std::vector<double> tempPositions =  normaliseMouseSpace(scene.XY.button2.getScreenPosition(), drawingArea);
+        std::vector<double> tempPositions =  normalisePosition(scene.XY.button2.getScreenPosition(), drawingArea);
         
         double inputX = tempPositions[0];
         double inputY = tempPositions[1];
@@ -476,7 +476,7 @@ void RapidSynthVstAudioProcessorEditor:: buttonClicked (Button* button)
     else if (button->getName() == "MLButton3")
     {
         
-        std::vector<double> tempPositions =  normaliseMouseSpace(scene.XY.button3.getScreenPosition(), drawingArea);
+        std::vector<double> tempPositions =  normalisePosition(scene.XY.button3.getScreenPosition(), drawingArea);
         
         double inputX = tempPositions[0];
         double inputY = tempPositions[1];
@@ -515,7 +515,7 @@ void RapidSynthVstAudioProcessorEditor:: buttonClicked (Button* button)
     
     else if (button->getName() == "MLButton4")
     {
-        std::vector<double> tempPositions =  normaliseMouseSpace(scene.XY.button4.getScreenPosition(), drawingArea);
+        std::vector<double> tempPositions =  normalisePosition(scene.XY.button4.getScreenPosition(), drawingArea);
         
         double inputX = tempPositions[0];
         double inputY = tempPositions[1];
@@ -608,7 +608,7 @@ void RapidSynthVstAudioProcessorEditor:: buttonClicked (Button* button)
 
 void RapidSynthVstAudioProcessorEditor::targetMoved()
 {
-    std::vector<double> tempPositions =  normaliseMouseSpace(scene.XY.targetShape.getScreenPosition(), drawingArea);
+    std::vector<double> tempPositions =  normalisePosition(scene.XY.targetShape.getScreenPosition(), drawingArea);
     
     double inputX = tempPositions[0];
     double inputY = tempPositions[1];
@@ -683,7 +683,7 @@ void RapidSynthVstAudioProcessorEditor::timerCallback()
     }
 }
 
-std::vector<double> RapidSynthVstAudioProcessorEditor::normaliseMouseSpace(const juce::Point<int>& _position, const juce::Rectangle<int>& _area)
+std::vector<double> RapidSynthVstAudioProcessorEditor::normalisePosition(const juce::Point<int>& _position, const juce::Rectangle<int>& _area)
 {
     juce::Point<int> pos = _area.getConstrainedPoint(_position);
     std::vector<double> temp;
