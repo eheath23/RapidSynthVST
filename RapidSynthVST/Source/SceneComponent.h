@@ -31,6 +31,7 @@ public:
         addAndMakeVisible(modScene);
         addAndMakeVisible(footer);
         
+        //Footer for instructions
         footer.setText("Begin by saving 4 sounds, then pressing Train", dontSendNotification);
         footer.setJustificationType(Justification::centredBottom);
         footer.setInterceptsMouseClicks(false, false);
@@ -52,6 +53,7 @@ public:
         auto r = getLocalBounds();
         auto bottomSection = r.removeFromBottom(250);
         auto oscSection = bottomSection.removeFromLeft(400);
+        
         XY.setBounds(r.reduced(5));
         oscScene.setBounds(oscSection);
         modScene.setBounds(bottomSection);

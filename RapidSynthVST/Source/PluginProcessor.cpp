@@ -25,14 +25,15 @@ RapidSynthVstAudioProcessor::RapidSynthVstAudioProcessor()
 #endif
 
 {
-    synth.clearVoices();
-    synth.clearSounds();
-    synth.addSound(new SimpleSound());
+    synth.clearVoices(); //Clear Synth Voices
+    synth.clearSounds(); //Clear Synth Sounds
+    synth.addSound(new SimpleSound()); //Add Synth Sound
     
     for(int i = 0; i < 7; i++){
-        synth.addVoice(new SimpleVoice()); 
+        synth.addVoice(new SimpleVoice()); //Add Synth Voices, i = number of voices for polyphony
     }
     
+    //Add all the Audio Parameters, with names, range, and initial value
     addParameter(osc1ModFreq = new AudioParameterFloat("osc1ModFreq", "osc1 Mod Freq", 0, 40000, 100));
     addParameter(osc1Detune = new AudioParameterInt("osc1Detune", "Osc1 Detune", -12, 12, 0));
     addParameter(osc1Gain = new AudioParameterFloat("osc1Gain", "Osc1 Gain", 0, 1, 1));    
@@ -142,8 +143,8 @@ void RapidSynthVstAudioProcessor::prepareToPlay (double sampleRate, int samplesP
     ignoreUnused(samplesPerBlock);
     
     lastSampleRate = sampleRate;
-    synth.setCurrentPlaybackSampleRate(lastSampleRate);
-    maxiSettings:: setup(lastSampleRate, getTotalNumOutputChannels(), samplesPerBlock);
+    synth.setCurrentPlaybackSampleRate(lastSampleRate); //Set sample rate
+    maxiSettings:: setup(lastSampleRate, getTotalNumOutputChannels(), samplesPerBlock); //Set Maximilian Settings
     
 }
 
@@ -179,11 +180,18 @@ bool RapidSynthVstAudioProcessor::isBusesLayoutSupported (const BusesLayout& lay
 
 void RapidSynthVstAudioProcessor::processBlock (AudioSampleBuffer& buffer, MidiBuffer& midiMessages)
 {
+    
+    //CODE FROM LEON FEDDEN, he taught me how to build VST, adapted for personal use
+    //I never took out this code or replaced it, for the sake of not fixing something that wasn't broken,
+    //but I think this isn't entirely necessary now, or could be done more efficiently, on the to do list
+    
+    //For each Synth voice
     for(int i = synth.getNumVoices(); --i >= 0;){
         auto currentVoice = synth.getVoice(i);
-        SimpleVoice* derivedVoice = dynamic_cast<SimpleVoice*>(currentVoice);
-        bool isLegit = derivedVoice != nullptr;
-        if(isLegit){
+        SimpleVoice* derivedVoice = dynamic_cast<SimpleVoice*>(currentVoice); //Dynamic cast the current voice
+        bool isLegit = derivedVoice != nullptr; //Checks if the voice is not a null pointer
+        if(isLegit){ //If the voice is a Simple Voice
+            //Set the synthesiser parameters using Audio Parameters
             derivedVoice->setParameters(osc1ModFreq->get(),
                                         osc1Detune->get(),
                                         osc1Gain->get(),

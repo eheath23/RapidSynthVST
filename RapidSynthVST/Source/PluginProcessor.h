@@ -15,6 +15,7 @@
 
 #include "maximilian.h"
 
+//Creates Simple Sound
 //==================================================================================
 struct SimpleSound : public SynthesiserSound
 {
@@ -62,6 +63,7 @@ public:
 
     }
 
+    //Set Paramter function used to set the parameters using the Audio Parameters
     void setParameters (double osc1ModFreq,
                         int osc1Detune,
                         double osc1Gain,
@@ -93,6 +95,7 @@ public:
                         bool LFO1Square,
                         double VCORes)
     {
+        //Sets all the member variables
         mOsc1ModFreq = osc1ModFreq;
         mOsc1Detune = osc1Detune;
         mOsc1Gain = osc1Gain;
@@ -129,6 +132,7 @@ public:
         mADSR1Sustain = ADSR1Sustain;
         mADSR1Release = ADSR1Release;
         
+        //Updates ADSR1 with new parameters
         ADSR1.setAttack(mADSR1Attack);
         ADSR1.setDecay(mADSR1Decay);
         ADSR1.setSustain(mADSR1Sustain);
@@ -146,20 +150,20 @@ public:
                     SynthesiserSound*,
                     int) override
     {
-        mFreq = midiNoteNumber;
-        level = velocity;
-        ADSR1.trigger = 1;
+        mMidi = midiNoteNumber; //Set the member midi variable as the midi note in, when the note is pressed
+        level = velocity; //Get the velocity
+        ADSR1.trigger = 1; //Trigger the envelope attack when the note is pressed
     }
     
     void stopNote (float, bool) override
     {
-        ADSR1.trigger = 0;
+        ADSR1.trigger = 0; //Trigger the envelope release when the note is stopped
         clearCurrentNote();
     }
         
     double midiToFreq (int detune)
     {
-        return MidiMessage::getMidiNoteInHertz(mFreq + detune);
+        return MidiMessage::getMidiNoteInHertz(mMidi + detune); //Calculates the frequency of the note, with the current detune value
     }
     
     void renderNextBlock (AudioSampleBuffer& outputBuffer,
@@ -169,11 +173,13 @@ public:
         while (--numberSamples >= 0)
         {
             
-            mADSR1Out = ADSR1.adsr(1.0, ADSR1.trigger);
+            mADSR1Out = ADSR1.adsr(1.0, ADSR1.trigger); //Output of ADSR given to mADSR1Out
             
-            //OSC 1 Waveform
+            //OSC 1 WAVEFORM
             if(mOsc1Sine && !mOsc1Saw && !mOsc1Square)
             {
+                //Generates the oscillator output
+                //Waveform with detune, frequency modulation and gain
                 mOsc1Out = osc1Carrier.sinewave(midiToFreq(mOsc1Detune)*(osc1Modulator.phasor(mOsc1ModFreq))) * mOsc1Gain;
                 
             } else if (mOsc1Saw && !mOsc1Sine && !mOsc1Square)
@@ -228,7 +234,7 @@ public:
                 mLFO1Out = LFO1.square(mLFO1Freq) * mLFO1Gain;
             }
             
-            //LFO 2 WAVEFORM
+            //LFO 2 WAVEFORM - Haven't finished implementation
             if(mLFO2Sine && !mLFO2Saw && !mLFO2Square)
             {
                 mLFO2Out = LFO2.sinebuf(mLFO2Freq) * mLFO2Gain;
@@ -243,21 +249,23 @@ public:
             //LFO 1 MODULATING VCO CUTOFF
             if (mLFO1Gain > 0)
             {
+                //If the LFO1Gain is on, then add the output of LFO 1 to the VCO Cutoff frequency
                 mVCFout = VCF.lores((mOsc1Out + mOsc2Out + mOsc3Out) * 0.3, mVCOCutoff + mLFO1Out, mVCORes);
             } else if (mLFO1Gain == 0)
             {
-            mVCFout = VCF.lores((mOsc1Out + mOsc2Out + mOsc3Out) * 0.3, mVCOCutoff, mVCORes);
+                //Else filter without LFO modulation
+                mVCFout = VCF.lores((mOsc1Out + mOsc2Out + mOsc3Out) * 0.3, mVCOCutoff, mVCORes);
             }
             
-            mCSample = mVCFout * mMasterGain * mADSR1Out;
+            mCSample = mVCFout * mMasterGain * mADSR1Out; //CSample = Output from the VCO, multiplied by Master Gain, and output of ADSR
             
-            double audioFrame = mCSample;
+//            double audioFrame = mCSample;
             
-            const float currentSample = float(audioFrame) * level;
+            const float currentSample = float(mCSample) * level; //Multiply by velocity, pass to currentSample for output
             
             for (int i = outputBuffer.getNumChannels(); --i >= 0;)
             {
-                outputBuffer.addSample (i, startSample, currentSample);
+                outputBuffer.addSample (i, startSample, currentSample); //fill the output buffer
             }
             
             ++startSample;
@@ -270,10 +278,9 @@ public:
     private:
     double                       level;
     double                       mCSample;
-    double                       mFreq, mOsc1Freq, mOsc2Freq, mOsc3Freq;
+    double                       mMidi, mOsc1Freq, mOsc2Freq, mOsc3Freq;
     double                       mOsc1ModFreq, mOsc2ModFreq, mOsc3ModFreq;
     double                       mMasterGain;
-    int                          mOsc1Detune, mOsc2Detune, mOsc3Detune;
     double                       mOsc1DetuneFreq, mOsc2DetuneFreq, mOsc3DetuneFreq;
     double                       mOsc1Gain, mOsc2Gain, mOsc3Gain, mLFO1Gain, mLFO2Gain;
     double                       mOsc1Out, mOsc2Out, mOsc3Out, mLFO1Out, mLFO2Out;
@@ -283,12 +290,13 @@ public:
     double                       mLFO1Freq, mLFO2Freq;
     double                       mOutputs[2];
     
-    bool mOsc1Sine, mOsc1Saw, mOsc1Square;
-    bool mOsc2Sine, mOsc2Saw, mOsc2Square;
-    bool mOsc3Sine, mOsc3Saw, mOsc3Square;
-    bool mLFO1Sine, mLFO1Saw, mLFO1Square;
-    bool mLFO2Sine, mLFO2Saw, mLFO2Square;
-    bool mLFO1ModVCOCutoff;
+    int                          mOsc1Detune, mOsc2Detune, mOsc3Detune;
+
+    bool                         mOsc1Sine, mOsc1Saw, mOsc1Square;
+    bool                         mOsc2Sine, mOsc2Saw, mOsc2Square;
+    bool                         mOsc3Sine, mOsc3Saw, mOsc3Square;
+    bool                         mLFO1Sine, mLFO1Saw, mLFO1Square;
+    bool                         mLFO2Sine, mLFO2Saw, mLFO2Square;
     
     maxiOsc                      osc1Carrier, osc2, osc3, LFO1, LFO2;
     maxiOsc                      osc1Modulator, osc2Modulator, osc3Modulator;
@@ -337,7 +345,7 @@ public:
     void getStateInformation (MemoryBlock& destData) override;
     void setStateInformation (const void* data, int sizeInBytes) override;
 
-
+    //All the Audio Parameter Pointers
     double lastSampleRate;
     AudioParameterInt* osc1Detune;
     AudioParameterFloat* osc1Gain;
@@ -380,6 +388,7 @@ public:
     
     AudioParameterFloat* VCORes;
     
+    //Synthesiser Object
     Synthesiser synth;
     
     //==============================================================================

@@ -21,24 +21,31 @@ class XYComponent    : public Component
 public:
     XYComponent()
     {
+        //Button 1 - Training Example 1
         button1.setButtonText ("1");
         addAndMakeVisible (button1);
         
+        //Button 2 - Training Example 2
         button2.setButtonText ("2");
         addAndMakeVisible (button2);
         
+        //Button 3 - Training Example 3
         button3.setButtonText ("3");
         addAndMakeVisible (button3);
         
+        //Button 4 - Training Example 4
         button4.setButtonText ("4");
         addAndMakeVisible (button4);
         
+        //Button 5 - Train
         button5.setButtonText ("Train");
         addAndMakeVisible (button5);
         
+        //Button 6 - Run
         button6.setButtonText ("Run");
         addAndMakeVisible (button6);
         
+        //Target Shape - IML Square
         addAndMakeVisible(targetShape);
         targetShape.setBounds(300, 200, 25, 25);
         
@@ -71,25 +78,25 @@ public:
     
     }
     
+    //Target Shape class to make the IML Square
     class TargetShape : public Component
     {
     public:
-        ComponentDragger myDragger;
+        ComponentDragger myDragger; //Create Component Dragger to handle
         
         void paint(Graphics& g) override
         {
-            g.fillAll(Colours::darkslateblue);
-            g.drawEllipse(this->getX(), this->getY(), 25, 25, 1);
+            g.fillAll(Colours::darkslateblue); //Fill colour
         }
         
         void mouseDown(const MouseEvent& _event) override
         {
-            myDragger.startDraggingComponent (this, _event);
+            myDragger.startDraggingComponent (this, _event); //When the mouse is down on the shape, start dragging
         }
         
         void mouseDrag (const MouseEvent& _event) override
         {
-            myDragger.dragComponent (this, _event, nullptr);
+            myDragger.dragComponent (this, _event, nullptr); //When mouse is dragger, drag this shape
         }
     };
     

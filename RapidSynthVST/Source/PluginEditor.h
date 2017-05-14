@@ -23,9 +23,9 @@
 //  ==============================================================================
 
 class RapidSynthVstAudioProcessorEditor  : public AudioProcessorEditor,
-public Slider::Listener,
-public Button::Listener,
-private Timer
+public Slider::Listener, //Inherit slider listeners
+public Button::Listener, //Inherit button listeners
+private Timer //Inherit timer for update function
 {
 public:
     RapidSynthVstAudioProcessorEditor (RapidSynthVstAudioProcessor&);
@@ -39,18 +39,18 @@ public:
     void resized() override;
     void sliderValueChanged (Slider* slider) override;
     void buttonClicked (Button* button) override;
+    
+    //FUNCTIONS FOR SHAPE
     void timerCallback() override;
     void targetMoved ();
     std::vector<double> normalisePosition(const juce::Point<int>& _position, const juce::Rectangle<int>& _area);
     
-    // This reference is provided as a quick way for your editor to
-    // access the processor object that created it.
+    //AUDIO PARAMETER FUNCTIONS
     AudioProcessorParameter* getParameter (const String& paramId);
     float                    getParameterValue (const String& paramId);
     void                     setParameterValue (const String& paramId, float value);
     
-    /*** MACHINE LEARNING ***/
-    // Rapid regression
+    //MACHINE LEARNING
     regression                   rapidRegression;
     std::vector<trainingExample> trainingSet;
     trainingExample              trainingExample1;
@@ -62,7 +62,8 @@ public:
     
     std::vector<double> example1Output, example2Output, example3Output, example4Output;
     
-    // Output Params
+    //Audio Variables For Machine Learning
+    //It's clearer to use these to give to the training examples, rather than using just the Audio Parameter's values, and the slider values
     double osc1Detune;
     double osc1Gain;
     double osc1ModFreq;
@@ -107,7 +108,7 @@ public:
     juce::Rectangle<int>         drawingArea;
     SceneComponent scene;
 
-    RapidSynthVstAudioProcessor& processor;
+    RapidSynthVstAudioProcessor& processor; //Audio Processor 
     
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (RapidSynthVstAudioProcessorEditor)

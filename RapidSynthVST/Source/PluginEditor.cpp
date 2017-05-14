@@ -20,13 +20,13 @@ RapidSynthVstAudioProcessorEditor::RapidSynthVstAudioProcessorEditor (RapidSynth
     
     setSize (800, 600);
     
-    setLookAndFeel(&customLookAndFeel);
+    setLookAndFeel(&customLookAndFeel); //Use the custom look and feel
 
-    addAndMakeVisible(scene);
+    addAndMakeVisible(scene); //Add and make visible all the GUI
     
     //OSC 1
-    scene.oscScene.osc1.dial1.setName("osc1ModFreq");
-    scene.oscScene.osc1.dial1.addListener (this);
+    scene.oscScene.osc1.dial1.setName("osc1ModFreq"); //Set the name of the component for use late
+    scene.oscScene.osc1.dial1.addListener (this); //Attach a listener
     
     scene.oscScene.osc1.dial2.setName("osc1Detune");
     scene.oscScene.osc1.dial2.addListener (this);
@@ -139,9 +139,9 @@ RapidSynthVstAudioProcessorEditor::RapidSynthVstAudioProcessorEditor (RapidSynth
     scene.XY.button6.setName("MLButtonRun");
     scene.XY.button6.addListener(this);
     
-    startTimerHz(60);
+    startTimerHz(60); //Start the timer
     
-    drawingArea = scene.XY.getLocalBounds();
+    drawingArea = scene.XY.getLocalBounds(); //Set the drawing area to the size of the XY area
 }
 
 RapidSynthVstAudioProcessorEditor::~RapidSynthVstAudioProcessorEditor()
@@ -160,19 +160,23 @@ void RapidSynthVstAudioProcessorEditor::resized()
     scene.setBounds(r);
 }
 
+//I was shown to how to use this by Leon Fedden, this function is his original idea
+//This function is used by setParameterValue in order to check if the validity of the parameter you're trying to change, and then returns the address of the Audio Parameter you're trying to change.
+//I'd like to explore replacing these functions in future, I'm not sure if they're entirely necessary, or the most efficient, but it wasn't a priority because they worked, and other things didn't.
+//I think removing these functions could really help optimise and simply the whole PluginEditor, and the process of passing the slider values to the synthesiser. These checks are all great for safety, but I think if the code is running as is, then it's safe to remove these at some point and just directly change the parameter in the slider listeners.
 //=======================================================================
 AudioProcessorParameter* RapidSynthVstAudioProcessorEditor::getParameter (const String& paramId)
 {
-    if (AudioProcessor* processor = getAudioProcessor())
+    if (AudioProcessor* processor = getAudioProcessor()) //Create a pointer to the audio processer
     {
-        const OwnedArray<AudioProcessorParameter>& params = processor->getParameters();
+        const OwnedArray<AudioProcessorParameter>& params = processor->getParameters(); //Create an array with the parameters from the audio processor
 
-        for (int i = 0; i < params.size(); ++i)
+        for (int i = 0; i < params.size(); ++i) //for each of the parameters
         {
-            if (AudioProcessorParameterWithID* param = dynamic_cast<AudioProcessorParameterWithID*> (params[i]))
+            if (AudioProcessorParameterWithID* param = dynamic_cast<AudioProcessorParameterWithID*> (params[i])) //if the parameter can be dynamic cast
             {
-                if (param->paramID == paramId)
-                    return param;
+                if (param->paramID == paramId) //if the parameter matches the name of the parameter you're trying to change
+                    return param; //return a pointer to that parameter
             }
         }
     }
@@ -180,30 +184,24 @@ AudioProcessorParameter* RapidSynthVstAudioProcessorEditor::getParameter (const 
     return nullptr;
 }
 
-//=======================================================================
-float RapidSynthVstAudioProcessorEditor::getParameterValue (const String& paramId)
-{
-    if (AudioProcessorParameter* param = getParameter (paramId))
-        return param->getValue();
-
-    return 0.0f;
-}
-
+//I was shown to how to use this by Leon Fedden, this function is his original idea
+//This function is used to change the Audio Parameters more efficiently
 //=======================================================================
 void RapidSynthVstAudioProcessorEditor::setParameterValue (const String& paramId, float value)
 {
-    if (AudioProcessorParameter* param = getParameter (paramId))
-        param->setValueNotifyingHost (value);
+    if (AudioProcessorParameter* param = getParameter (paramId)) //Get the parameter with the ID you're trying to change
+        param->setValueNotifyingHost (value); //Set the value of the parameter using the value given
 }
 
+//SLIDER LISTENERS
 //=======================================================================
 void RapidSynthVstAudioProcessorEditor::sliderValueChanged(Slider* slider){
     
     //OSC 1
-    if (slider->getName() == "osc1ModFreq")
+    if (slider->getName() == "osc1ModFreq") //if the name of the slider that's been changed matches
     {
-        osc1ModFreq = (double)slider->getValue();
-        setParameterValue("osc1ModFreq", osc1ModFreq);
+        osc1ModFreq = (double)slider->getValue(); //get the value from the slider
+        setParameterValue("osc1ModFreq", osc1ModFreq); //set the Audio Parameter to that value
         
     }
     if (slider->getName() == "osc1Detune")
@@ -307,14 +305,14 @@ void RapidSynthVstAudioProcessorEditor::sliderValueChanged(Slider* slider){
     
 }
 
-//** BUTTONS **//
+//BUTTONS LISTENERS
 //=============================================================================
 void RapidSynthVstAudioProcessorEditor:: buttonClicked (Button* button)
 {
     //OSC 1
-    if (button->getName() == "osc1Sine")
+    if (button->getName() == "osc1Sine") //if the button matches the name given
     {
-        setParameterValue("osc1Sine", true);
+        setParameterValue("osc1Sine", true); //Set the Audio Parameter
         setParameterValue("osc1Saw", false);
         setParameterValue("osc1Square", false);
 
@@ -397,14 +395,14 @@ void RapidSynthVstAudioProcessorEditor:: buttonClicked (Button* button)
     if (button->getName() == "MLButton1")
     {
         
-        std::vector<double> tempPositions =  normalisePosition(scene.XY.button1.getScreenPosition(), drawingArea);
+        std::vector<double> tempPositions =  normalisePosition(scene.XY.button1.getScreenPosition(), drawingArea); //Normalise the position of the button pressed
         
-        double inputX = tempPositions[0];
-        double inputY = tempPositions[1];
+        double inputX = tempPositions[0]; //Input X position
+        double inputY = tempPositions[1]; //Input Y position
         
-        example1Input = { inputX , inputY };
+        example1Input = { inputX , inputY }; //Store the inputs in the example1Input vector
         
-        example1Output = {
+        example1Output = { //Store the audio variables in the example1Output vector
             osc1ModFreq,
             osc1Detune,
             osc1Gain,
@@ -425,10 +423,10 @@ void RapidSynthVstAudioProcessorEditor:: buttonClicked (Button* button)
             VCORes
         };
         
-        button1Trained = true;
+        button1Trained = true; //button 1 is true
         
         std::cout << "Button 1 Stored" << std:: endl;
-        scene.footer.setText("Sound 1 saved, save all 4 before training", dontSendNotification);
+        scene.footer.setText("Sound 1 saved, save all 4 before training", dontSendNotification); //Display on the footer
         scene.footer.setJustificationType(Justification::centredBottom);
 
     }
@@ -554,9 +552,9 @@ void RapidSynthVstAudioProcessorEditor:: buttonClicked (Button* button)
     
     else if (button->getName() == "MLButtonTrain")
     {
-        if(button1Trained && button2Trained && button3Trained && button4Trained)
+        if(button1Trained && button2Trained && button3Trained && button4Trained) //If all the training examples have been saved
         {
-            trainingExample1.input = example1Input;
+            trainingExample1.input = example1Input; //Assign the training example vectors to the actual training examples
             trainingExample1.output = example1Output;
             
             trainingExample2.input = example2Input;
@@ -568,7 +566,7 @@ void RapidSynthVstAudioProcessorEditor:: buttonClicked (Button* button)
             trainingExample4.input = example4Input;
             trainingExample4.output = example4Output;
             
-            trainingSet =
+            trainingSet = //Fill the training set vector with all the training examples
             {
                 trainingExample1,
                 trainingExample2,
@@ -576,13 +574,13 @@ void RapidSynthVstAudioProcessorEditor:: buttonClicked (Button* button)
                 trainingExample4
             };
             
-            trained = rapidRegression.train(trainingSet);
+            trained = rapidRegression.train(trainingSet); //Train the regression model with the training set, trained = true
 
-            scene.footer.setText("RPDSynth - Trained, now press Run", dontSendNotification);
+            scene.footer.setText("RPDSynth - Trained, now press Run", dontSendNotification); //Update footer
             scene.footer.setJustificationType(Justification::centredBottom);
 
         } else {
-            scene.footer.setText("Save all 4 sounds before training", dontSendNotification);
+            scene.footer.setText("Save all 4 sounds before training", dontSendNotification); //if you press train and not all of the examples have been saved
             scene.footer.setJustificationType(Justification::centredBottom);
 
         }
@@ -590,10 +588,10 @@ void RapidSynthVstAudioProcessorEditor:: buttonClicked (Button* button)
     
     else if (button->getName() == "MLButtonRun")
     {
-        run = !run;
+        run = !run; //toggle button, turns it off and on
         if(trained)
         {
-            if(run){
+            if(run){ //Updates the footers based on whether it's running or not
                 scene.footer.setText("Running, turn off before saving and re-training", dontSendNotification);
                 scene.footer.setJustificationType(Justification::centredBottom);
                 
@@ -606,18 +604,18 @@ void RapidSynthVstAudioProcessorEditor:: buttonClicked (Button* button)
     }
 }
 
-void RapidSynthVstAudioProcessorEditor::targetMoved()
+void RapidSynthVstAudioProcessorEditor::targetMoved() //This function is used when the shape is being moved
 {
-    std::vector<double> tempPositions =  normalisePosition(scene.XY.targetShape.getScreenPosition(), drawingArea);
+    std::vector<double> tempPositions =  normalisePosition(scene.XY.targetShape.getScreenPosition(), drawingArea); //Normalise the position of the shape
     
-    double inputX = tempPositions[0];
+    double inputX = tempPositions[0]; //Store as X and Y
     double inputY = tempPositions[1];
 
-    std::vector<double> input = { inputX , inputY };
+    std::vector<double> input = { inputX , inputY }; //Store X and Y in a vector
     
-    std::vector<double> output = rapidRegression.process(input);
+    std::vector<double> output = rapidRegression.process(input); //Process the model using the XY from the shape, this is when the model predicts the output based on the shapes position, and returns the new values as an array
     
-    double nosc1ModFreq = output[0];
+    double nosc1ModFreq = output[0]; //Assign the predicted values to local audio variables
     double nosc1Detune = output[1];
     double nosc1Gain = output[2];
     double nosc2ModFreq = output[3];
@@ -638,7 +636,7 @@ void RapidSynthVstAudioProcessorEditor::targetMoved()
     
     
     //OSC 1
-    scene.oscScene.osc1.dial1.setValue(nosc1ModFreq);
+    scene.oscScene.osc1.dial1.setValue(nosc1ModFreq); //Use the new values to set the value of all the sliders, which will in turn update the audio variables, and the Audio Parameters
     scene.oscScene.osc1.dial2.setValue(nosc1Detune);
     scene.oscScene.osc1.dial3.setValue(nosc1Gain);
     
@@ -669,7 +667,7 @@ void RapidSynthVstAudioProcessorEditor::targetMoved()
     
 }
 
-void RapidSynthVstAudioProcessorEditor::timerCallback()
+void RapidSynthVstAudioProcessorEditor::timerCallback() //Timer function to constatly check if the shape is being dragged, if the model has been trained, and if it's running
 {
     if(scene.XY.targetShape.myDragger.isDragging)
     {
@@ -683,6 +681,9 @@ void RapidSynthVstAudioProcessorEditor::timerCallback()
     }
 }
 
+//CODE FROM Juce_RapidAPI_Example
+//At this point, probably unnecessary, but used this when trying to overcome the RAPID bug I encountered, I thought perhaps this would solve the problem, it didn't
+//I could probably take this out now, thought it best to leave it and focus on other areas
 std::vector<double> RapidSynthVstAudioProcessorEditor::normalisePosition(const juce::Point<int>& _position, const juce::Rectangle<int>& _area)
 {
     juce::Point<int> pos = _area.getConstrainedPoint(_position);

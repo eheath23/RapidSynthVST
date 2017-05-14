@@ -21,41 +21,47 @@ class OscillatorComponent    : public Component
 public:
     OscillatorComponent()
     {
-        
+        //Dial 1
         dial1.setSliderStyle (Slider::RotaryVerticalDrag);
         dial1.setTextBoxStyle (Slider::TextBoxBelow, false, 0, 0);
         dial1.setRange (0, 1);
         dial1.setValue(0.5);
         addAndMakeVisible(dial1);
         
+        //Dial 1 Label
         addAndMakeVisible (dial1Label);
         dial1Label.setText ("Modulator Frequency", dontSendNotification);
         dial1Label.setInterceptsMouseClicks(false, false);
         dial1Label.setJustificationType(Justification::centredBottom);
         
+        //Dial 2
         dial2.setSliderStyle (Slider::RotaryVerticalDrag);
         dial2.setTextBoxStyle (Slider::TextBoxBelow, false, 0, 0);
         dial2.setRange (0, 1);
         dial2.setValue(0.5);
         addAndMakeVisible(dial2);
         
+        //Dial 2 Label
         addAndMakeVisible (dial2Label);
         dial2Label.setText ("Detune", dontSendNotification);
         dial2Label.setInterceptsMouseClicks(false, false);
         dial2Label.setJustificationType(Justification::centredBottom);
         
+        //Dial 3
         dial3.setSliderStyle (Slider::RotaryVerticalDrag);
         dial3.setTextBoxStyle (Slider::TextBoxBelow, false, 0, 0);
         dial3.setRange (0, 1.0);
         dial3.setValue(1);
         addAndMakeVisible(dial3);
         
+        //Dial 3 Label
         addAndMakeVisible (dial3Label);
         dial3Label.setText ("Gain", dontSendNotification);
         dial3Label.setInterceptsMouseClicks(false, false);
         dial3Label.setJustificationType(Justification::centredBottom);
         
-        
+        //Waveform Buttons
+        //Original code taken and adapted from JUCE Examples/Demos/WidgetsDemo
         for (int i = 0; i < 3; ++i)
         {
             TextButton* b = radioButtons.add (new TextButton());
@@ -98,7 +104,7 @@ public:
 
     void resized() override
     {
-        
+        //Arrange and position the components
         int border1 = 1;
         auto r = getLocalBounds();
         auto titleArea = r.removeFromTop(50).reduced(10);

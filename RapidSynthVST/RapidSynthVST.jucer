@@ -60,11 +60,8 @@
     <GROUP id="{DCC571F7-25FF-AFC7-D21E-6C0C8B560648}" name="Source">
       <FILE id="IQshd7" name="CustomLookAndFeel.h" compile="0" resource="0"
             file="Source/CustomLookAndFeel.h"/>
-      <FILE id="rBNmA2" name="ADSRComponent.h" compile="0" resource="0" file="Source/ADSRComponent.h"/>
       <FILE id="uRTZAG" name="EnvelopeComponent.h" compile="0" resource="0"
             file="Source/EnvelopeComponent.h"/>
-      <FILE id="txvVxU" name="FilterComponent.h" compile="0" resource="0"
-            file="Source/FilterComponent.h"/>
       <FILE id="canK2T" name="ModulatorSceneComponent.h" compile="0" resource="0"
             file="Source/ModulatorSceneComponent.h"/>
       <FILE id="qESh3N" name="OscillatorComponent.h" compile="0" resource="0"

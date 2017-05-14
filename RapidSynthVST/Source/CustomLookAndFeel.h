@@ -8,6 +8,13 @@
  ==============================================================================
  */
 
+//THIS CODE IS NOT MY OWN WORK
+//THIS IS HACKED FROM SECTIONS OF JUCE LOOK AND FEEL
+
+//This creates the CustomLookAndFeel class that allows me to use the different dials, buttons,
+//and labels that I wanted to. I make slight changes to values in order to slightly change the
+//appearances. 
+
 #pragma once
 
 #include "../JuceLibraryCode/JuceHeader.h"
@@ -32,87 +39,6 @@ struct CustomLookAndFeel : public LookAndFeel_V3
         g.setColour (Colours::aliceblue.withAlpha (0.4f * mainAlpha));
         g.strokePath (outline, PathStrokeType (1.0f));
     }
-    
-    //==============================================================================
-    void drawAlertBox (Graphics& g, AlertWindow& alert,
-                       const Rectangle<int>& textArea, TextLayout& textLayout) override
-    {
-        const auto cornerSize = 4.0f;
-        
-        g.setColour (alert.findColour (AlertWindow::outlineColourId));
-        g.drawRoundedRectangle (alert.getLocalBounds().toFloat(), cornerSize, 2.0f);
-        
-        const auto bounds = alert.getLocalBounds().reduced (1);
-        g.reduceClipRegion (bounds);
-        
-        g.setColour (alert.findColour (AlertWindow::backgroundColourId));
-        g.fillRoundedRectangle (bounds.toFloat(), cornerSize);
-        
-        auto iconSpaceUsed = 0;
-        
-        const auto iconWidth = 80;
-        auto iconSize = jmin (iconWidth + 50, bounds.getHeight() + 20);
-        
-        if (alert.containsAnyExtraComponents() || alert.getNumButtons() > 2)
-            iconSize = jmin (iconSize, textArea.getHeight() + 50);
-        
-        const Rectangle<int> iconRect (iconSize / -10, iconSize / -10,
-                                       iconSize, iconSize);
-        
-        if (alert.getAlertType() != AlertWindow::NoIcon)
-        {
-            Path icon;
-            char character;
-            uint32 colour;
-            
-            if (alert.getAlertType() == AlertWindow::WarningIcon)
-            {
-                character = '!';
-                
-                icon.addTriangle (iconRect.getX() + iconRect.getWidth() * 0.5f, (float) iconRect.getY(),
-                                  (float) iconRect.getRight(), (float) iconRect.getBottom(),
-                                  (float) iconRect.getX(), (float) iconRect.getBottom());
-                
-                icon = icon.createPathWithRoundedCorners (5.0f);
-                colour = 0x66ff2a00;
-            }
-            else
-            {
-                colour = Colour (0xff00b0b9).withAlpha (0.4f).getARGB();
-                character = alert.getAlertType() == AlertWindow::InfoIcon ? 'i' : '?';
-                
-                icon.addEllipse (iconRect.toFloat());
-            }
-            
-            GlyphArrangement ga;
-            ga.addFittedText (Font (iconRect.getHeight() * 0.9f, Font::bold),
-                              String::charToString ((juce_wchar) (uint8) character),
-                              (float) iconRect.getX(), (float) iconRect.getY(),
-                              (float) iconRect.getWidth(), (float) iconRect.getHeight(),
-                              Justification::centred, false);
-            ga.createPath (icon);
-            
-            icon.setUsingNonZeroWinding (false);
-            g.setColour (Colour (colour));
-            g.fillPath (icon);
-            
-            iconSpaceUsed = iconSize;
-        }
-        
-        g.setColour (alert.findColour (AlertWindow::textColourId));
-        
-        const Rectangle<int> alertBounds (bounds.getX() + iconSpaceUsed,
-                                          30,
-                                          bounds.getWidth(),
-                                          bounds.getHeight() - getAlertWindowButtonHeight() - 20);
-        
-        textLayout.draw (g, alertBounds.toFloat());
-    }
-    
-    int getAlertWindowButtonHeight() override   { return 40; }
-    Font getAlertWindowTitleFont() override    { return Font (18.0f, Font::FontStyleFlags::bold); }
-    Font getAlertWindowMessageFont() override   { return Font (16.0f); }
-    Font getAlertWindowFont() override       { return Font (14.0f); }
     
     
     //==============================================================================
